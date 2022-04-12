@@ -26,11 +26,11 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	
 	
 	/**
-	 * getAll() : recupère la liste des user depuis la base de donnée
+	 * getUser() : recupère la liste des user depuis la base de donnée
 	 * @throws SQLException 
 	 */
 	@Override
-	public List<Utilisateur> getUsers() throws SQLException {
+	public List<Utilisateur> getUser() throws SQLException {
 		// On fait appel à la classe ConnectionProvider pour recupérer une connexion depuis notre pool
 		Connection cnx = ConnectionProvider.getConnection();
 		
