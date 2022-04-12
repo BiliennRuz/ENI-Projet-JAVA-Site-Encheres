@@ -13,11 +13,14 @@ import java.util.List;
 import fr.eni.projetencheres.bo.Utilisateur;
 
 /**
+
  * Implémentation des fonctionnalités de mon interface UtilisateurDAO avec JDBC (en base de donnée)
+
  */
 public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	
 	// on définit nos requêtes SQL d'insertion/select avec des ? qu'on remplira par la suite
+
 	private final static String INSERT_REPAS = "insert into Utilisateur(date, heure) values(?,?);";
 	private final static String INSERT_ALIMENT = "insert into Ingredient(nom, id_user) values(?,?);";
 	private final static String SELECT_REPAS = "select * from Utilisateur;";
