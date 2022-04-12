@@ -4,11 +4,41 @@
 	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="lib" path="C:/Users/ybiheul2022/Downloads/TpTodolist_Avec_Date_Statut_Important/apache-tomcat-9.0.55/lib/servlet-api.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="https://javaee.github.io/javaee-spec/javadocs/"/>
-		</attributes>
-	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/jvasseur2022/Documents/apache-tomcat-9.0.55/bin/bootstrap.jar"/>
+	<classpathentry kind="lib" path="C:/Users/jvasseur2022/Documents/apache-tomcat-9.0.55/bin/commons-daemon.jar"/>
+	<classpathentry kind="lib" path="C:/Users/jvasseur2022/Documents/apache-tomcat-9.0.55/bin/tomcat-juli.jar"/>
+	<classpathentry kind="lib" path="C:/Users/jvasseur2022/Documents/apache-tomcat-9.0.55/lib/annotations-api.jar"/>
+	<classpathentry kind="lib" path="C:/Users/jvasseur2022/Documents/apache-tomcat-9.0.55/lib/catalina.jar"/>
+	<classpathentry kind="lib" path="C:/Users/jvasseur2022/Documents/apache-tomcat-9.0.55/lib/catalina-ant.jar"/>
+	<classpathentry kind="lib" path="C:/Users/jvasseur2022/Documents/apache-tomcat-9.0.55/lib/catalina-ha.jar"/>
+	<classpathentry kind="lib" path="C:/Users/jvasseur2022/Documents/apache-tomcat-9.0.55/lib/catalina-ssi.jar"/>
+	<classpathentry kind="lib" path="C:/Users/jvasseur2022/Documents/apache-tomcat-9.0.55/lib/catalina-storeconfig.jar"/>
+	<classpathentry kind="lib" path="C:/Users/jvasseur2022/Documents/apache-tomcat-9.0.55/lib/catalina-tribes.jar"/>
+	<classpathentry kind="lib" path="C:/Users/jvasseur2022/Documents/apache-tomcat-9.0.55/lib/ecj-4.20.jar"/>
+	<classpathentry kind="lib" path="C:/Users/jvasseur2022/Documents/apache-tomcat-9.0.55/lib/el-api.jar"/>
+	<classpathentry kind="lib" path="C:/Users/jvasseur2022/Documents/apache-tomcat-9.0.55/lib/jasper.jar"/>
+	<classpathentry kind="lib" path="C:/Users/jvasseur2022/Documents/apache-tomcat-9.0.55/lib/jasper-el.jar"/>
+	<classpathentry kind="lib" path="C:/Users/jvasseur2022/Documents/apache-tomcat-9.0.55/lib/jaspic-api.jar"/>
+	<classpathentry kind="lib" path="C:/Users/jvasseur2022/Documents/apache-tomcat-9.0.55/lib/jsp-api.jar"/>
+	<classpathentry kind="lib" path="C:/Users/jvasseur2022/Documents/apache-tomcat-9.0.55/lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="C:/Users/jvasseur2022/Documents/apache-tomcat-9.0.55/lib/tomcat-api.jar"/>
+	<classpathentry kind="lib" path="C:/Users/jvasseur2022/Documents/apache-tomcat-9.0.55/lib/tomcat-coyote.jar"/>
+	<classpathentry kind="lib" path="C:/Users/jvasseur2022/Documents/apache-tomcat-9.0.55/lib/tomcat-dbcp.jar"/>
+	<classpathentry kind="lib" path="C:/Users/jvasseur2022/Documents/apache-tomcat-9.0.55/lib/tomcat-i18n-cs.jar"/>
+	<classpathentry kind="lib" path="C:/Users/jvasseur2022/Documents/apache-tomcat-9.0.55/lib/tomcat-i18n-de.jar"/>
+	<classpathentry kind="lib" path="C:/Users/jvasseur2022/Documents/apache-tomcat-9.0.55/lib/tomcat-i18n-es.jar"/>
+	<classpathentry kind="lib" path="C:/Users/jvasseur2022/Documents/apache-tomcat-9.0.55/lib/tomcat-i18n-fr.jar"/>
+	<classpathentry kind="lib" path="C:/Users/jvasseur2022/Documents/apache-tomcat-9.0.55/lib/tomcat-i18n-ja.jar"/>
+	<classpathentry kind="lib" path="C:/Users/jvasseur2022/Documents/apache-tomcat-9.0.55/lib/tomcat-i18n-ko.jar"/>
+	<classpathentry kind="lib" path="C:/Users/jvasseur2022/Documents/apache-tomcat-9.0.55/lib/tomcat-i18n-pt-BR.jar"/>
+	<classpathentry kind="lib" path="C:/Users/jvasseur2022/Documents/apache-tomcat-9.0.55/lib/tomcat-i18n-ru.jar"/>
+	<classpathentry kind="lib" path="C:/Users/jvasseur2022/Documents/apache-tomcat-9.0.55/lib/tomcat-i18n-zh-CN.jar"/>
+	<classpathentry kind="lib" path="C:/Users/jvasseur2022/Documents/apache-tomcat-9.0.55/lib/tomcat-jdbc.jar"/>
+	<classpathentry kind="lib" path="C:/Users/jvasseur2022/Documents/apache-tomcat-9.0.55/lib/tomcat-jni.jar"/>
+	<classpathentry kind="lib" path="C:/Users/jvasseur2022/Documents/apache-tomcat-9.0.55/lib/tomcat-util.jar"/>
+	<classpathentry kind="lib" path="C:/Users/jvasseur2022/Documents/apache-tomcat-9.0.55/lib/tomcat-util-scan.jar"/>
+	<classpathentry kind="lib" path="C:/Users/jvasseur2022/Documents/apache-tomcat-9.0.55/lib/tomcat-websocket.jar"/>
+	<classpathentry kind="lib" path="C:/Users/jvasseur2022/Documents/apache-tomcat-9.0.55/lib/websocket-api.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v9.0">
 		<attributes>
 			<attribute name="owner.project.facets" value="jst.web"/>
