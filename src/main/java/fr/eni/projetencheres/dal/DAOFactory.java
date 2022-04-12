@@ -7,4 +7,9 @@ public class DAOFactory {
 	public static UtilisateurDAO getRepasDAO() {
 		return new UtilisateurDAOJdbcImpl();
 	}
+
+	public static UtilisateurDAO getUtilisateurDAO() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
