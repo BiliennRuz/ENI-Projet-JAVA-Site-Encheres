@@ -20,13 +20,13 @@
 
 
 	<!-- FORMULAIRE -->
-	<!-- Données : pseudo - motDepasse - souvenir -->
+	<!-- Données : login - motDepasse - souvenir -->
 	
 	<form class="blocConnexion" action="" method="POST">
 		<div class="blocConnexionInputs">
 			<div class="labelInput">
-				<label for="pseudo">Identifiant : </label>
-				<input type="text" name="pseudo" id="pseudo">
+				<label for="login">Identifiant : </label>
+				<input type="text" name="login" id="login">
 			</div>
 			<br>
 			<div class="labelInput">
