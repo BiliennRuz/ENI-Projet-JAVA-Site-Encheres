@@ -12,13 +12,11 @@ header {
 	align-items: center;
 	
 	height: 100px;
-	/* border: 1px solid #000; */
 	padding: 20px;
 }
 
 .titrePage {
 	height: 50px;
-	/* border: 1px solid green; */
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -30,7 +28,6 @@ header {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	/* border: 1px solid #000; */
 	min-height: 200px;
 }
 
@@ -39,7 +36,6 @@ header {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	/* border: 1px solid red; */
 	width: 50%;
 	height: 100%;
 }
@@ -56,7 +52,6 @@ header {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	/* border: 1px solid green; */
 	width: 50%;
 	height: 100%;
 }
@@ -76,4 +71,66 @@ header {
 	.blocRecherche {
 		flex-direction: column;
 	}
+}
+
+/* PAGE CONNEXION */
+
+.blocConnexion {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.blocConnexionInputs {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: justify;
+	margin-bottom: 40px;
+}
+
+.labelinput {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.blocConnexionBoutons {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 40px;
+}
+
+.blocConnexionBouton {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.blocConnexionOptions {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.souvenir {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.creationCompte {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.creationCompte a {
+	background-color: #ccc;
+	padding: 30px 60px;
+	text-decoration: none;
+	color: #000;
 }
