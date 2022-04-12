@@ -25,10 +25,14 @@
 			<label for="pseudo">Pseudo</label>
 			<input type="text" name="pseudo" id="pseudo">
 		</div>
-		<div class="prenomEmail"></div>
-		<div class="telRue"></div>
-		<div class="cpVille"></div>
-		<div class="mdpConfirm"></div>
+		<div class="prenomEmail">
+		</div>
+		<div class="telRue">
+		</div>
+		<div class="cpVille">
+		</div>
+		<div class="mdpConfirm">
+		</div>
 	</form>
 
 </body>

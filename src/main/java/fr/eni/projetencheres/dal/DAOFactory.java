@@ -8,8 +8,4 @@ public class DAOFactory {
 		return new UtilisateurDAOJdbcImpl();
 	}
 
-	public static UtilisateurDAO getUtilisateurDAO() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
