@@ -5,6 +5,7 @@ public class Utilisateur {
 	private int noUtilisateur, telephone, codePostal;
 	private float credit;
 	private boolean administrateur;
+	private ArticleVendu ArticleVendu;
 	
 	public Utilisateur() {
 	}
