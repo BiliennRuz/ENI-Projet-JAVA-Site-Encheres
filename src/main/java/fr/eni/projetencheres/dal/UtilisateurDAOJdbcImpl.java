@@ -13,14 +13,17 @@ import java.util.List;
 import fr.eni.projetencheres.bo.Utilisateur;
 
 /**
- * Implémentation des fonctionnalités de mon interface UserDAO avec JDBC (en base de donnée)
+
+ * Implémentation des fonctionnalités de mon interface UtilisateurDAO avec JDBC (en base de donnée)
+
  */
 public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	
 	// on définit nos requêtes SQL d'insertion/select avec des ? qu'on remplira par la suite
-	private final static String INSERT_REPAS = "insert into User(date, heure) values(?,?);";
+
+	private final static String INSERT_REPAS = "insert into Utilisateur(date, heure) values(?,?);";
 	private final static String INSERT_ALIMENT = "insert into Ingredient(nom, id_user) values(?,?);";
-	private final static String SELECT_REPAS = "select * from User;";
+	private final static String SELECT_REPAS = "select * from Utilisateur;";
 	private final static String SELECT_INGREDIENTS = "select * from Ingredient where id_user=?;";
 	
 	/**
@@ -28,7 +31,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	 * @throws SQLException 
 	 */
 	@Override
-	public List<String> getIngredients(int idUser) throws SQLException {
+	public List<String> getIngredients(int idUtilisateur) throws SQLException {
 		// On fait appel à la classe ConnectionProvider pour recupérer une connexion depuis notre pool
 		Connection cnx = ConnectionProvider.getConnection();
 		
@@ -36,7 +39,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		PreparedStatement pStmt = cnx.prepareStatement(SELECT_INGREDIENTS);
 		
 		// 2 - je remplace le ? de ma requête par l'id du user
-		pStmt.setInt(1, idUser);
+		pStmt.setInt(1, idUtilisateur);
 		
 		// 3 - j'execute la requête et je recupère une réference sur les resultats dans un ResultSet
 		ResultSet rs = pStmt.executeQuery();
@@ -61,7 +64,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	 * @throws SQLException 
 	 */
 	@Override
-	public List<User> getAll() throws SQLException {
+	public List<Utilisateur> getAll() throws SQLException {
 		// On fait appel à la classe ConnectionProvider pour recupérer une connexion depuis notre pool
 		Connection cnx = ConnectionProvider.getConnection();
 		
@@ -72,25 +75,25 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		ResultSet rs = stmt.executeQuery(SELECT_REPAS);
 		
 		// 3 - j'initialise la liste des user que je vais renvoyer
-		List<User> listeUser = new ArrayList<User>();
+		List<Utilisateur> listeUtilisateur = new ArrayList<Utilisateur>();
 		
 		// 4 - je parcours mes resultats pour remplir ma liste des user que je vais renvoyer
 		// tant qu'il y a des lignes de resultats
 		while (rs.next()) {
 			// pour chaque ligne , j'ajoute le user correspondant à ma liste
 			// je suis obligé de convertir Date => LocalDate et Time and LocalTime
-			User user = new User(rs.getInt("id"), rs.getDate("date").toLocalDate(), rs.getTime("heure").toLocalTime());
-			listeUser.add(user); // une fois le user créé je l'ajoute à ma liste
+			Utilisateur user = new Utilisateur(rs.getInt("id"), rs.getDate("date").toLocalDate(), rs.getTime("heure").toLocalTime());
+			listeUtilisateur.add(user); // une fois le user créé je l'ajoute à ma liste
 		}
 		
-		return listeUser; // pour finir je renvoie ma liste remplie precédemment
+		return listeUtilisateur; // pour finir je renvoie ma liste remplie precédemment
 	}
 	
 	/**
-	 * add(User user) peut lancer potentiellement des exception de type SQLException (il faudra le gérer dans la classe qui appelle le DAO : UserManager)
+	 * add(Utilisateur user) peut lancer potentiellement des exception de type SQLException (il faudra le gérer dans la classe qui appelle le DAO : UtilisateurManager)
 	 */
 	@Override
-	public void add(User user) throws SQLException {
+	public void add(Utilisateur user) throws SQLException {
 		// On fait appel à la classe ConnectionProvider pour recupérer une connexion depuis notre pool
 		Connection cnx = ConnectionProvider.getConnection();
 		
@@ -99,18 +102,18 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		
 		// 2 - je remplace les ? de ma requête par les valeurs correspondantes
 		
-		// je remplace le premier ? de ma requête par la date de mon objet User		
+		// je remplace le premier ? de ma requête par la date de mon objet Utilisateur		
 		// setDate() a besoin d'une date au format java.sql.Date :  je dois convertir ma LocalDate en java.sql.Date (possible avec Date.valueOf())
 		pStmt.setDate(1, Date.valueOf(user.getDate())); // ATTENTION, les paramètres commencent à l'index : 1
 		
-		// je remplace le deuxième ? de ma requête par l'heure  de mon objet User
+		// je remplace le deuxième ? de ma requête par l'heure  de mon objet Utilisateur
 		// setTime() a besoin d'une heure au format java.sql.Time :  je dois convertir mon LocalTime en java.sql.Time (possible avec Time.valueOf())
 		pStmt.setTime(2, Time.valueOf(user.getHeure()));
 		
 		// 3 - j'execute la requête SQL
 		pStmt.executeUpdate(); // ici , il faut faire executeUpdate() et pas executeQuery() parce qu'on modifie des données
 		
-		// 4 -  je recupère l'id genéré et je met à jour l'objet User
+		// 4 -  je recupère l'id genéré et je met à jour l'objet Utilisateur
 		ResultSet rs = pStmt.getGeneratedKeys();
 		if (rs.next()) { // si jamais il y a un resultat
 			user.setId(rs.getInt(1)); //alors on utilise sa valeur pour mettre à jour l'id de l'avis
@@ -130,7 +133,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	/**
 	 * addAliment() : ajoute un aliment à un user 
 	 */
-	private void addAliment(User user, String aliment, Connection cnx)  throws SQLException {
+	private void addAliment(Utilisateur user, String aliment, Connection cnx)  throws SQLException {
 		// 1 - on crée une "requête préparée" à partir de la connexion recupérée et de notre template de requête SQL ( attribut INSERT)
 		PreparedStatement pStmt = cnx.prepareStatement(INSERT_ALIMENT);
 		

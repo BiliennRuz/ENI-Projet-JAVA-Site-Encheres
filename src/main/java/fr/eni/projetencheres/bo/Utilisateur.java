@@ -1,6 +1,7 @@
 package fr.eni.projetencheres.bo;
 
 public class Utilisateur {
+
 	private String pseudo, nom, prenom, email, rue, ville, motDePasse;
 	private int noUtilisateur, telephone, codePostal;
 	private float credit;
@@ -129,4 +130,5 @@ public class Utilisateur {
 				+ ", telephone=" + telephone + ", codePostal=" + codePostal + ", credit=" + credit + ", administrateur="
 				+ administrateur + "]";
 	}
+
 }
