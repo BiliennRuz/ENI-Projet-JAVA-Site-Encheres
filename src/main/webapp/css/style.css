@@ -1,0 +1,79 @@
+body {
+	margin: 0;
+	padding: 0;
+	height: 100vh;
+}
+
+/* HEADER */
+
+header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	
+	height: 100px;
+	/* border: 1px solid #000; */
+	padding: 20px;
+}
+
+.titrePage {
+	height: 50px;
+	/* border: 1px solid green; */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+/* CHAMPS RECHERCHE */
+
+.formulaireRecherche {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	/* border: 1px solid #000; */
+	min-height: 200px;
+}
+
+/* CHAMPS */
+.blocRecherche {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	/* border: 1px solid red; */
+	width: 50%;
+	height: 100%;
+}
+
+.champsCategorie {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 20px;
+}
+
+/* BOUTON */
+.blocBoutonRecherche {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	/* border: 1px solid green; */
+	width: 50%;
+	height: 100%;
+}
+
+.blocBoutonRecherche button {
+	padding: 50px 100px;
+}
+
+/* MEDIA QUERIES */
+
+@media screen and (max-width: 800px) {
+	header {
+		flex-direction: column;
+		justify-content: center;
+	}
+	
+	.blocRecherche {
+		flex-direction: column;
+	}
+}
