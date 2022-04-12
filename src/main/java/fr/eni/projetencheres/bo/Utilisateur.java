@@ -1,15 +1,15 @@
 package fr.eni.projetencheres.bo;
 
-public class User {
+public class Utilisateur {
 	private String pseudo, nom, prenom, email, rue, ville, motDePasse;
 	private int noUtilisateur, telephone, codePostal;
 	private float credit;
 	private boolean administrateur;
 	
-	public User() {
+	public Utilisateur() {
 	}
 
-	public User(String pseudo, String nom, String prenom, String email, String rue, String ville, String motDePasse,
+	public Utilisateur(String pseudo, String nom, String prenom, String email, String rue, String ville, String motDePasse,
 			int noUtilisateur, int telephone, int codePostal, float credit, boolean administrateur) {
 		this.pseudo = pseudo;
 		this.nom = nom;

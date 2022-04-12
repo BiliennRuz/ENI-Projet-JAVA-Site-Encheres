@@ -10,12 +10,12 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.eni.jee.bo.User;
+import fr.eni.projetencheres.bo.Utilisateur;
 
 /**
  * Implémentation des fonctionnalités de mon interface UserDAO avec JDBC (en base de donnée)
  */
-public class UserDAOJdbcImpl implements UserDAO {
+public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	
 	// on définit nos requêtes SQL d'insertion/select avec des ? qu'on remplira par la suite
 	private final static String INSERT_REPAS = "insert into User(date, heure) values(?,?);";
