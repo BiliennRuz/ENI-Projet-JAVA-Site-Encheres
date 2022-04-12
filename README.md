@@ -6,6 +6,4 @@ Team project :
 -   Yannick BIHEUL
 -   Dominique AMPS
 
-update
-
-
+Merge Jerome dans Dev #9
