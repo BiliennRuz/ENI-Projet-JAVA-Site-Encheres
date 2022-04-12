@@ -9,6 +9,6 @@ public interface UtilisateurDAO {
 
 	public void add(Utilisateur utilisateur) throws SQLException;
 
-	public List<Utilisateur> getAll() throws SQLException;
+	public List<Utilisateur> getUsers() throws SQLException;
 	public List<String> getIngredients(int idRepas) throws SQLException;
 }

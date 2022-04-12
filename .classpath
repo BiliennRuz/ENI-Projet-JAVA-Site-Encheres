@@ -14,5 +14,6 @@
 			<attribute name="javadoc_location" value="https://javaee.github.io/javaee-spec/javadocs/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/jstl-1.2.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
