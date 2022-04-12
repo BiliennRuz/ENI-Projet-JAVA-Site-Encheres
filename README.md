@@ -6,6 +6,4 @@ Team project :
 -   Yannick BIHEUL
 -   Dominique AMPS
 
-yannick
-
-
+test merge
