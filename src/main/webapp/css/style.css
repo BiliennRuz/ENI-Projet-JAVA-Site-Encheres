@@ -1,0 +1,136 @@
+body {
+	margin: 0;
+	padding: 0;
+	height: 100vh;
+}
+
+/* HEADER */
+
+header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	
+	height: 100px;
+	padding: 20px;
+}
+
+.titrePage {
+	height: 50px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+/* CHAMPS RECHERCHE */
+
+.formulaireRecherche {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 200px;
+}
+
+/* CHAMPS */
+.blocRecherche {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 50%;
+	height: 100%;
+}
+
+.champsCategorie {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 20px;
+}
+
+/* BOUTON */
+.blocBoutonRecherche {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 50%;
+	height: 100%;
+}
+
+.blocBoutonRecherche button {
+	padding: 50px 100px;
+}
+
+/* MEDIA QUERIES */
+
+@media screen and (max-width: 800px) {
+	header {
+		flex-direction: column;
+		justify-content: center;
+	}
+	
+	.blocRecherche {
+		flex-direction: column;
+	}
+}
+
+/* PAGE CONNEXION */
+
+.blocConnexion {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.blocConnexionInputs {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: justify;
+	margin-bottom: 40px;
+}
+
+.labelinput {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.blocConnexionBoutons {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 40px;
+}
+
+.blocConnexionBouton {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.blocConnexionOptions {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.souvenir {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.creationCompte {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.creationCompte a {
+	background-color: #ccc;
+	padding: 30px 60px;
+	text-decoration: none;
+	color: #000;
+}
