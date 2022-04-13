@@ -20,7 +20,7 @@ public class UtilisateurManager {
 	public Utilisateur trouverUtilisateur(String login, String password) throws BusinessException, SQLException {
 		Utilisateur utilisateur = new Utilisateur();
 		
-		utilisateur = ((Object) utilisateurDAO).checkConnectUser(login, password);
+		utilisateur = utilisateurDAO.checkConnectUser(login, password);
 		if(utilisateur == null) {
 			throw new BusinessException("Utilisateur non trouvé...");
 		}
