@@ -44,24 +44,7 @@ public class ConnexionServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		Utilisateur utilisateur = new Utilisateur();
-		System.out.println("coucou");
-		String login = request.getParameter("login");
-		String password = request.getParameter("motDePasse");
-		System.out.println(login);
-		System.out.println(password);
-		
-		try {
-			utilisateur = utilisateurManager.trouverUtilisateur(login, password);
-			request.setAttribute("confirmationMessage", "Vous êtes bien connecté !");
-			System.out.println(utilisateur);
-		} catch (BusinessException | SQLException e) {
-			System.out.println("coucou");
-			request.setAttribute("erreurMessage", e.getMessage());
-			response.sendRedirect("./");
-		}
-		
+		System.out.println("coucou");		
 	}
 
 }

@@ -56,7 +56,7 @@
 					    <option value="dog">Informatique</option>
 					    <option value="cat">Ameublement</option>
 					    <option value="hamster">Vêtement</option>
-					    <option value="parrot">Sport&Loisir</option>
+					    <option value="parrot">SportETLoisir</option>
 					</select>
 				</div>
 			</div>
