@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.eni.projetencheres.bll.BusinessException;
 import fr.eni.projetencheres.bll.UtilisateurManager;
 import fr.eni.projetencheres.bo.Utilisateur;
 
@@ -46,7 +47,13 @@ public class ConnexionServlet extends HttpServlet {
 		String login = request.getParameter("login");
 		String password = request.getParameter("password");
 		
-		Utilisateur utilisateur = utilisateurManager.trouverUtilisateur(login, password);
+		try {
+			Utilisateur utilisateur = utilisateurManager.trouverUtilisateur(login, password);
+		} catch (BusinessException e) {
+			request.setAttribute("erreurMessage", e.getMessage());
+			response.sendRedirect("./");
+		}
+		
 	}
 
 }
