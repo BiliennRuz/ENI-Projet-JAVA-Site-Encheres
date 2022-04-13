@@ -100,7 +100,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		// 4 -  je recupère l'id genéré et je met à jour l'objet Utilisateur
 		ResultSet rs = pStmt.getGeneratedKeys();
 		if (rs.next()) { // si jamais il y a un resultat
-			user.setNoUtilisateur(rs.getInt(1)); //alors on utilise sa valeur pour mettre à jour l'id de l'avis
+			user.setIdUtilisateur(rs.getInt(1)); //alors on utilise sa valeur pour mettre à jour l'id de l'avis
 		}
 		
 		// on ferme la connexion quand tout a été ajouté
@@ -116,7 +116,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		Connection cnx = ConnectionProvider.getConnection();
 		
 		// 1 - on crée une "requête préparée" à partir de la connexion recupérée et de notre template de requête SQL ( attribut INSERT)
-		PreparedStatement pStmt = cnx.prepareStatement(INSERT_UTILISATEUR,Statement.RETURN_GENERATED_KEYS);
+		PreparedStatement pStmt = cnx.prepareStatement(UPDATE_UTILISATEUR,Statement.RETURN_GENERATED_KEYS);
 		
 		// 2 - je remplace les ? de ma requête par les valeurs correspondantes
 		
@@ -133,7 +133,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		pStmt.setString(9, user.getMotDePasse());
 		pStmt.setFloat(10, user.getCredit());
 		pStmt.setBoolean(11, user.isAdministrateur());
-		pStmt.setInt(12, user.getNoUtilisateur());
+		pStmt.setInt(12, user.getIdUtilisateur());
 		
 		// 3 - j'execute la requête SQL
 		pStmt.executeUpdate(); // ici , il faut faire executeUpdate() et pas executeQuery() parce qu'on modifie des données
