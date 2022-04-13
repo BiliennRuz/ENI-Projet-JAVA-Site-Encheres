@@ -22,6 +22,20 @@ header {
 	align-items: center;
 }
 
+.messageErreur {
+	color: red;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+}
+
+.messageConfirmation {
+	color: green;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+}
+
 /* CHAMPS RECHERCHE */
 
 .formulaireRecherche {
