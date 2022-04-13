@@ -17,9 +17,14 @@ public class UtilisateurManager {
 	
 	private UtilisateurDAO utilisateurDAO = DAOFactory.getUtilisateurDAO();
 
-	private Utilisateur trouverUtilisateur(String login, String password) throws BusinessException, SQLException {
-		
+	public Utilisateur trouverUtilisateur(String login, String password) throws BusinessException, SQLException {
 		Utilisateur utilisateur = new Utilisateur();
+		
+		utilisateur = ((Object) utilisateurDAO).checkConnectUser(login, password);
+		if(utilisateur == null) {
+			throw new BusinessException("Utilisateur non trouvé...");
+		}
+		
 		return utilisateur;
 	}
 	
@@ -40,9 +45,7 @@ public class UtilisateurManager {
 	
 	
 	private void verifierMotDePasseEtLogin(String login, String password) throws BusinessException, SQLException {
-		
-		
-		
+	
 		if(login.length() < 3) {
 			throw new BusinessException("Le login doit comporter au moins 3 lettres");
 		}
