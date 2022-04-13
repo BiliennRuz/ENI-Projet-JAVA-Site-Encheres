@@ -53,7 +53,7 @@
 		</div>
 		
 		<button type="submit">Créer</button>
-		<a href="">Annuler</a>
+		<a href="./">Annuler</a>
 	</form>
 
 </body>
