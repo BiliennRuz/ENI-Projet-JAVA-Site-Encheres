@@ -9,12 +9,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.eni.projetencheres.bll.UtilisateurManager;
+import fr.eni.projetencheres.bo.Utilisateur;
+
 /**
  * Servlet implementation class ConnectionServlet
  */
 @WebServlet("/connexion")
 public class ConnexionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	private UtilisateurManager utilisateurManager = new UtilisateurManager();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -37,8 +42,11 @@ public class ConnexionServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		
+		String login = request.getParameter("login");
+		String password = request.getParameter("password");
+		
+		Utilisateur utilisateur = utilisateurManager.trouverUtilisateur(login, password);
 	}
 
 }
