@@ -29,7 +29,18 @@
 				</c:otherwise>
 			</c:choose>
 		</div>
+		
 	</header>
+	
+	<c:if test="${erreurMessage != null }">
+		<span class="messageErreur">${erreurMessage}</span>
+	</c:if>
+	
+	<c:if test="${confirmationMessage != null }">
+		<span class="messageConfirmation">${confirmationMessage}</span>
+	</c:if>
+	
+	
 	
 	
 	<!-- TITRE DE LA PAGE -->

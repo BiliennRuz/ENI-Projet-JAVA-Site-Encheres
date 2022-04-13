@@ -35,7 +35,7 @@ public class ConnexionServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// Affichage de la page d'accueil
+		// Affichage de la page connexion
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/connexion.jsp");
 		rd.forward(request, response);
 	}
@@ -44,7 +44,21 @@ public class ConnexionServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("coucou");		
+		Utilisateur utilisateur = new Utilisateur();
+		
+		String login = request.getParameter("login");
+		String password = request.getParameter("motDePasse");
+		
+		try {
+			utilisateur = utilisateurManager.trouverUtilisateur(login, password);
+			request.setAttribute("confirmationMessage", "Vous êtes bien connecté !");
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/accueil.jsp");
+			rd.forward(request, response);
+		} catch (BusinessException | SQLException e) {
+			request.setAttribute("erreurMessage", e.getMessage());
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/accueil.jsp");
+			rd.forward(request, response);
+		}		
 	}
 
 }
