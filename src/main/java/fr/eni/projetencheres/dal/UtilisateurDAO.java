@@ -8,7 +8,7 @@ import fr.eni.projetencheres.bo.Utilisateur;
 public interface UtilisateurDAO {
 
 	public List<Utilisateur> getUser() throws SQLException;
-	public void add(Utilisateur user) throws SQLException;
-	public void update(Utilisateur user) throws SQLException;
+	public void add(Utilisateur utilisateur) throws SQLException;
+	public void update(Utilisateur utilisateur) throws SQLException;
 
 }
