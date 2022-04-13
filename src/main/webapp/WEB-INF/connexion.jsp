@@ -22,7 +22,7 @@
 	<!-- FORMULAIRE -->
 	<!-- Données : login - motDepasse - souvenir -->
 	
-	<form class="blocConnexion" action="" method="POST">
+	<form class="blocConnexion" action="./connexion" method="POST">
 		<div class="blocConnexionInputs">
 			<div class="labelInput">
 				<label for="login">Identifiant : </label>
