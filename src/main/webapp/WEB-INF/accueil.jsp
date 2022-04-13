@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,7 +19,15 @@
 		</div>
 		
 		<div class="connexion">
-			<a href="./connexion" class="lienConnexion">S'inscrire - Se connecter</a>
+			<c:choose>
+				<c:when test="${utilisateurConnecte != null}">
+					<p>Vous êtes connecté avec : ${utilisateurConnecte.username}</p>
+					<a href="./DeconnexionServlet">Déconnexion</a>
+				</c:when>
+				<c:otherwise>
+					<a href="./connexion" class="lienConnexion">S'inscrire - Se connecter</a>
+				</c:otherwise>
+			</c:choose>
 		</div>
 	</header>
 	
