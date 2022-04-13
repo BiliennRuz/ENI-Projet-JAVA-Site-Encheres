@@ -1,13 +1,19 @@
 package fr.eni.projetencheres.bo;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
+
 
 public class Enchere {
 
 	private int idEnchere, montantEnchere, idArticle, idUtilisateur;
-	private LocalTime dateEnchere;
+	private LocalDateTime dateEnchere;
+	private ArticleVendu articleConcerne;
+	private Utilisateur enrichisseur;
 	
-	public Enchere(int montantEnchere, int idArticle, int idUtilisateur, LocalTime dateEnchere) {
+	public Enchere() {
+	}
+			
+	public Enchere(int montantEnchere, int idArticle, int idUtilisateur, LocalDateTime dateEnchere) {
 		super();
 		this.montantEnchere = montantEnchere;
 		this.idArticle = idArticle;
@@ -47,19 +53,35 @@ public class Enchere {
 		this.idUtilisateur = idUtilisateur;
 	}
 
-	public LocalTime getDateEnchere() {
+	public LocalDateTime getDateEnchere() {
 		return dateEnchere;
 	}
 
-	public void setDateEnchere(LocalTime dateEnchere) {
+	public void setDateEnchere(LocalDateTime dateEnchere) {
 		this.dateEnchere = dateEnchere;
+	}
+
+	public ArticleVendu getArticleConcerne() {
+		return articleConcerne;
+	}
+
+	public void setArticleConcerne(ArticleVendu articleConcerne) {
+		this.articleConcerne = articleConcerne;
+	}
+
+	public Utilisateur getEnrichisseur() {
+		return enrichisseur;
+	}
+
+	public void setEnrichisseur(Utilisateur enrichisseur) {
+		this.enrichisseur = enrichisseur;
 	}
 
 	@Override
 	public String toString() {
 		return "Enchere [idEnchere=" + idEnchere + ", montantEnchere=" + montantEnchere + ", idArticle=" + idArticle
-				+ ", idUtilisateur=" + idUtilisateur + ", dateEnchere=" + dateEnchere + "]";
+				+ ", idUtilisateur=" + idUtilisateur + ", dateEnchere=" + dateEnchere + ", articleConcerne="
+				+ articleConcerne + ", enrichisseur=" + enrichisseur + "]";
 	}
-	
 	
 }

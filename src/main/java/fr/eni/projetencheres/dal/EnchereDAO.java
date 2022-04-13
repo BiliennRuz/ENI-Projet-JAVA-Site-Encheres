@@ -8,8 +8,8 @@ import fr.eni.projetencheres.bo.Utilisateur;
 
 public interface EnchereDAO {
 
-	public List<Enchere> getUser() throws SQLException;
-	public void add(Enchere enchere) throws SQLException;
-	public void update(Enchere enchere) throws SQLException;
+	public List<Utilisateur> getUser() throws SQLException;
+	public void add(Utilisateur enchere) throws SQLException;
+	public void update(Utilisateur enchere) throws SQLException;
 
 }
