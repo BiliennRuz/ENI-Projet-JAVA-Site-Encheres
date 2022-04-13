@@ -1,14 +1,9 @@
 package fr.eni.projetencheres.bll;
 
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.catalina.User;
-
-import fr.eni.projetencheres.bll.BusinessException;
 import fr.eni.projetencheres.bo.Utilisateur;
 import fr.eni.projetencheres.dal.DAOFactory;
 import fr.eni.projetencheres.dal.UtilisateurDAO;
@@ -24,11 +19,12 @@ public class UtilisateurManager {
 		
 		try {
 			utilisateur = utilisateurDAO.checkConnectUser(login, password);
-			return utilisateur;
 			
 		} catch(SQLException e) {
 			throw new BusinessException("Utilisateur non trouvé...");
 		}	
+		
+		return utilisateur;
 	}
 	
 	
