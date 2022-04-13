@@ -3,6 +3,8 @@ package fr.eni.projetencheres.bll;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.catalina.User;
 
@@ -20,6 +22,22 @@ public class UtilisateurManager {
 		Utilisateur utilisateur = new Utilisateur();
 		return utilisateur;
 	}
+	
+	
+	private boolean verifierEmail(String email) {
+		
+		Pattern p;
+		Matcher m;
+		
+		p = Pattern.compile("^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]{2,}\\.[a-z]{2,4}$");
+		m = p.matcher(email);
+		if (m.find()) {
+		  return true;
+		} else {
+		  return false;
+		}
+	}
+	
 	
 	private void verifierMotDePasseEtLogin(String login, String password) throws BusinessException, SQLException {
 		
