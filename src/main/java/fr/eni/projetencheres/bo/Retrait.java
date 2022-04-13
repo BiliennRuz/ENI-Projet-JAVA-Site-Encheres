@@ -4,6 +4,10 @@ public class Retrait {
 
 	private int idArticle;
 	private String rue, codePostal, ville;
+	private ArticleVendu articleRetrait; 
+	
+	public Retrait() {
+	}
 	
 	public Retrait(int idArticle, String rue, String codePostal, String ville) {
 		super();
@@ -36,10 +40,17 @@ public class Retrait {
 	public void setVille(String ville) {
 		this.ville = ville;
 	}
+	public ArticleVendu getArticleRetrait() {
+		return articleRetrait;
+	}
+	public void setArticleRetrait(ArticleVendu articleRetrait) {
+		this.articleRetrait = articleRetrait;
+	}
+
 	@Override
 	public String toString() {
 		return "Retrait [idArticle=" + idArticle + ", rue=" + rue + ", codePostal=" + codePostal + ", ville=" + ville
-				+ "]";
+				+ ", articleRetrait=" + articleRetrait + "]";
 	}
-	
+
 }

@@ -1,18 +1,22 @@
 package fr.eni.projetencheres.bo;
 
+import java.util.ArrayList;
+
 public class Utilisateur {
 
 	private String pseudo, nom, prenom, email, rue, ville, motDePasse;
-	private int noUtilisateur, telephone, codePostal;
+	private int idUtilisateur, telephone, codePostal;
 	private float credit;
 	private boolean administrateur;
-	private ArticleVendu ArticleVendu;
+	private ArrayList<ArticleVendu> listeArticles  = new ArrayList<ArticleVendu>();
+	private ArrayList<Enchere> listeEncheres  = new ArrayList<Enchere>();
 	
 	public Utilisateur() {
 	}
 
-	public Utilisateur(String pseudo, String nom, String prenom, String email, String rue, String ville, String motDePasse,
-			int noUtilisateur, int telephone, int codePostal, float credit, boolean administrateur) {
+	public Utilisateur(String pseudo, String nom, String prenom, String email, String rue,
+			String ville, String motDePasse, int noUtilisateur, int telephone, int codePostal,
+			float credit, boolean administrateur) {
 		this.pseudo = pseudo;
 		this.nom = nom;
 		this.prenom = prenom;
@@ -20,7 +24,7 @@ public class Utilisateur {
 		this.rue = rue;
 		this.ville = ville;
 		this.motDePasse = motDePasse;
-		this.noUtilisateur = noUtilisateur;
+		this.idUtilisateur = noUtilisateur;
 		this.telephone = telephone;
 		this.codePostal = codePostal;
 		this.credit = credit;
@@ -83,12 +87,12 @@ public class Utilisateur {
 		this.motDePasse = motDePasse;
 	}
 
-	public int getNoUtilisateur() {
-		return noUtilisateur;
+	public int getIdUtilisateur() {
+		return idUtilisateur;
 	}
 
-	public void setNoUtilisateur(int noUtilisateur) {
-		this.noUtilisateur = noUtilisateur;
+	public void setIdUtilisateur(int idUtilisateur) {
+		this.idUtilisateur = idUtilisateur;
 	}
 
 	public int getTelephone() {
@@ -123,12 +127,28 @@ public class Utilisateur {
 		this.administrateur = administrateur;
 	}
 
+	public ArrayList<ArticleVendu> getListeArticles() {
+		return listeArticles;
+	}
+
+	public void setListeArticles(ArrayList<ArticleVendu> listeArticles) {
+		this.listeArticles = listeArticles;
+	}
+
+	public ArrayList<Enchere> getListeEncheres() {
+		return listeEncheres;
+	}
+
+	public void setListeEncheres(ArrayList<Enchere> listeEncheres) {
+		this.listeEncheres = listeEncheres;
+	}
+
 	@Override
 	public String toString() {
-		return "User [pseudo=" + pseudo + ", nom=" + nom + ", prenom=" + prenom + ", email=" + email + ", rue=" + rue
-				+ ", ville=" + ville + ", motDePasse=" + motDePasse + ", noUtilisateur=" + noUtilisateur
+		return "Utilisateur [pseudo=" + pseudo + ", nom=" + nom + ", prenom=" + prenom + ", email=" + email + ", rue="
+				+ rue + ", ville=" + ville + ", motDePasse=" + motDePasse + ", idUtilisateur=" + idUtilisateur
 				+ ", telephone=" + telephone + ", codePostal=" + codePostal + ", credit=" + credit + ", administrateur="
-				+ administrateur + "]";
+				+ administrateur + ", listeArticles=" + listeArticles + ", listeEncheres=" + listeEncheres + "]";
 	}
 
 }

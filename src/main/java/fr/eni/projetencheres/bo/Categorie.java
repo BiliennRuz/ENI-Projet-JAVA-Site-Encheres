@@ -1,9 +1,12 @@
 package fr.eni.projetencheres.bo;
 
+import java.util.ArrayList;
+
 public class Categorie {
 
 	private int idCategorie;
 	private String libelle;
+	private ArrayList<ArticleVendu> listeArticles  = new ArrayList<ArticleVendu>();
 	
 	public Categorie(String libelle) {
 		super();
@@ -21,10 +24,16 @@ public class Categorie {
 	public void setLibelle(String libelle) {
 		this.libelle = libelle;
 	}
+	public ArrayList<ArticleVendu> getListeArticles() {
+		return listeArticles;
+	}
+	public void setListeArticles(ArrayList<ArticleVendu> listeArticles) {
+		this.listeArticles = listeArticles;
+	}
 	@Override
 	public String toString() {
-		return "Categorie [idCategorie=" + idCategorie + ", libelle=" + libelle + "]";
+		return "Categorie [idCategorie=" + idCategorie + ", libelle=" + libelle + ", listeArticles=" + listeArticles
+				+ "]";
 	}
-	
 	
 }

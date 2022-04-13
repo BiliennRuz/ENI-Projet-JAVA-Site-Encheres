@@ -15,7 +15,7 @@ import fr.eni.projetencheres.bo.Utilisateur;
  * Implémentation des fonctionnalités de mon interface UtilisateurDAO avec JDBC (en base de donnée)
 
  */
-public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
+public class EnchereDAOJdbcImpl implements EnchereDAO {
 	
 	// on définit nos requêtes SQL d'insertion/select avec des ? qu'on remplira par la suite
 

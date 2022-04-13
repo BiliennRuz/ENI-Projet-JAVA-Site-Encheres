@@ -1,12 +1,20 @@
 package fr.eni.projetencheres.bo;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class ArticleVendu {
 
 	private int idArticle , prixInitial, prixVente, idUtilisateur, idCategorie;
 	private String nomArticle, description;
 	private LocalDate dateDebutEncheres, dateFinEncheres;
+	private ArrayList<Enchere> listeEncheres  = new ArrayList<Enchere>();
+	private Utilisateur vendeur;
+	private Retrait lieuRetrait;
+	private Categorie categorieArticle;
+	
+	public ArticleVendu() {
+	}
 	
 	public ArticleVendu(int prixInitial, int prixVente, int idUtilisateur, int idCategorie, String nomArticle,
 			String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres) {
@@ -93,12 +101,45 @@ public class ArticleVendu {
 		this.dateFinEncheres = dateFinEncheres;
 	}
 
+	public ArrayList<Enchere> getListeEncheres() {
+		return listeEncheres;
+	}
+
+	public void setListeEncheres(ArrayList<Enchere> listeEncheres) {
+		this.listeEncheres = listeEncheres;
+	}
+
+	public Utilisateur getVendeur() {
+		return vendeur;
+	}
+
+	public void setVendeur(Utilisateur vendeur) {
+		this.vendeur = vendeur;
+	}
+
+	public Retrait getLieuRetrait() {
+		return lieuRetrait;
+	}
+
+	public void setLieuRetrait(Retrait lieuRetrait) {
+		this.lieuRetrait = lieuRetrait;
+	}
+
+	public Categorie getCategorieArticle() {
+		return categorieArticle;
+	}
+
+	public void setCategorieArticle(Categorie categorieArticle) {
+		this.categorieArticle = categorieArticle;
+	}
+
 	@Override
 	public String toString() {
 		return "ArticleVendu [idArticle=" + idArticle + ", prixInitial=" + prixInitial + ", prixVente=" + prixVente
 				+ ", idUtilisateur=" + idUtilisateur + ", idCategorie=" + idCategorie + ", nomArticle=" + nomArticle
 				+ ", description=" + description + ", dateDebutEncheres=" + dateDebutEncheres + ", dateFinEncheres="
-				+ dateFinEncheres + "]";
+				+ dateFinEncheres + ", listeEncheres=" + listeEncheres + ", vendeur=" + vendeur + ", lieuRetrait="
+				+ lieuRetrait + ", categorieArticle=" + categorieArticle + "]";
 	}
 	
 }
