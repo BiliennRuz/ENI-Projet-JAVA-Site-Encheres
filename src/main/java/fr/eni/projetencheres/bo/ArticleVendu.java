@@ -12,8 +12,15 @@ public class ArticleVendu {
 	private Utilisateur vendeur;
 	private Retrait lieuRetrait;
 	private Categorie categorieArticle;
+
+	// Status de l'article en vente
+	//	- Vente non débuté
+	//	- Vente en cours
+	//	- Vente terminée
+	private String statusVente;
 	
 	public ArticleVendu() {
+		this.statusVente = "Vente non débuté";
 	}
 	
 	public ArticleVendu(int prixInitial, int prixVente, int idUtilisateur, int idCategorie, String nomArticle,
@@ -27,6 +34,7 @@ public class ArticleVendu {
 		this.description = description;
 		this.dateDebutEncheres = dateDebutEncheres;
 		this.dateFinEncheres = dateFinEncheres;
+		this.statusVente = "Vente non débuté";
 	}
 
 	public int getIdArticle() {
@@ -133,13 +141,21 @@ public class ArticleVendu {
 		this.categorieArticle = categorieArticle;
 	}
 
+	public String getStatusVente() {
+		return statusVente;
+	}
+
+	public void setStatusVente(String statusVente) {
+		this.statusVente = statusVente;
+	}
+
 	@Override
 	public String toString() {
 		return "ArticleVendu [idArticle=" + idArticle + ", prixInitial=" + prixInitial + ", prixVente=" + prixVente
 				+ ", idUtilisateur=" + idUtilisateur + ", idCategorie=" + idCategorie + ", nomArticle=" + nomArticle
 				+ ", description=" + description + ", dateDebutEncheres=" + dateDebutEncheres + ", dateFinEncheres="
 				+ dateFinEncheres + ", listeEncheres=" + listeEncheres + ", vendeur=" + vendeur + ", lieuRetrait="
-				+ lieuRetrait + ", categorieArticle=" + categorieArticle + "]";
+				+ lieuRetrait + ", categorieArticle=" + categorieArticle + ", statusVente=" + statusVente + "]";
 	}
 	
 }

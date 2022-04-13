@@ -22,7 +22,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	private final static String SELECT_UTILISATEUR = "select * from UTILISATEURS;";
 	private final static String INSERT_UTILISATEUR = "insert into UTILISATEURS(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) values(?,?,?,?,?,?,?,?,?,?,?);";
 	private final static String UPDATE_UTILISATEUR = "update UTILISATEURS set pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=?, mot_de_passe=?, credit=?, administrateur=? WHERE no_utilisateur=?";
-	
+	private final static String CHECK_UTILISATEUR = "select * from UTILISATEURS where (pseudo=? or email=?) and mot_de_passe=?;";
 	
 	
 	/**
@@ -140,6 +140,39 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 				
 		// on ferme la connexion quand tout a été ajouté
 		cnx.close();
+	}
+
+	@Override
+	public Utilisateur checkConnectUser(String login, String password) throws SQLException {
+		// On fait appel à la classe ConnectionProvider pour recupérer une connexion depuis notre pool
+		Connection cnx = ConnectionProvider.getConnection();
+
+		// 1 - on crée une "requête préparée" à partir de la connexion recupérée et de notre template de requête SQL ( attribut INSERT)
+		PreparedStatement pStmt = cnx.prepareStatement(CHECK_UTILISATEUR);
+		pStmt.setString(1, login);
+		pStmt.setString(2, login);
+		pStmt.setString(3, password);
+		
+		// 2 - je l'execute et je recupère une réference sur les resultats dans un ResultSet
+		ResultSet rs = pStmt.executeQuery();
+
+		// 4 - je parcours mes resultats pour remplir ma liste des user que je vais renvoyer
+		rs.next();
+		Utilisateur user = new Utilisateur(
+				rs.getString("pseudo"),
+				rs.getString("nom"),
+				rs.getString("prenom"),
+				rs.getString("email"),
+				rs.getString("rue"),
+				rs.getString("ville"),
+				rs.getString("mot_de_passe"),
+				rs.getInt("no_utilisateur"),
+				rs.getInt("telephone"),
+				rs.getInt("code_postal"),
+				rs.getFloat("credit"),
+				rs.getBoolean("administrateur")
+				);
+		return user;		
 	}
 
 }
