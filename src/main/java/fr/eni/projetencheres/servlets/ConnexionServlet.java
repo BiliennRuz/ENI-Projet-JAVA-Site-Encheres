@@ -1,6 +1,7 @@
 package fr.eni.projetencheres.servlets;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -44,12 +45,19 @@ public class ConnexionServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		Utilisateur utilisateur = new Utilisateur();
+		System.out.println("coucou");
 		String login = request.getParameter("login");
-		String password = request.getParameter("password");
+		String password = request.getParameter("motDePasse");
+		System.out.println(login);
+		System.out.println(password);
 		
 		try {
-			Utilisateur utilisateur = utilisateurManager.trouverUtilisateur(login, password);
-		} catch (BusinessException e) {
+			utilisateur = utilisateurManager.trouverUtilisateur(login, password);
+			request.setAttribute("confirmationMessage", "Vous êtes bien connecté !");
+			System.out.println(utilisateur);
+		} catch (BusinessException | SQLException e) {
+			System.out.println("coucou");
 			request.setAttribute("erreurMessage", e.getMessage());
 			response.sendRedirect("./");
 		}
