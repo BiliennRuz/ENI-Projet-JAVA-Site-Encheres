@@ -36,6 +36,20 @@ public class ArticleVendu {
 		this.dateFinEncheres = dateFinEncheres;
 		this.statusVente = "Vente non débuté";
 	}
+	
+	public ArticleVendu(int prixInitial, int prixVente, int idUtilisateur, int idCategorie, String nomArticle,
+			String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres, String statusVente) {
+		super();
+		this.prixInitial = prixInitial;
+		this.prixVente = prixVente;
+		this.idUtilisateur = idUtilisateur;
+		this.idCategorie = idCategorie;
+		this.nomArticle = nomArticle;
+		this.description = description;
+		this.dateDebutEncheres = dateDebutEncheres;
+		this.dateFinEncheres = dateFinEncheres;
+		this.statusVente = statusVente;
+	}
 
 	public int getIdArticle() {
 		return idArticle;

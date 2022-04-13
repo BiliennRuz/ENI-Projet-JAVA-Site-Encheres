@@ -71,7 +71,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	 * add(Utilisateur user) peut lancer potentiellement des exception de type SQLException (il faudra le gérer dans la classe qui appelle le DAO : UtilisateurManager)
 	 */
 	@Override
-	public void add(Utilisateur user) throws SQLException {
+	public void addUser(Utilisateur user) throws SQLException {
 		// On fait appel à la classe ConnectionProvider pour recupérer une connexion depuis notre pool
 		Connection cnx = ConnectionProvider.getConnection();
 		
@@ -111,7 +111,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	 * update(Utilisateur user) peut lancer potentiellement des exception de type SQLException (il faudra le gérer dans la classe qui appelle le DAO : UtilisateurManager)
 	 */
 	@Override
-	public void update(Utilisateur user) throws SQLException {
+	public void updateUser(Utilisateur user) throws SQLException {
 		// On fait appel à la classe ConnectionProvider pour recupérer une connexion depuis notre pool
 		Connection cnx = ConnectionProvider.getConnection();
 		

@@ -8,8 +8,8 @@ public class DAOFactory {
 		return new UtilisateurDAOJdbcImpl();
 	}
 	
-	public static EnchereDAO getEnchereDAO() {
-		return new EnchereDAOJdbcImpl();
+	public static ArticleDAO getEnchereDAO() {
+		return new ArticleDAOJdbcImpl();
 	}
 
 }
