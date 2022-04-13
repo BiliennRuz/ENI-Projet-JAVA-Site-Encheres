@@ -1,14 +1,10 @@
 package fr.eni.projetencheres.bll;
 
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.util.List;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.catalina.User;
-
-import fr.eni.projetencheres.bll.BusinessException;
 import fr.eni.projetencheres.bo.Utilisateur;
 import fr.eni.projetencheres.dal.DAOFactory;
 import fr.eni.projetencheres.dal.UtilisateurDAO;
@@ -31,10 +27,54 @@ public class UtilisateurManager {
 		}	
 	}
 	
-	
-	
-	
 	// --- INSCRIPTION ---
+	
+	public Utilisateur ajouterUtilisateur(Utilisateur utilisateur) throws BusinessException, SQLException {
+		Utilisateur nouvelUtilisateur = new Utilisateur();
+		
+		if(verifierPseudo(utilisateur.getPseudo())) {
+			nouvelUtilisateur.setPseudo(utilisateur.getPseudo());
+		}
+		else {
+			throw new BusinessException("Le pseudo est trop court");
+		}
+		
+		if(verifierNom(utilisateur.getNom())) {
+			nouvelUtilisateur.setPseudo(utilisateur.getNom());
+		}
+		else {
+			throw new BusinessException("Le nom est trop court");
+		}
+
+		return nouvelUtilisateur;
+	}
+	
+	private boolean verifierPseudo(String pseudo) {
+		if(verifierString(pseudo)) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	private boolean verifierNom(String nom) {
+		if(verifierString(nom)) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	private boolean verifierString(String string) {
+		
+		if(string.length() < 2) {
+			return false;
+		}
+		return true;	
+		
+	}
 	// Méthode de vérification Email qui va être utilisée pour l'inscription
 	private boolean verifierEmail(String email) {	
 		Pattern p;
