@@ -73,16 +73,32 @@ public class UtilisateurManager {
 		else {
 			throw new BusinessException("La rue est trop courte");
 		}
-		// Rue :
+		// Code Postal :
+		if(verifierCodePostal(utilisateur.getCodePostal())) {
+			nouvelUtilisateur.setCodePostal(utilisateur.getCodePostal());
+		}
+		else {
+			throw new BusinessException("Le CP est trop court");
+		}
+		// Tel :
 		if(verifierTelephone(utilisateur.getTelephone())) {
 			nouvelUtilisateur.setTelephone(utilisateur.getTelephone());
 		}
 		else {
 			throw new BusinessException("Le numéro de téléphone est trop court");
 		}
+		// Email :
+		if(verifierEmail(utilisateur.getEmail())) {
+			nouvelUtilisateur.setEmail(utilisateur.getEmail());
+		}
+		else {
+			throw new BusinessException("L'Email est trop court");
+		}
 		
 		// On alloue un crédit de 100 points au nouvel utilisateur
 		nouvelUtilisateur.setCredit(100);
+		
+		nouvelUtilisateur.setMotDePasse(utilisateur.getMotDePasse());
 		
 		// On envoie le nouvel utilisateur à la DAO
 		utilisateurDAO.addUser(nouvelUtilisateur);
@@ -137,6 +153,14 @@ public class UtilisateurManager {
 	// Vérifier la conformité de : Pseudo, Nom, Prénom, Ville, Rue
 	private boolean verifierString(String string) {
 		if(string.length() < 2) {
+			return false;
+		}
+		return true;		
+	}
+	
+	// Vérifier le code postal
+	private boolean verifierCodePostal(String codePostal) {
+		if(codePostal.length() < 5) {
 			return false;
 		}
 		return true;		
