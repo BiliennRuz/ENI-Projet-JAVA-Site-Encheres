@@ -25,7 +25,7 @@ public class VenteManager {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return null; // si jamais y'a une exception onretournera null
+		return null; // si jamais il y a une exception on retournera null
 	}
 	
 	/**
@@ -54,7 +54,7 @@ public class VenteManager {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return null; // si jamais y'a une exception onretournera null
+		return null; // si jamais il y a une exception on retournera null
 	}
 	
 

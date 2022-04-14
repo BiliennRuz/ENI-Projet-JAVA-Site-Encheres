@@ -36,11 +36,9 @@
 				<div class="champsCategorie">
 					<label for="categorie">Catégorie : </label>
 					<select name="categorie" id="categorie">
-					    <option value="">toutes</option>
-					    <option value="dog">Informatique</option>
-					    <option value="cat">Ameublement</option>
-					    <option value="hamster">Vêtement</option>
-					    <option value="parrot">SportETLoisir</option>
+						<c:forEach var="categorie" items="${categories}">
+				 			<option value="${categorie.idCategorie}"><c:out value="${categorie.libelle}" /></option>
+				 		</c:forEach>
 					</select>
 				</div>
 			</div>
