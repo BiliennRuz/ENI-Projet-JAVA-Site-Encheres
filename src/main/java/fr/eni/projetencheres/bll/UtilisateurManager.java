@@ -108,31 +108,28 @@ public class UtilisateurManager {
 	
 	// Vérifier la conformité du Pseudo
 	private boolean verifierPseudo(String pseudo) throws SQLException {
+		Pattern p;
+		Matcher m;
+		int compteur = 0;
+		
+		// Pour avoir uniquement des valeurs alphanumériques
+		p = Pattern.compile("^[a-zA-Z0-9]+$");
+		m = p.matcher(pseudo);
+		
 		if(verifierString(pseudo)) {
 			
-//			List <Utilisateur> utilisateurs = utilisateurDAO.getUser();
-//				
-//			for (Utilisateur utilisateur : utilisateurs) {
-//				// utilisateurs++;
-//			}
-			
-			Pattern p;
-			Matcher m;	
-			
-			// Pour avoir uniquement des valeurs alphanumériques
-			p = Pattern.compile("^[a-zA-Z0-9]+$");
-			m = p.matcher(pseudo);
-			
-			if (m.find()) {
-			  return true;
-			}
-			else {
-			  return false;
-			}
+			List <Utilisateur> utilisateurs = utilisateurDAO.getUser();
+					
+			for(Utilisateur utilisateur : utilisateurs) {
+				if(utilisateur.getPseudo().equals(pseudo)) {
+					compteur++;
+				}
+			}	
 		}
-		else {
+		if(compteur > 1 || !m.find()) {
 			return false;
-		}
+		}	
+		return true;
 	}
 	// Vérifier la conformité du Nom
 	private boolean verifierNom(String nom) {
@@ -151,6 +148,31 @@ public class UtilisateurManager {
 		else {
 			return false;
 		}
+	}
+	// Vérification Email
+	private boolean verifierEmail(String email) throws SQLException {
+		Pattern p;
+		Matcher m;
+		int compteur = 0;
+				
+		// Pour avoir le format de l'Email
+		p = Pattern.compile("^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]{2,}\\.[a-z]{2,4}$");
+		m = p.matcher(email);
+				
+		if(verifierString(email)) {
+				
+			List <Utilisateur> utilisateurs = utilisateurDAO.getUser();
+						
+			for(Utilisateur utilisateur : utilisateurs) {
+				if(utilisateur.getEmail().equals(email)) {
+					compteur++;
+				}
+			}	
+		}
+		if(compteur > 1 || !m.find()) {
+			return false;
+		}	
+		return true;
 	}
 	// Vérifier la conformité de la Ville
 	private boolean verifierVille(String ville) {
@@ -194,21 +216,6 @@ public class UtilisateurManager {
 		return true;		
 	}
 	
-	// Vérification Email qui va être utilisée pour l'Inscription
-	private boolean verifierEmail(String email) {
-		Pattern p;
-		Matcher m;
-		
-		p = Pattern.compile("^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]{2,}\\.[a-z]{2,4}$");
-		m = p.matcher(email);
-		
-		if (m.find()) {
-		  return true;
-		}
-		else {
-		  return false;
-		}
-	}
 	
 	
 	// -----------------------------------------------------------------------------------------------------------------------------------------
