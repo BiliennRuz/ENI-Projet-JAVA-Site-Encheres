@@ -19,7 +19,7 @@
 	<!-- FORMULAIRE -->
 	<!-- Données : pseudo - nom - prenom - email - tel - rue - codePostal - ville - motDePasse - motDepasseConfirm -->
 	
-	<form class="inscription" action="" method="POST">
+	<form class="inscription" action="./inscription" method="POST">
 		<div class="blocInscription blocChamps">
 			<div class="pseudoNom blocInputs">
 				<div class="blocLabelinput">
@@ -72,9 +72,9 @@
 				</div>
 			</div>
 		</div>
-		<div class="blocInscription">
-			<button type="submit">Créer</button>
-			<a href="./">Annuler</a>
+		<div class="blocInscription blocBoutonsInscription">
+			<button class="boutonInscription" type="submit">Créer</button>
+			<a class="boutonInscription" href="./">Annuler</a>
 		</div>
 		
 	</form>
