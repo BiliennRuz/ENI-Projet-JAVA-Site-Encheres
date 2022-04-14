@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class Utilisateur {
 
-	private String pseudo, nom, prenom, email, rue, ville, motDePasse;
-	private int idUtilisateur, telephone, codePostal;
+	private String pseudo, nom, prenom, email, rue, ville, motDePasse, telephone, codePostal;
+	private int idUtilisateur;
 	private float credit;
 	private boolean administrateur;
 	private ArrayList<ArticleVendu> listeArticles  = new ArrayList<ArticleVendu>();
@@ -15,7 +15,7 @@ public class Utilisateur {
 	}
 
 	public Utilisateur(String pseudo, String nom, String prenom, String email, String rue,
-			String ville, String motDePasse, int noUtilisateur, int telephone, int codePostal,
+			String ville, String motDePasse, int noUtilisateur, String telephone, String codePostal,
 			float credit, boolean administrateur) {
 		this.pseudo = pseudo;
 		this.nom = nom;
@@ -95,19 +95,19 @@ public class Utilisateur {
 		this.idUtilisateur = idUtilisateur;
 	}
 
-	public int getTelephone() {
+	public String getTelephone() {
 		return telephone;
 	}
 
-	public void setTelephone(int telephone) {
+	public void setTelephone(String telephone) {
 		this.telephone = telephone;
 	}
 
-	public int getCodePostal() {
+	public String getCodePostal() {
 		return codePostal;
 	}
 
-	public void setCodePostal(int codePostal) {
+	public void setCodePostal(String codePostal) {
 		this.codePostal = codePostal;
 	}
 
