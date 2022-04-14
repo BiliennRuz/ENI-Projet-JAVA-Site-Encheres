@@ -2,7 +2,7 @@ package fr.eni.projetencheres.bll;
 
 // --- IMPORTS ---
 import java.sql.SQLException;
-
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -18,6 +18,7 @@ public class UtilisateurManager {
 	
 	// Méthode pour la Connexion 
 	public Utilisateur trouverUtilisateur(String login, String password) throws BusinessException, SQLException {
+		
 		Utilisateur utilisateur = new Utilisateur();
 		
 		try {
@@ -80,7 +81,7 @@ public class UtilisateurManager {
 		else {
 			throw new BusinessException("Le CP est trop court");
 		}
-		// Tel :
+		// Téléphone :
 		if(verifierTelephone(utilisateur.getTelephone())) {
 			nouvelUtilisateur.setTelephone(utilisateur.getTelephone());
 		}
@@ -106,9 +107,28 @@ public class UtilisateurManager {
 	}
 	
 	// Vérifier la conformité du Pseudo
-	private boolean verifierPseudo(String pseudo) {
+	private boolean verifierPseudo(String pseudo) throws SQLException {
 		if(verifierString(pseudo)) {
-			return true;
+			
+//			List <Utilisateur> utilisateurs = utilisateurDAO.getUser();
+//				
+//			for (Utilisateur utilisateur : utilisateurs) {
+//				// utilisateurs++;
+//			}
+			
+			Pattern p;
+			Matcher m;	
+			
+			// Pour avoir uniquement des valeurs alphanumériques
+			p = Pattern.compile("^[a-zA-Z0-9]+$");
+			m = p.matcher(pseudo);
+			
+			if (m.find()) {
+			  return true;
+			}
+			else {
+			  return false;
+			}
 		}
 		else {
 			return false;
@@ -175,19 +195,23 @@ public class UtilisateurManager {
 	}
 	
 	// Vérification Email qui va être utilisée pour l'Inscription
-	private boolean verifierEmail(String email) {	
+	private boolean verifierEmail(String email) {
 		Pattern p;
 		Matcher m;
 		
 		p = Pattern.compile("^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]{2,}\\.[a-z]{2,4}$");
 		m = p.matcher(email);
+		
 		if (m.find()) {
 		  return true;
-		} else {
+		}
+		else {
 		  return false;
 		}
 	}
 	
+	
+	// -----------------------------------------------------------------------------------------------------------------------------------------
 	// Vérifier que les 2 mots de passes correspondent (MDP et MDP confirmation)
 	private void verifierMotDePasseAvecMotDePasseConfirmation(String password, String passwordConfirm) throws BusinessException, SQLException {
 		
@@ -208,12 +232,6 @@ public class UtilisateurManager {
 			throw new BusinessException("Le mot de passe doit comporter au moins 3 lettres");
 		}
 	}
-	
-	
-	
-
-	
-	
 	
 	
 //	private void validationConnexion(String login, String password) throws BusinessException, SQLException {
