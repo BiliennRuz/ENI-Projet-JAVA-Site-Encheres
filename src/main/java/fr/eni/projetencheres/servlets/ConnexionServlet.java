@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import fr.eni.projetencheres.bll.BusinessException;
 import fr.eni.projetencheres.bll.UtilisateurManager;
@@ -51,7 +52,10 @@ public class ConnexionServlet extends HttpServlet {
 		
 		try {
 			utilisateur = utilisateurManager.trouverUtilisateur(login, password);
-			request.setAttribute("confirmationMessage", "Vous êtes bien connecté !");
+			request.setAttribute("confirmationMessage", "Vous êtes connecté en tant que : " + utilisateur.getPseudo());
+			request.setAttribute("utilisateur", utilisateur);
+			HttpSession session = request.getSession();
+			session.setAttribute("utilisateurConnecte", utilisateur);
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/accueil.jsp");
 			rd.forward(request, response);
 		} catch (BusinessException | SQLException e) {
