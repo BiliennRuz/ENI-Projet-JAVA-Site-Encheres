@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import fr.eni.projetencheres.bll.VenteManager;
 import fr.eni.projetencheres.bo.ArticleVendu;
@@ -38,6 +39,8 @@ public class AccueilServlet extends HttpServlet {
 		request.setAttribute("categories", categories);
 		
 		// Affichage de la page d'accueil
+		HttpSession session = request.getSession();
+		session.getAttribute("utilisateurConnecte");
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/accueil.jsp");
 		rd.forward(request, response);
 	}
