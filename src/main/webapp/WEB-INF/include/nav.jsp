@@ -5,7 +5,7 @@
 	<ul>
 		<li><a href="">Enchères</a></li>
 		<li><a href="">Vendre un article</a></li>
-		<li><a href="">Mon profil</a></li>
+		<li><a href="./profil">Mon profil</a></li>
 		<li><a href="./deconnexion">Déconnexion</a></li>
 	</ul>
 </nav>
