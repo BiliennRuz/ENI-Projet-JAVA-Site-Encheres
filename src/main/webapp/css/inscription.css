@@ -8,7 +8,6 @@
 
 .blocChamps {
 	flex-direction: column;
-	border: 1px solid #000;
 }
 
 .blocInputs {
@@ -16,11 +15,9 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	border: 1px solid red;
 }
 
 .blocLabelinput {
-	border: 1px solid green;
 	width: 50%;
 	display: flex;
 	justify-content: space-between;
@@ -30,7 +27,6 @@
 }
 
 .blocLabelinput input {
-	border: 1px solid #ccc;
 	width: 60%;
 	height: 40px;
 }
