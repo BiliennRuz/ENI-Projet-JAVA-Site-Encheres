@@ -56,8 +56,8 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 					rs.getString("ville"),
 					rs.getString("mot_de_passe"),
 					rs.getInt("no_utilisateur"),
-					rs.getInt("telephone"),
-					rs.getInt("code_postal"),
+					rs.getString("telephone"),
+					rs.getString("code_postal"),
 					rs.getFloat("credit"),
 					rs.getBoolean("administrateur")
 					);
@@ -86,9 +86,9 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		pStmt.setString(2, user.getNom());
 		pStmt.setString(3, user.getPrenom());
 		pStmt.setString(4, user.getEmail());
-		pStmt.setInt(5, user.getTelephone());
+		pStmt.setString(5, user.getTelephone());
 		pStmt.setString(6, user.getRue());
-		pStmt.setInt(7, user.getCodePostal());
+		pStmt.setString(7, user.getCodePostal());
 		pStmt.setString(8, user.getVille());
 		pStmt.setString(9, user.getMotDePasse());
 		pStmt.setFloat(10, user.getCredit());
@@ -126,9 +126,9 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		pStmt.setString(2, user.getNom());
 		pStmt.setString(3, user.getPrenom());
 		pStmt.setString(4, user.getEmail());
-		pStmt.setInt(5, user.getTelephone());
+		pStmt.setString(5, user.getTelephone());
 		pStmt.setString(6, user.getRue());
-		pStmt.setInt(7, user.getCodePostal());
+		pStmt.setString(7, user.getCodePostal());
 		pStmt.setString(8, user.getVille());
 		pStmt.setString(9, user.getMotDePasse());
 		pStmt.setFloat(10, user.getCredit());
@@ -167,8 +167,8 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 				rs.getString("ville"),
 				rs.getString("mot_de_passe"),
 				rs.getInt("no_utilisateur"),
-				rs.getInt("telephone"),
-				rs.getInt("code_postal"),
+				rs.getString("telephone"),
+				rs.getString("code_postal"),
 				rs.getFloat("credit"),
 				rs.getBoolean("administrateur")
 				);
