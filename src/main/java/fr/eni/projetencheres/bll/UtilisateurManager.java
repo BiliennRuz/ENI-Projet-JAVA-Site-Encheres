@@ -34,11 +34,10 @@ public class UtilisateurManager {
 	// --- INSCRIPTION --- (#1003)
 	
 	// Méthode principale pour vérifier la conformité de tous les champs inscrits par l'utilisateur
-	public Utilisateur ajouterUtilisateur(Utilisateur utilisateur) throws BusinessException, SQLException {
-		
-		System.out.println("Manager" + utilisateur);
+	public void ajouterUtilisateur(Utilisateur utilisateur) throws BusinessException, SQLException {
 		
 		Utilisateur nouvelUtilisateur = new Utilisateur();
+		
 		// Pseudo :
 		if(verifierPseudo(utilisateur.getPseudo())) {
 			nouvelUtilisateur.setPseudo(utilisateur.getPseudo());
@@ -74,8 +73,20 @@ public class UtilisateurManager {
 		else {
 			throw new BusinessException("La rue est trop courte");
 		}
+		// Rue :
+		if(verifierTelephone(utilisateur.getTelephone())) {
+			nouvelUtilisateur.setTelephone(utilisateur.getTelephone());
+		}
+		else {
+			throw new BusinessException("Le numéro de téléphone est trop court");
+		}
 		
-		return nouvelUtilisateur;
+		// On alloue un crédit de 100 points au nouvel utilisateur
+		nouvelUtilisateur.setCredit(100);
+		
+		// On envoie le nouvel utilisateur à la DAO
+		utilisateurDAO.addUser(nouvelUtilisateur);
+		
 	}
 	
 	// Vérifier la conformité du Pseudo
