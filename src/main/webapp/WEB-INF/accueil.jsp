@@ -11,25 +11,9 @@
 </head>
 <body>
 
-	<!-- HEADER AVEC TITRE ET LIENS CONNEXION -->
 	
-	<header>
-		<div class="titre">
-			<h2>ENI-Enchères</h2>
-		</div>
-		
-		<div class="connexion">
-			<c:choose>
-				<c:when test="${utilisateurConnecte != null}">
-					<p>Vous êtes connecté avec : ${utilisateurConnecte.username}</p>
-					<a href="./DeconnexionServlet">Déconnexion</a>
-				</c:when>
-				<c:otherwise>
-					<a href="./connexion" class="lienConnexion">S'inscrire - Se connecter</a>
-				</c:otherwise>
-			</c:choose>
-		</div>
-	</header>
+	
+	<%@ include file="./include/header.jsp"%>
 	
 	
 	<!-- TITRE DE LA PAGE -->
@@ -56,7 +40,7 @@
 					    <option value="dog">Informatique</option>
 					    <option value="cat">Ameublement</option>
 					    <option value="hamster">Vêtement</option>
-					    <option value="parrot">Sport&Loisir</option>
+					    <option value="parrot">SportETLoisir</option>
 					</select>
 				</div>
 			</div>
