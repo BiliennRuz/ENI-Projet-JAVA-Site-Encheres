@@ -1,13 +1,11 @@
 package fr.eni.projetencheres.dal;
 
-import java.security.Timestamp;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,6 +76,9 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 		
 		// je remplace le premier ? de ma requête par la date de mon objet Enchere		
 		// "insert into ENCHERES(date_enchere, montant_enchere, no_article, no_utilisateur) values(?,?,?,?);";
+		System.out.println("DEBUG convert LocalDateTime to SQL DateTime : " + Date.valueOf(enchere.getDateEnchere().toLocalDate()));
+		
+		pStmt.setDate(1, Date.valueOf(enchere.getDateEnchere().toLocalDate()));
 //		pStmt.setTimestamp(1, Date.valueOf(enchere.getDateEnchere()));
 		pStmt.setInt(2, enchere.getMontantEnchere());
 		pStmt.setInt(3, enchere.getIdArticle());
@@ -111,7 +112,22 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 		
 		// je remplace le premier ? de ma requête par la date de mon objet Enchere		
 		// "update ENCHERES set date_enchere=?, montant_enchere=?, no_article=?, no_utilisateur=? WHERE no_enchere=?";
-//		pStmt.setTimestamp(1, Date.valueOf(enchere.getDateEnchere()));
+		
+//		LocalDateTime dt = enchere.getDateEnchere();
+//		// save time information (hour, minute, seconds, fraction of seconds)
+//		LocalTime savedTime = dt.toLocalTime();
+//		// convert to Date (time information is lost)
+//		java.sql.Date date = java.sql.Date.valueOf(dt.toLocalDate());
+//
+//		// retrieve back the LocalDate (only day/month/year)
+//		LocalDate localDate = date.toLocalDate();
+//		// retrieve the LocalDateTime, with the original time values
+//		LocalDateTime ldt = localDate.atTime(savedTime);
+		
+		System.out.println("DEBUG convert LocalDateTime to SQL DateTime : " + Date.valueOf(enchere.getDateEnchere().toLocalDate()));
+		
+		pStmt.setDate(1, Date.valueOf(enchere.getDateEnchere().toLocalDate()));
+//		pStmt.setTimesStamp(1, Date.valueOf(enchere.getDateEnchere().toLocalDate()), Calendar.getInstance(TimeZone.getTimeZone("UTC")));
 		pStmt.setInt(2, enchere.getMontantEnchere());
 		pStmt.setInt(3, enchere.getIdArticle());
 		pStmt.setInt(4, enchere.getIdUtilisateur());
