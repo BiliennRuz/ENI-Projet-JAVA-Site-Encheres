@@ -51,5 +51,28 @@
 		</div>
 	</form>
 	
+	
+	<!-- BLOC DE LA LISTE -->
+	
+	<table>
+		<thead>
+			<tr>
+				<th>Nom</th>
+				<th>Description</th>
+			</tr>
+		</thead>
+		<tbody>
+			<!-- pour chaque repas de ma liste contenue dans mon attribut de requête : listeRepas -->
+			<c:forEach var="articles" items="${articles}">
+				<!-- je crée une nouvelle ligne dans ma table HTML -->
+				<tr>
+					<td>${articles.nomArticle}</td> 
+					<td>${articles.description}</td>
+				</tr>
+			</c:forEach>
+		</tbody>
+	</table>
+	
+	
 </body>
 </html>

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.projetencheres.bll.VenteManager;
+import fr.eni.projetencheres.bo.ArticleVendu;
 import fr.eni.projetencheres.bo.Categorie;
 
 /**
@@ -46,6 +47,17 @@ public class AccueilServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		String article = request.getParameter("article");
+		String idCategorie = request.getParameter("categorie");
+		System.out.println("DEBUG article : " + article);
+		System.out.println("DEBUG idCategorie : " + idCategorie);
+		List<ArticleVendu> articles = this.venteManager.SearchArticleVente(article, 1, "Vente en cours");
+		System.out.println("DEBUG articles : " + articles);
+		request.setAttribute("articles", articles);
+		
+		// 3 - on délègue la génération de la réponse HTML à la JSP
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/accueil.jsp");
+		rd.forward(request, response);
 		
 	}
 

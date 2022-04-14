@@ -37,6 +37,7 @@ public class VenteManager {
 	 */
 	public List<ArticleVendu> SearchArticleVente(String nom, int categorie, String statusVente) {
 		try {
+			System.out.println("DEBUG SearchArticleEnVente, String nom, int categorie, String statusVente : " + nom + categorie + statusVente );
 			// on recupere la liste de tous les articles
 			List<ArticleVendu> listeArticles = this.articleDAO.getArticle();
 			List<ArticleVendu> listeArticlesEnVente = new ArrayList<ArticleVendu>();
