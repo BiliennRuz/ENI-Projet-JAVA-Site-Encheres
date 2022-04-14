@@ -1,6 +1,7 @@
 package fr.eni.projetencheres.servlets;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.eni.projetencheres.bll.BusinessException;
+import fr.eni.projetencheres.bll.UtilisateurManager;
 import fr.eni.projetencheres.bo.Utilisateur;
 
 /**
@@ -17,6 +20,8 @@ import fr.eni.projetencheres.bo.Utilisateur;
 @WebServlet("/inscription")
 public class InscriptionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	UtilisateurManager utilisateurManager = new UtilisateurManager();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -49,6 +54,18 @@ public class InscriptionServlet extends HttpServlet {
 		utilisateur.setRue(request.getParameter("rue"));
 		utilisateur.setCodePostal(request.getParameter("codePostal"));
 		utilisateur.setVille(request.getParameter("ville"));
+		
+		System.out.println("Servlet - " + utilisateur);
+		
+		try {
+			utilisateurManager.ajouterUtilisateur(utilisateur);
+		} catch (BusinessException e) {
+			request.setAttribute("erreur", e.getMessage());
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
