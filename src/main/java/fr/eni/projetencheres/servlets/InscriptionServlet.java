@@ -58,8 +58,12 @@ public class InscriptionServlet extends HttpServlet {
 		try {
 			utilisateurManager.ajouterUtilisateur(utilisateur);
 			request.setAttribute("succes", "Vous êtes bien enregistré !");
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/accueil.jsp");
+			rd.forward(request, response);
 		} catch (BusinessException e) {
 			request.setAttribute("erreur", e.getMessage());
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/accueil.jsp");
+			rd.forward(request, response);
 			e.printStackTrace();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
