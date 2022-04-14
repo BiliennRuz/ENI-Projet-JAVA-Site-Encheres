@@ -1,5 +1,6 @@
 package fr.eni.projetencheres.bll;
 
+// --- IMPORTS ---
 import java.sql.SQLException;
 
 import java.util.regex.Matcher;
@@ -13,8 +14,9 @@ public class UtilisateurManager {
 	
 	private UtilisateurDAO utilisateurDAO = DAOFactory.getUtilisateurDAO();
 	
-	// --- CONNEXION ----
+	// --- CONNEXION --- (#1001)
 	
+	// Méthode pour la Connexion 
 	public Utilisateur trouverUtilisateur(String login, String password) throws BusinessException, SQLException {
 		Utilisateur utilisateur = new Utilisateur();
 		
@@ -28,28 +30,55 @@ public class UtilisateurManager {
 		return utilisateur;
 	}
 	
-	// --- INSCRIPTION ---
 	
+	// --- INSCRIPTION --- (#1003)
+	
+	// Méthode principale pour vérifier la conformité de tous les champs inscrits par l'utilisateur
 	public Utilisateur ajouterUtilisateur(Utilisateur utilisateur) throws BusinessException, SQLException {
-		Utilisateur nouvelUtilisateur = new Utilisateur();
 		
+		System.out.println("Manager" + utilisateur);
+		
+		Utilisateur nouvelUtilisateur = new Utilisateur();
+		// Pseudo :
 		if(verifierPseudo(utilisateur.getPseudo())) {
 			nouvelUtilisateur.setPseudo(utilisateur.getPseudo());
 		}
 		else {
 			throw new BusinessException("Le pseudo est trop court");
 		}
-		
+		// Nom :
 		if(verifierNom(utilisateur.getNom())) {
-			nouvelUtilisateur.setPseudo(utilisateur.getNom());
+			nouvelUtilisateur.setNom(utilisateur.getNom());
 		}
 		else {
 			throw new BusinessException("Le nom est trop court");
 		}
-
+		// Prénom :
+		if(verifierPrenom(utilisateur.getPrenom())) {
+			nouvelUtilisateur.setPrenom(utilisateur.getPrenom());
+		}
+		else {
+			throw new BusinessException("Le prénom est trop court");
+		}
+		// Ville :
+		if(verifierVille(utilisateur.getVille())) {
+			nouvelUtilisateur.setVille(utilisateur.getVille());
+		}
+		else {
+			throw new BusinessException("La ville est trop courte");
+		}
+		// Rue :
+		if(verifierRue(utilisateur.getRue())) {
+			nouvelUtilisateur.setRue(utilisateur.getRue());
+		}
+		else {
+			throw new BusinessException("La rue est trop courte");
+		}
+		
 		return nouvelUtilisateur;
 	}
 	
+	// Vérifier la conformité du Pseudo
 	private boolean verifierPseudo(String pseudo) {
 		if(verifierString(pseudo)) {
 			return true;
@@ -58,7 +87,7 @@ public class UtilisateurManager {
 			return false;
 		}
 	}
-	
+	// Vérifier la conformité du Nom
 	private boolean verifierNom(String nom) {
 		if(verifierString(nom)) {
 			return true;
@@ -67,16 +96,50 @@ public class UtilisateurManager {
 			return false;
 		}
 	}
-	
+	// Vérifier la conformité du Prénom
+	private boolean verifierPrenom(String prenom) {
+		if(verifierString(prenom)) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	// Vérifier la conformité de la Ville
+	private boolean verifierVille(String ville) {
+		if(verifierString(ville)) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	// Vérifier la conformité de la Rue
+	private boolean verifierRue(String rue) {
+		if(verifierString(rue)) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	// Vérifier la conformité de : Pseudo, Nom, Prénom, Ville, Rue
 	private boolean verifierString(String string) {
-		
 		if(string.length() < 2) {
 			return false;
 		}
-		return true;	
-		
+		return true;		
 	}
-	// Méthode de vérification Email qui va être utilisée pour l'inscription
+	
+	// Vérifier que le numéro de téléphone à au moins 10 numéros
+	private boolean verifierTelephone(String telephone) {
+		if(telephone.length() < 10) {
+			return false;
+		}
+		return true;		
+	}
+	
+	// Vérification Email qui va être utilisée pour l'Inscription
 	private boolean verifierEmail(String email) {	
 		Pattern p;
 		Matcher m;
@@ -90,7 +153,17 @@ public class UtilisateurManager {
 		}
 	}
 	
-	// Méthode de vérification Login et Mot de Passe qui va être utilisée pour l'inscription
+	// Vérifier que les 2 mots de passes correspondent (MDP et MDP confirmation)
+	private void verifierMotDePasseAvecMotDePasseConfirmation(String password, String passwordConfirm) throws BusinessException, SQLException {
+		
+		if(password == passwordConfirm) {
+		// Les mots de passes sont les mêmes
+		} else {
+			throw new BusinessException("Les mots de passes ne correspondent pas");
+		}
+	}
+	
+	// Vérification Login et Mot de Passe qui va être utilisée pour l'Inscription
 	private void verifierMotDePasseEtLogin(String login, String password) throws BusinessException, SQLException {
 	
 		if(login.length() < 3) {
@@ -103,8 +176,7 @@ public class UtilisateurManager {
 	
 	
 	
-	
-	
+
 	
 	
 	
