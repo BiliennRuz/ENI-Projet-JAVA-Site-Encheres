@@ -57,11 +57,13 @@ public class InscriptionServlet extends HttpServlet {
 		
 		try {
 			utilisateurManager.ajouterUtilisateur(utilisateur);
+			System.out.println("Servlet succès");
 			request.setAttribute("succes", "Vous êtes bien enregistré !");
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/accueil.jsp");
 			rd.forward(request, response);
 		} catch (BusinessException e) {
 			request.setAttribute("erreur", e.getMessage());
+			System.out.println("Servlet echec");
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/accueil.jsp");
 			rd.forward(request, response);
 			e.printStackTrace();
