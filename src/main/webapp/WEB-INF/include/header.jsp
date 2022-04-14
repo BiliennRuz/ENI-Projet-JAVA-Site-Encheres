@@ -29,6 +29,6 @@
 <c:if test="${confirmationMessage != null }">
 	<div class="messageConfirmation">
 		<span>${confirmationMessage} - </span>
-		<a href="./DeconnexionServlet">Déconnexion</a>
+		<a href="./deconnexion">Déconnexion</a>
 	</div>
 </c:if>
