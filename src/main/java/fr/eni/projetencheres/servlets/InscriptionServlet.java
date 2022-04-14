@@ -41,6 +41,14 @@ public class InscriptionServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		Utilisateur utilisateur = new Utilisateur();
+		utilisateur.setPseudo(request.getParameter("pseudo"));
+		utilisateur.setNom(request.getParameter("nom"));
+		utilisateur.setPrenom(request.getParameter("prenom"));
+		utilisateur.setEmail(request.getParameter("email"));
+		utilisateur.setTelephone(request.getParameter("tel"));
+		utilisateur.setRue(request.getParameter("rue"));
+		utilisateur.setCodePostal(request.getParameter("codePostal"));
+		utilisateur.setVille(request.getParameter("ville"));
 	}
 
 }
