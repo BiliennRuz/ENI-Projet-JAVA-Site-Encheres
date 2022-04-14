@@ -1,6 +1,7 @@
 package fr.eni.projetencheres.bll;
 
 import java.sql.SQLException;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -27,10 +28,54 @@ public class UtilisateurManager {
 		return utilisateur;
 	}
 	
-	
-	
-	
 	// --- INSCRIPTION ---
+	
+	public Utilisateur ajouterUtilisateur(Utilisateur utilisateur) throws BusinessException, SQLException {
+		Utilisateur nouvelUtilisateur = new Utilisateur();
+		
+		if(verifierPseudo(utilisateur.getPseudo())) {
+			nouvelUtilisateur.setPseudo(utilisateur.getPseudo());
+		}
+		else {
+			throw new BusinessException("Le pseudo est trop court");
+		}
+		
+		if(verifierNom(utilisateur.getNom())) {
+			nouvelUtilisateur.setPseudo(utilisateur.getNom());
+		}
+		else {
+			throw new BusinessException("Le nom est trop court");
+		}
+
+		return nouvelUtilisateur;
+	}
+	
+	private boolean verifierPseudo(String pseudo) {
+		if(verifierString(pseudo)) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	private boolean verifierNom(String nom) {
+		if(verifierString(nom)) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	private boolean verifierString(String string) {
+		
+		if(string.length() < 2) {
+			return false;
+		}
+		return true;	
+		
+	}
 	// Méthode de vérification Email qui va être utilisée pour l'inscription
 	private boolean verifierEmail(String email) {	
 		Pattern p;
