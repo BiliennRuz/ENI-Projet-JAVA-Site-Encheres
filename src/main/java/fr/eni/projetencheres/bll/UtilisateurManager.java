@@ -20,11 +20,12 @@ public class UtilisateurManager {
 		
 		try {
 			utilisateur = utilisateurDAO.checkConnectUser(login, password);
-			return utilisateur;
 			
 		} catch(SQLException e) {
 			throw new BusinessException("Utilisateur non trouvé...");
 		}	
+		
+		return utilisateur;
 	}
 	
 	// --- INSCRIPTION ---

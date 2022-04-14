@@ -29,7 +29,18 @@
 				</c:otherwise>
 			</c:choose>
 		</div>
+		
 	</header>
+	
+	<c:if test="${erreurMessage != null }">
+		<span class="messageErreur">${erreurMessage}</span>
+	</c:if>
+	
+	<c:if test="${confirmationMessage != null }">
+		<span class="messageConfirmation">${confirmationMessage}</span>
+	</c:if>
+	
+	
 	
 	
 	<!-- TITRE DE LA PAGE -->
@@ -56,7 +67,7 @@
 					    <option value="dog">Informatique</option>
 					    <option value="cat">Ameublement</option>
 					    <option value="hamster">Vêtement</option>
-					    <option value="parrot">Sport&Loisir</option>
+					    <option value="parrot">SportETLoisir</option>
 					</select>
 				</div>
 			</div>
