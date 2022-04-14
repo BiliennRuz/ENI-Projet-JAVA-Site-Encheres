@@ -46,6 +46,7 @@ public class InscriptionServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		Utilisateur utilisateur = new Utilisateur();
+		
 		utilisateur.setPseudo(request.getParameter("pseudo"));
 		utilisateur.setNom(request.getParameter("nom"));
 		utilisateur.setPrenom(request.getParameter("prenom"));
@@ -54,11 +55,14 @@ public class InscriptionServlet extends HttpServlet {
 		utilisateur.setRue(request.getParameter("rue"));
 		utilisateur.setCodePostal(request.getParameter("codePostal"));
 		utilisateur.setVille(request.getParameter("ville"));
+		utilisateur.setMotDePasse(request.getParameter("motDePasse"));
 		
 		try {
 			utilisateurManager.ajouterUtilisateur(utilisateur);
-			System.out.println("Servlet succès");
+			
 			request.setAttribute("succes", "Vous êtes bien enregistré !");
+			request.setAttribute("utilisateur", utilisateur);
+			request.setAttribute("confirmationMessage", "Vous êtes connecté en tant que : " + utilisateur.getPseudo());
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/accueil.jsp");
 			rd.forward(request, response);
 		} catch (BusinessException e) {
