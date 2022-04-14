@@ -55,10 +55,9 @@ public class InscriptionServlet extends HttpServlet {
 		utilisateur.setCodePostal(request.getParameter("codePostal"));
 		utilisateur.setVille(request.getParameter("ville"));
 		
-		System.out.println("Servlet - " + utilisateur);
-		
 		try {
 			utilisateurManager.ajouterUtilisateur(utilisateur);
+			request.setAttribute("succes", "Vous êtes bien enregistré !");
 		} catch (BusinessException e) {
 			request.setAttribute("erreur", e.getMessage());
 			e.printStackTrace();
