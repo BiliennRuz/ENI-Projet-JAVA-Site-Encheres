@@ -33,6 +33,18 @@ public class UtilisateurManager {
 		return utilisateur;
 	}
 	
+	// --- SUPPRESION --- (#1004)
+	
+	public void supprimerUtilisateur(String pseudo) throws BusinessException, SQLException {
+		
+		try {
+			utilisateurDAO.deleteUser(pseudo);
+			
+		} catch(SQLException e) {
+			throw new BusinessException("Utilisateur non trouvé...");
+		}
+	}
+	
 	// --- INSCRIPTION --- (#1003)
 	
 	// Méthode principale pour vérifier la conformité de tous les champs inscrits par l'utilisateur
