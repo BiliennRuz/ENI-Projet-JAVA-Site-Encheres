@@ -22,7 +22,7 @@ public class UtilisateurManager {
 	public Utilisateur trouverUtilisateur(String login, String password) throws BusinessException, SQLException {
 		
 		Utilisateur utilisateur = new Utilisateur();
-		
+		password = decrypt(password);
 		try {
 			utilisateur = utilisateurDAO.checkConnectUser(login, password);
 			
@@ -108,7 +108,8 @@ public class UtilisateurManager {
 		// On alloue un crédit de 100 points au nouvel utilisateur
 		nouvelUtilisateur.setCredit(100);
 		
-		nouvelUtilisateur.setMotDePasse(utilisateur.getMotDePasse());
+		//nouvelUtilisateur.setMotDePasse(utilisateur.getMotDePasse());
+		nouvelUtilisateur.setMotDePasse(encrypt(utilisateur.getMotDePasse()));
 		
 		// On envoie le nouvel utilisateur à la DAO
 		utilisateurDAO.addUser(nouvelUtilisateur);
@@ -267,4 +268,24 @@ public class UtilisateurManager {
 //			throw new BusinessException("erreur SQL lors de l'insertion en base de donnée");
 //		}		
 //	}
+	
+	// Encryptage et decriptage du password
+    public String encrypt(String password){
+        String crypte="";
+        for (int i=0; i<password.length();i++)  {
+            int c=password.charAt(i)^48; 
+            crypte=crypte+(char)c;
+        }
+        return crypte;
+    }
+    
+    public String decrypt(String password){
+        String aCrypter="";
+        for (int i=0; i<password.length();i++)  {
+            int c=password.charAt(i)^48; 
+            aCrypter=aCrypter+(char)c;
+        }
+        return aCrypter;
+    }
+    
 }
