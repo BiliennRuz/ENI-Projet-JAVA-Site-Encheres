@@ -49,7 +49,7 @@
 	</form>
 	
 	<section class="creationCompte">
-		<a href="./inscription">Créer un compte</a>
+		<a class="boutonInscription" href="./inscription">Créer un compte</a>
 	</section>
 
 </body>

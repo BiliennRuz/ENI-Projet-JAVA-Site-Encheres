@@ -2,9 +2,11 @@ package fr.eni.projetencheres.bll;
 
 // --- IMPORTS ---
 import java.sql.SQLException;
-
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.servlet.http.HttpSession;
 
 import fr.eni.projetencheres.bo.Utilisateur;
 import fr.eni.projetencheres.dal.DAOFactory;
@@ -18,6 +20,7 @@ public class UtilisateurManager {
 	
 	// Méthode pour la Connexion 
 	public Utilisateur trouverUtilisateur(String login, String password) throws BusinessException, SQLException {
+		
 		Utilisateur utilisateur = new Utilisateur();
 		
 		try {
@@ -29,7 +32,6 @@ public class UtilisateurManager {
 		
 		return utilisateur;
 	}
-	
 	
 	// --- INSCRIPTION --- (#1003)
 	
@@ -80,7 +82,7 @@ public class UtilisateurManager {
 		else {
 			throw new BusinessException("Le CP est trop court");
 		}
-		// Tel :
+		// Téléphone :
 		if(verifierTelephone(utilisateur.getTelephone())) {
 			nouvelUtilisateur.setTelephone(utilisateur.getTelephone());
 		}
@@ -106,13 +108,37 @@ public class UtilisateurManager {
 	}
 	
 	// Vérifier la conformité du Pseudo
-	private boolean verifierPseudo(String pseudo) {
+	private boolean verifierPseudo(String pseudo) throws BusinessException, SQLException {
+		Pattern p;
+		Matcher m;
+		int compteur = 0;
+		
+		// Pour avoir uniquement des valeurs alphanumériques
+		p = Pattern.compile("^[a-zA-Z0-9]+$");
+		m = p.matcher(pseudo);
+		
+		if (!m.find()) {
+			// Si les caractères ne correspondent pas, on lance une exception
+			throw new BusinessException("Le pseudo ne doit comporter que des caractères alphanumériques");
+		} 
+		
+		// On vérifie qu'il n'existe pas de pseudo identique
 		if(verifierString(pseudo)) {
-			return true;
+			
+			List <Utilisateur> utilisateurs = utilisateurDAO.getUser();
+					
+			for(Utilisateur utilisateur : utilisateurs) {
+				if(utilisateur.getPseudo().equals(pseudo)) {
+					compteur++;
+				}
+			}
+			
+			if(compteur > 1) {
+				throw new BusinessException("Ce pseudo est déjà pris !");
+			}
 		}
-		else {
-			return false;
-		}
+			
+		return true;
 	}
 	// Vérifier la conformité du Nom
 	private boolean verifierNom(String nom) {
@@ -131,6 +157,31 @@ public class UtilisateurManager {
 		else {
 			return false;
 		}
+	}
+	// Vérification Email
+	private boolean verifierEmail(String email) throws SQLException {
+		Pattern p;
+		Matcher m;
+		int compteur = 0;
+				
+		// Pour avoir le format de l'Email
+		p = Pattern.compile("^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]{2,}\\.[a-z]{2,4}$");
+		m = p.matcher(email);
+				
+		if(verifierString(email)) {
+				
+			List <Utilisateur> utilisateurs = utilisateurDAO.getUser();
+						
+			for(Utilisateur utilisateur : utilisateurs) {
+				if(utilisateur.getEmail().equals(email)) {
+					compteur++;
+				}
+			}	
+		}
+		if(compteur > 1 || !m.find()) {
+			return false;
+		}	
+		return true;
 	}
 	// Vérifier la conformité de la Ville
 	private boolean verifierVille(String ville) {
@@ -174,43 +225,16 @@ public class UtilisateurManager {
 		return true;		
 	}
 	
-	// Vérification Email qui va être utilisée pour l'Inscription
-	private boolean verifierEmail(String email) {	
-		Pattern p;
-		Matcher m;
-		
-		p = Pattern.compile("^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]{2,}\\.[a-z]{2,4}$");
-		m = p.matcher(email);
-		if (m.find()) {
-		  return true;
-		} else {
-		  return false;
-		}
-	}
-	
+
 	// Vérifier que les 2 mots de passes correspondent (MDP et MDP confirmation)
-	private void verifierMotDePasseAvecMotDePasseConfirmation(String password, String passwordConfirm) throws BusinessException, SQLException {
+	public boolean verifierMotsDePasse(String password, String passwordConfirm) throws BusinessException, SQLException {
 		
-		if(password == passwordConfirm) {
-		// Les mots de passes sont les mêmes
+		if (password.equals(passwordConfirm)) {
+			return true;
 		} else {
-			throw new BusinessException("Les mots de passes ne correspondent pas");
+			throw new BusinessException("Les mots de passe ne concordent pas");
 		}
 	}
-	
-	// Vérification Login et Mot de Passe qui va être utilisée pour l'Inscription
-	private void verifierMotDePasseEtLogin(String login, String password) throws BusinessException, SQLException {
-	
-		if(login.length() < 3) {
-			throw new BusinessException("Le login doit comporter au moins 3 lettres");
-		}
-		if(password.length() < 3) {
-			throw new BusinessException("Le mot de passe doit comporter au moins 3 lettres");
-		}
-	}
-	
-	
-	
 
 	
 	
