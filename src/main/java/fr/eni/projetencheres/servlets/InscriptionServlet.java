@@ -20,21 +20,23 @@ import fr.eni.projetencheres.bo.Utilisateur;
 @WebServlet("/inscription")
 public class InscriptionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+
 	UtilisateurManager utilisateurManager = new UtilisateurManager();
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public InscriptionServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public InscriptionServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// Affichage de la page d'accueil
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/inscription.jsp");
 		rd.forward(request, response);
@@ -45,36 +47,41 @@ public class InscriptionServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		Utilisateur utilisateur = new Utilisateur();
-		
-		utilisateur.setPseudo(request.getParameter("pseudo"));
-		utilisateur.setNom(request.getParameter("nom"));
-		utilisateur.setPrenom(request.getParameter("prenom"));
-		utilisateur.setEmail(request.getParameter("email"));
-		utilisateur.setTelephone(request.getParameter("tel"));
-		utilisateur.setRue(request.getParameter("rue"));
-		utilisateur.setCodePostal(request.getParameter("codePostal"));
-		utilisateur.setVille(request.getParameter("ville"));
-		utilisateur.setMotDePasse(request.getParameter("motDePasse"));
-		
-		try {
-			utilisateurManager.ajouterUtilisateur(utilisateur);
+		if (utilisateurManager.verifierMotsdePasse(request.getParameter("motDePasse"), request.getParameter("motDePasseConfirm"))) {
+			Utilisateur utilisateur = new Utilisateur();
 			
-			request.setAttribute("succes", "Vous êtes bien enregistré !");
-			request.setAttribute("utilisateur", utilisateur);
-			request.setAttribute("confirmationMessage", "Vous êtes connecté en tant que : " + utilisateur.getPseudo());
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/accueil.jsp");
-			rd.forward(request, response);
-		} catch (BusinessException e) {
-			request.setAttribute("erreur", e.getMessage());
-			System.out.println("Servlet echec");
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/accueil.jsp");
-			rd.forward(request, response);
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			utilisateur.setPseudo(request.getParameter("pseudo"));
+			utilisateur.setNom(request.getParameter("nom"));
+			utilisateur.setPrenom(request.getParameter("prenom"));
+			utilisateur.setEmail(request.getParameter("email"));
+			utilisateur.setTelephone(request.getParameter("tel"));
+			utilisateur.setRue(request.getParameter("rue"));
+			utilisateur.setCodePostal(request.getParameter("codePostal"));
+			utilisateur.setVille(request.getParameter("ville"));
+			utilisateur.setMotDePasse(request.getParameter("motDePasse"));
+			
+			try {
+				utilisateurManager.ajouterUtilisateur(utilisateur);
+				
+				request.setAttribute("succes", "Vous êtes bien enregistré !");
+				request.setAttribute("utilisateur", utilisateur);
+				request.setAttribute("confirmationMessage", "Vous êtes connecté en tant que : " + utilisateur.getPseudo());
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/accueil.jsp");
+				rd.forward(request, response);
+			} catch (BusinessException e) {
+				request.setAttribute("erreur", e.getMessage());
+				System.out.println("Servlet echec");
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/accueil.jsp");
+				rd.forward(request, response);
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else {
+			request.setAttribute("messageErreur", "les mots de passe ne correspondent pas");
 		}
+		
 	}
 
 }

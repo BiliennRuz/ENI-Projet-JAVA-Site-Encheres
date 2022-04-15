@@ -77,6 +77,10 @@
 			<a class="boutonInscription" href="./">Annuler</a>
 		</div>
 		
+		<div class="erreurs">
+			<p>${messageErreur}</p>
+		</div>
+		
 	</form>
 
 </body>
