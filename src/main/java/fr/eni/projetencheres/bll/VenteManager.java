@@ -1,6 +1,7 @@
 package fr.eni.projetencheres.bll;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,14 +38,16 @@ public class VenteManager {
 	 */
 	public List<ArticleVendu> SearchArticleVente(String nom, int categorie, String statusVente) {
 		try {
-			System.out.println("DEBUG SearchArticleEnVente, String nom, int categorie, String statusVente : " + nom + categorie + statusVente );
 			// on recupere la liste de tous les articles
 			List<ArticleVendu> listeArticles = this.articleDAO.getArticle();
 			List<ArticleVendu> listeArticlesEnVente = new ArrayList<ArticleVendu>();
 			for (ArticleVendu articleVendu : listeArticles) {
-				// on filtre sur les vente en cour et avec la categorie selectionnée
-				if ((articleVendu.getStatusVente().equals(statusVente))
-						&& (articleVendu.getIdCategorie() == categorie)
+				// on filtre sur les vente en cour (date actuelle comprise ente date début et fin d'enchere)
+				// et avec la categorie selectionnée et l'element du nom selectionné
+
+				if ((articleVendu.getDateDebutEncheres().compareTo(LocalDate.now()) <= 0)
+						&& (articleVendu.getDateFinEncheres().compareTo(LocalDate.now()) >= 0)
+						&& ((articleVendu.getIdCategorie() == categorie) || (categorie == 0))
 						&& (articleVendu.getNomArticle().contains(nom))
 						) {
 					listeArticlesEnVente.add(articleVendu);

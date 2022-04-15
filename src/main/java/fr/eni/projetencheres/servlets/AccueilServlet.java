@@ -1,6 +1,7 @@
 package fr.eni.projetencheres.servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -34,9 +35,20 @@ public class AccueilServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 1 - on recupère les repas deouis la couche BLL
+				
+		// on recupère les repas deouis la couche BLL
 		List<Categorie> categories = this.venteManager.getCategorie();
+		// on balance les categories au JSP
 		request.setAttribute("categories", categories);
+		
+		// On envoi la liste des enchere en cour 
+		String article = request.getParameter("article");
+		if (article == null) article = "";
+		
+		String idCategorie = request.getParameter("idcategorie");
+		if (idCategorie == null) idCategorie = "0";
+		List<ArticleVendu> articles = this.venteManager.SearchArticleVente(article, Integer.valueOf(idCategorie), "Vente en cours");
+		request.setAttribute("articles", articles);
 		
 		// Affichage de la page d'accueil
 		HttpSession session = request.getSession();
@@ -50,17 +62,11 @@ public class AccueilServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		String article = request.getParameter("article");
-		String idCategorie = request.getParameter("categorie");
-		System.out.println("DEBUG article : " + article);
-		System.out.println("DEBUG idCategorie : " + idCategorie);
-		List<ArticleVendu> articles = this.venteManager.SearchArticleVente(article, 1, "Vente en cours");
-		System.out.println("DEBUG articles : " + articles);
-		request.setAttribute("articles", articles);
-		
-		// 3 - on délègue la génération de la réponse HTML à la JSP
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/accueil.jsp");
-		rd.forward(request, response);
+//		String article = request.getParameter("article");
+//		String idCategorie = request.getParameter("idcategorie");
+//		
+		// je redirige sur le formulaire
+		this.doGet(request, response);
 		
 	}
 
