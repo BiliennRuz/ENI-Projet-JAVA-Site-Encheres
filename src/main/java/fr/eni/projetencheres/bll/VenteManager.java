@@ -25,7 +25,7 @@ public class VenteManager {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return null; // si jamais y'a une exception onretournera null
+		return null; // si jamais il y a une exception on retournera null
 	}
 	
 	/**
@@ -37,6 +37,7 @@ public class VenteManager {
 	 */
 	public List<ArticleVendu> SearchArticleVente(String nom, int categorie, String statusVente) {
 		try {
+			System.out.println("DEBUG SearchArticleEnVente, String nom, int categorie, String statusVente : " + nom + categorie + statusVente );
 			// on recupere la liste de tous les articles
 			List<ArticleVendu> listeArticles = this.articleDAO.getArticle();
 			List<ArticleVendu> listeArticlesEnVente = new ArrayList<ArticleVendu>();
@@ -54,7 +55,7 @@ public class VenteManager {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return null; // si jamais y'a une exception onretournera null
+		return null; // si jamais il y a une exception on retournera null
 	}
 	
 

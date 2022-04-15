@@ -36,11 +36,9 @@
 				<div class="champsCategorie">
 					<label for="categorie">Catégorie : </label>
 					<select name="categorie" id="categorie">
-					    <option value="">toutes</option>
-					    <option value="dog">Informatique</option>
-					    <option value="cat">Ameublement</option>
-					    <option value="hamster">Vêtement</option>
-					    <option value="parrot">SportETLoisir</option>
+						<c:forEach var="categorie" items="${categories}">
+				 			<option value="${categorie.idCategorie}"><c:out value="${categorie.libelle}" /></option>
+				 		</c:forEach>
 					</select>
 				</div>
 			</div>
@@ -52,6 +50,29 @@
 			<button type="submit">Rechercher</button>
 		</div>
 	</form>
+	
+	
+	<!-- BLOC DE LA LISTE -->
+	
+	<table>
+		<thead>
+			<tr>
+				<th>Nom</th>
+				<th>Description</th>
+			</tr>
+		</thead>
+		<tbody>
+			<!-- pour chaque repas de ma liste contenue dans mon attribut de requête : listeRepas -->
+			<c:forEach var="articles" items="${articles}">
+				<!-- je crée une nouvelle ligne dans ma table HTML -->
+				<tr>
+					<td>${articles.nomArticle}</td> 
+					<td>${articles.description}</td>
+				</tr>
+			</c:forEach>
+		</tbody>
+	</table>
+	
 	
 </body>
 </html>

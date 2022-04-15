@@ -20,9 +20,9 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 	
 	// on définit nos requêtes SQL d'insertion/select avec des ? qu'on remplira par la suite
 
-	private final static String SELECT_ARTICLE = "select * from ARTICLES;";
-	private final static String INSERT_ARTICLE = "insert into ARTICLES(prix_initial, prix_vente, no_utilisateur, no_categorie, nom_article, description, date_debut_encheres, date_fin_encheres, status_vente) values(?,?,?,?,?,?,?,?,?);";
-	private final static String UPDATE_ARTICLE = "update ARTICLES set prix_initial=?, prix_vente=?, no_utilisateur=?, no_categorie=?, nom_article=?, description=?, date_debut_encheres=?, date_fin_encheres=?, status_vente=? WHERE no_utilisateur=?";
+	private final static String SELECT_ARTICLE = "select * from ARTICLES_VENDUS;";
+	private final static String INSERT_ARTICLE = "insert into ARTICLES_VENDUS(prix_initial, prix_vente, no_utilisateur, no_categorie, nom_article, description, date_debut_encheres, date_fin_encheres, status_vente) values(?,?,?,?,?,?,?,?,?);";
+	private final static String UPDATE_ARTICLE = "update ARTICLES_VENDUS set prix_initial=?, prix_vente=?, no_utilisateur=?, no_categorie=?, nom_article=?, description=?, date_debut_encheres=?, date_fin_encheres=?, status_vente=? WHERE no_utilisateur=?";
 	
 	
 	
