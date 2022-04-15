@@ -74,9 +74,12 @@
 		</div>
 		<div class="blocInscription blocBoutonsInscription">
 			<button class="boutonInscription" type="submit">Modifier</button>
-			<a class="boutonInscription" href="./">Annuler</a>
 		</div>
 		
+	</form>
+	
+	<form class="supprimerCompte" action="./supprimerCompte" method="POST">
+		<button class="boutonInscription" type="submit">Supprimer mon compte</button>
 	</form>
 	
 </body>
