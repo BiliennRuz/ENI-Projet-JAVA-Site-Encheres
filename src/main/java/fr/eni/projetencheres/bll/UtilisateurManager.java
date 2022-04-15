@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.servlet.http.HttpSession;
+
 import fr.eni.projetencheres.bo.Utilisateur;
 import fr.eni.projetencheres.dal.DAOFactory;
 import fr.eni.projetencheres.dal.UtilisateurDAO;
@@ -217,9 +219,13 @@ public class UtilisateurManager {
 	
 
 	// Vérifier que les 2 mots de passes correspondent (MDP et MDP confirmation)
-	private boolean verifierMotsDePasse(String password, String passwordConfirm) throws BusinessException, SQLException {
+	public boolean verifierMotsDePasse(String password, String passwordConfirm) throws BusinessException, SQLException {
 		
-		return (password.equals(passwordConfirm));
+		if (password.equals(passwordConfirm)) {
+			return true;
+		} else {
+			throw new BusinessException("Les mots de passe ne concordent pas");
+		}
 	}
 
 	
