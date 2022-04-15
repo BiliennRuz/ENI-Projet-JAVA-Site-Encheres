@@ -67,6 +67,7 @@ public class InscriptionServlet extends HttpServlet {
 				try {
 					// Ensuite on ajoute l'utilisateur
 					utilisateurManager.ajouterUtilisateur(utilisateur);
+					// On ajoute l'utilisateur connecté à la session
 					HttpSession session = request.getSession();
 					session.setAttribute("utilisateurConnecte", utilisateur);
 					request.setAttribute("succes", "Vous êtes bien enregistré !");
@@ -76,8 +77,9 @@ public class InscriptionServlet extends HttpServlet {
 					rd.forward(request, response);
 				} catch (BusinessException e) {
 					// On récupère l'exception lancée par la fonction ajouterUtilisateur de utilisateurManager
-					request.setAttribute("erreur", e.getMessage());
-					RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/accueil.jsp");
+					request.setAttribute("messageErreur", e.getMessage());
+					request.setAttribute("utilisateur", utilisateur);
+					RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/inscription.jsp");
 					rd.forward(request, response);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block

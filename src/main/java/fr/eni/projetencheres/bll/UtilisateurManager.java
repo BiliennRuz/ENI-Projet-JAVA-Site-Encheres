@@ -44,9 +44,7 @@ public class UtilisateurManager {
 		if(verifierPseudo(utilisateur.getPseudo())) {
 			nouvelUtilisateur.setPseudo(utilisateur.getPseudo());
 		}
-		else {
-			throw new BusinessException("Le pseudo est trop court");
-		}
+		
 		// Nom :
 		if(verifierNom(utilisateur.getNom())) {
 			nouvelUtilisateur.setNom(utilisateur.getNom());
