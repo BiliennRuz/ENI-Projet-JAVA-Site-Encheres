@@ -91,9 +91,6 @@ public class UtilisateurManager {
 		if(verifierEmail(utilisateur.getEmail())) {
 			nouvelUtilisateur.setEmail(utilisateur.getEmail());
 		}
-		else {
-			throw new BusinessException("L'Email est trop court");
-		}
 		
 		// On alloue un crédit de 100 points au nouvel utilisateur
 		nouvelUtilisateur.setCredit(100);
@@ -157,7 +154,7 @@ public class UtilisateurManager {
 		}
 	}
 	// Vérification Email
-	private boolean verifierEmail(String email) throws SQLException {
+	private boolean verifierEmail(String email) throws BusinessException, SQLException {
 		Pattern p;
 		Matcher m;
 		int compteur = 0;
@@ -165,6 +162,10 @@ public class UtilisateurManager {
 		// Pour avoir le format de l'Email
 		p = Pattern.compile("^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]{2,}\\.[a-z]{2,4}$");
 		m = p.matcher(email);
+		
+		if(!m.find()) {
+			throw new BusinessException("L'email doit être valide");
+		}
 				
 		if(verifierString(email)) {
 				
@@ -174,11 +175,13 @@ public class UtilisateurManager {
 				if(utilisateur.getEmail().equals(email)) {
 					compteur++;
 				}
-			}	
+			}
+			
+			if(compteur >= 1) {
+				throw new BusinessException("Cet email est déjà pris !");
+			}
 		}
-		if(compteur > 1 || !m.find()) {
-			return false;
-		}	
+			
 		return true;
 	}
 	// Vérifier la conformité de la Ville
