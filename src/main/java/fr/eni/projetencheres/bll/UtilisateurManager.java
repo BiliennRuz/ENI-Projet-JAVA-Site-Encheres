@@ -108,7 +108,7 @@ public class UtilisateurManager {
 	}
 	
 	// Vérifier la conformité du Pseudo
-	private boolean verifierPseudo(String pseudo) throws SQLException {
+	private boolean verifierPseudo(String pseudo) throws BusinessException, SQLException {
 		Pattern p;
 		Matcher m;
 		int compteur = 0;
@@ -117,6 +117,12 @@ public class UtilisateurManager {
 		p = Pattern.compile("^[a-zA-Z0-9]+$");
 		m = p.matcher(pseudo);
 		
+		if (!m.find()) {
+			// Si les caractères ne correspondent pas, on lance une exception
+			throw new BusinessException("Le pseudo ne doit comporter que des caractères alphanumériques");
+		} 
+		
+		// On vérifie qu'il n'existe pas de pseudo identique
 		if(verifierString(pseudo)) {
 			
 			List <Utilisateur> utilisateurs = utilisateurDAO.getUser();
@@ -125,11 +131,13 @@ public class UtilisateurManager {
 				if(utilisateur.getPseudo().equals(pseudo)) {
 					compteur++;
 				}
-			}	
+			}
+			
+			if(compteur > 1) {
+				throw new BusinessException("Ce pseudo est déjà pris !");
+			}
 		}
-		if(compteur > 1 || !m.find()) {
-			return false;
-		}	
+			
 		return true;
 	}
 	// Vérifier la conformité du Nom
