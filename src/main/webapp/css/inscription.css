@@ -8,7 +8,6 @@
 
 .blocChamps {
 	flex-direction: column;
-	border: 1px solid #000;
 }
 
 .blocInputs {
@@ -16,21 +15,56 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	border: 1px solid red;
 }
 
 .blocLabelinput {
-	border: 1px solid green;
 	width: 50%;
 	display: flex;
-	justify-content: space-between;
+	justify-content: center;
 	align-items: center;
 	margin-bottom: 20px;
 	height: 50px;
 }
 
 .blocLabelinput input {
-	border: 1px solid #ccc;
-	width: 60%;
+	width: 70%;
 	height: 40px;
+	margin-right: 20px;
 }
+
+.blocLabelinput label {
+	width: 30%;
+}
+
+.blocBoutonsInscription {
+	margin-top: 40px;
+	width: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.boutonInscription {
+	border: 1px solid #ccc;
+	padding: 20px;
+	background-color: #ccc;
+	color: #000;
+	text-decoration: none;
+	font-family: arial;
+	font-size: 16px;
+	margin: 20px;
+	border-radius: 5px;
+	box-shadow: 2px 2px 4px #000;
+	cursor: pointer;
+}
+
+.erreurs {
+	width: 50%;
+	margin: auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: red;
+}
+
+

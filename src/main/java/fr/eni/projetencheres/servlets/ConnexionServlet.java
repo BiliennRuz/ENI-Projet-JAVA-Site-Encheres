@@ -56,6 +56,7 @@ public class ConnexionServlet extends HttpServlet {
 			request.setAttribute("utilisateur", utilisateur);
 			HttpSession session = request.getSession();
 			session.setAttribute("utilisateurConnecte", utilisateur);
+			session.setAttribute("confirmationMessage", "Vous êtes connecté en tant que : " + utilisateur.getPseudo());
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/accueil.jsp");
 			rd.forward(request, response);
 		} catch (BusinessException | SQLException e) {
