@@ -46,6 +46,7 @@ public class SupprimerCompteServlet extends HttpServlet {
 		String pseudo = request.getParameter("pseudo");
 		
 		try {
+			System.out.println("Servlet - try dopost");
 			utilisateurManager.supprimerUtilisateur(pseudo);
 		} catch (BusinessException e) {
 			// TODO Auto-generated catch block

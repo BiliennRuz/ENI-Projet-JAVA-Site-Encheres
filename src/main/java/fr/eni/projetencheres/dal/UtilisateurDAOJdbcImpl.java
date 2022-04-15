@@ -180,6 +180,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	 */
 	@Override
 	public void deleteUser(String pseudo) throws SQLException {
+		
 		// On fait appel à la classe ConnectionProvider pour recupérer une connexion depuis notre pool
 		Connection cnx = ConnectionProvider.getConnection();
 		
@@ -192,7 +193,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		
 		// 3 - j'execute la requête SQL
 		pStmt.executeUpdate(); // ici , il faut faire executeUpdate() et pas executeQuery() parce qu'on modifie des données
-				
+		
 		// on ferme la connexion quand tout a été ajouté
 		cnx.close();
 	}
