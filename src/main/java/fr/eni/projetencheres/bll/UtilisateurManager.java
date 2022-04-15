@@ -38,6 +38,7 @@ public class UtilisateurManager {
 	public void supprimerUtilisateur(String pseudo) throws BusinessException, SQLException {
 		
 		try {
+			System.out.println("Manager - try supprimerUtilisateur");
 			utilisateurDAO.deleteUser(pseudo);
 			
 		} catch(SQLException e) {
