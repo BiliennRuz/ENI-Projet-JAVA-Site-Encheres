@@ -31,7 +31,6 @@ public class UtilisateurManager {
 		return utilisateur;
 	}
 	
-	
 	// --- INSCRIPTION --- (#1003)
 	
 	// Méthode principale pour vérifier la conformité de tous les champs inscrits par l'utilisateur
@@ -216,29 +215,15 @@ public class UtilisateurManager {
 		return true;		
 	}
 	
-	
-	
-	// -----------------------------------------------------------------------------------------------------------------------------------------
+
 	// Vérifier que les 2 mots de passes correspondent (MDP et MDP confirmation)
-	private void verifierMotDePasseAvecMotDePasseConfirmation(String password, String passwordConfirm) throws BusinessException, SQLException {
+	private boolean verifierMotsDePasse(String password, String passwordConfirm) throws BusinessException, SQLException {
 		
-		if(password == passwordConfirm) {
-		// Les mots de passes sont les mêmes
-		} else {
-			throw new BusinessException("Les mots de passes ne correspondent pas");
-		}
+		return (password.equals(passwordConfirm));
 	}
+
 	
-	// Vérification Login et Mot de Passe qui va être utilisée pour l'Inscription
-	private void verifierMotDePasseEtLogin(String login, String password) throws BusinessException, SQLException {
 	
-		if(login.length() < 3) {
-			throw new BusinessException("Le login doit comporter au moins 3 lettres");
-		}
-		if(password.length() < 3) {
-			throw new BusinessException("Le mot de passe doit comporter au moins 3 lettres");
-		}
-	}
 	
 	
 //	private void validationConnexion(String login, String password) throws BusinessException, SQLException {
