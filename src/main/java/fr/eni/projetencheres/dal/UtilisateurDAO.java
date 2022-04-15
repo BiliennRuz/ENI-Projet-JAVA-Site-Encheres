@@ -11,4 +11,5 @@ public interface UtilisateurDAO {
 	public void addUser(Utilisateur user) throws SQLException;
 	public void updateUser(Utilisateur user) throws SQLException;
 	public Utilisateur checkConnectUser(String login, String password) throws SQLException;
+	public void deleteUser(String pseudo) throws SQLException;
 }
