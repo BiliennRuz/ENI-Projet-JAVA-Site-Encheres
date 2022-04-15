@@ -51,14 +51,15 @@ public class ConnexionServlet extends HttpServlet {
 		String password = request.getParameter("motDePasse");
 		
 		try {
+			// On demande au manager de trouver l'utilisateur
 			utilisateur = utilisateurManager.trouverUtilisateur(login, password);
-			request.setAttribute("confirmationMessage", "Vous êtes connecté en tant que : " + utilisateur.getPseudo());
-			request.setAttribute("utilisateur", utilisateur);
+			// On récupère la session
 			HttpSession session = request.getSession();
+			// On y ajoute les attributs
 			session.setAttribute("utilisateurConnecte", utilisateur);
 			session.setAttribute("confirmationMessage", "Vous êtes connecté en tant que : " + utilisateur.getPseudo());
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/accueil.jsp");
-			rd.forward(request, response);
+			// On redirige sur la page d'accueil
+			response.sendRedirect("./");
 		} catch (BusinessException | SQLException e) {
 			request.setAttribute("erreurMessage", e.getMessage());
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/accueil.jsp");
