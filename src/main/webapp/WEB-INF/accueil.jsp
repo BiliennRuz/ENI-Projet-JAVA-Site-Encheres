@@ -59,11 +59,6 @@
 			</div>
 		</div>
 		
-
-
-
-		
-		
 		<!-- BLOC DU BOUTON DE RECHERCHE -->
 		
 		<div class="blocBoutonRecherche">
