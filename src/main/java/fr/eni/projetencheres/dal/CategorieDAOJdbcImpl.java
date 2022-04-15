@@ -47,6 +47,7 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
 		while (rs.next()) {
 			// pour chaque ligne , j'ajoute le categorie correspondant à ma liste
 			Categorie categorie = new Categorie(
+					rs.getInt("no_categorie"),
 					rs.getString("libelle")
 					);
 			listeCategories.add(categorie); // une fois le categorie créé je l'ajoute à ma liste

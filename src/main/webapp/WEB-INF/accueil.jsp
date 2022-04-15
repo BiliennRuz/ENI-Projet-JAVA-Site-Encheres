@@ -34,8 +34,9 @@
 				<h3>Filtres :</h3>
 				<input type="text" name="article" id="article" placeholder="Le nom de l'article contient">
 				<div class="champsCategorie">
-					<label for="categorie">Catégorie : </label>
-					<select name="categorie" id="categorie">
+					<label>Catégorie : </label>
+					<select name="idcategorie">
+						<option value="0">Toutes</option>
 						<c:forEach var="categorie" items="${categories}">
 				 			<option value="${categorie.idCategorie}"><c:out value="${categorie.libelle}" /></option>
 				 		</c:forEach>
@@ -58,7 +59,9 @@
 		<thead>
 			<tr>
 				<th>Nom</th>
-				<th>Description</th>
+				<th>Prix</th>
+				<th>Fin de l'enchère</th>
+				<th>Vendeur</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -67,7 +70,9 @@
 				<!-- je crée une nouvelle ligne dans ma table HTML -->
 				<tr>
 					<td>${articles.nomArticle}</td> 
-					<td>${articles.description}</td>
+					<td>${articles.prixInitial}</td>
+					<td>${articles.dateFinEncheres}</td>
+					<td>${articles.vendeur}</td>
 				</tr>
 			</c:forEach>
 		</tbody>

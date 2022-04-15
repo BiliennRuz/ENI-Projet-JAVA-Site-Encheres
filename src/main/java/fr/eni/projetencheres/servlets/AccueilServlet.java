@@ -1,6 +1,7 @@
 package fr.eni.projetencheres.servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -34,9 +35,20 @@ public class AccueilServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 1 - on recupère les repas deouis la couche BLL
+				
+		// on recupère les repas deouis la couche BLL
 		List<Categorie> categories = this.venteManager.getCategorie();
+		System.out.println("DEBUG categories : " + categories);
+//		// on ajoute une categorie "toutes"
+//		Categorie categorieToutes = new Categorie("Toutes");
+//		categorieToutes.setIdCategorie(0);
+//		categories.add(categorieToutes);
+		// on balance les categories au JSP
 		request.setAttribute("categories", categories);
+		
+		// On envoi la liste des enchere en cour 
+		List<ArticleVendu> articles = this.venteManager.SearchArticleVente("", 0, "Vente en cours");
+		request.setAttribute("articles", articles);
 		
 		// Affichage de la page d'accueil
 		HttpSession session = request.getSession();
@@ -51,11 +63,10 @@ public class AccueilServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String article = request.getParameter("article");
-		String idCategorie = request.getParameter("categorie");
+		String idCategorie = request.getParameter("idcategorie");
 		System.out.println("DEBUG article : " + article);
 		System.out.println("DEBUG idCategorie : " + idCategorie);
-		List<ArticleVendu> articles = this.venteManager.SearchArticleVente(article, 1, "Vente en cours");
-		System.out.println("DEBUG articles : " + articles);
+		List<ArticleVendu> articles = this.venteManager.SearchArticleVente(article, Integer.valueOf(idCategorie), "Vente en cours");
 		request.setAttribute("articles", articles);
 		
 		// 3 - on délègue la génération de la réponse HTML à la JSP

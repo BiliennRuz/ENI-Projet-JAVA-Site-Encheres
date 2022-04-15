@@ -8,10 +8,19 @@ public class Categorie {
 	private String libelle;
 	private ArrayList<ArticleVendu> listeArticles  = new ArrayList<ArticleVendu>();
 	
+	public Categorie() {
+		super();
+	}
 	public Categorie(String libelle) {
 		super();
 		this.libelle = libelle;
 	}
+	public Categorie(int idCategorie, String libelle) {
+		super();
+		this.idCategorie = idCategorie;
+		this.libelle = libelle;
+	}
+	
 	public int getIdCategorie() {
 		return idCategorie;
 	}
