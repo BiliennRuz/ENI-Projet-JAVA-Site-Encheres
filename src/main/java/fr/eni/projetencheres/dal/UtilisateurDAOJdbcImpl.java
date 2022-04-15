@@ -23,7 +23,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	private final static String INSERT_UTILISATEUR = "insert into UTILISATEURS(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) values(?,?,?,?,?,?,?,?,?,?,?);";
 	private final static String UPDATE_UTILISATEUR = "update UTILISATEURS set pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=?, mot_de_passe=?, credit=?, administrateur=? WHERE no_utilisateur=?";
 	private final static String CHECK_UTILISATEUR = "select * from UTILISATEURS where (pseudo=? or email=?) and mot_de_passe=?;";
-	
+	private final static String DELETE_UTILISATEUR = "delete from UTILISATEURS where pseudo=?;";
 	
 	/**
 	 * getUser() : recupère la liste des user depuis la base de donnée
@@ -116,7 +116,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		Connection cnx = ConnectionProvider.getConnection();
 		
 		// 1 - on crée une "requête préparée" à partir de la connexion recupérée et de notre template de requête SQL ( attribut INSERT)
-		PreparedStatement pStmt = cnx.prepareStatement(UPDATE_UTILISATEUR,Statement.RETURN_GENERATED_KEYS);
+		PreparedStatement pStmt = cnx.prepareStatement(UPDATE_UTILISATEUR);
 		
 		// 2 - je remplace les ? de ma requête par les valeurs correspondantes
 		
@@ -175,4 +175,26 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		return user;		
 	}
 
+	/**
+	 * delete(String pseudo) peut lancer potentiellement des exception de type SQLException (il faudra le gérer dans la classe qui appelle le DAO : UtilisateurManager)
+	 */
+	@Override
+	public void deleteUser(String pseudo) throws SQLException {
+		// On fait appel à la classe ConnectionProvider pour recupérer une connexion depuis notre pool
+		Connection cnx = ConnectionProvider.getConnection();
+		
+		// 1 - on crée une "requête préparée" à partir de la connexion recupérée et de notre template de requête SQL ( attribut INSERT)
+		PreparedStatement pStmt = cnx.prepareStatement(DELETE_UTILISATEUR);
+		
+		// 2 - je remplace les ? de ma requête par les valeurs correspondantes
+		//update UTILISATEURS set pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=?, mot_de_passe=?, credit=?, administrateur=? WHERE no_utilisateur=?"
+		pStmt.setString(1, pseudo);
+		
+		// 3 - j'execute la requête SQL
+		pStmt.executeUpdate(); // ici , il faut faire executeUpdate() et pas executeQuery() parce qu'on modifie des données
+				
+		// on ferme la connexion quand tout a été ajouté
+		cnx.close();
+	}
+	
 }
