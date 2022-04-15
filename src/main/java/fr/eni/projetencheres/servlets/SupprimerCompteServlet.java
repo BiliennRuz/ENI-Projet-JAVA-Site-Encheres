@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import fr.eni.projetencheres.bll.BusinessException;
 import fr.eni.projetencheres.bll.UtilisateurManager;
+import fr.eni.projetencheres.bo.Utilisateur;
 
 /**
  * Servlet implementation class SupprimerCompteServlet
@@ -43,10 +44,11 @@ public class SupprimerCompteServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String pseudo = request.getParameter("pseudo");
+		HttpSession session = request.getSession();
+		Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateurConnecte");
+		String pseudo = utilisateur.getPseudo();
 		
 		try {
-			System.out.println("Servlet - try dopost");
 			utilisateurManager.supprimerUtilisateur(pseudo);
 		} catch (BusinessException e) {
 			// TODO Auto-generated catch block
@@ -56,8 +58,6 @@ public class SupprimerCompteServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		// Je récupère la session
-		HttpSession session = request.getSession();
 		// J'utilise la fonction invalidate() pour fermer la session
 		session.invalidate();
 		// Je redirige sur la page d'accueil

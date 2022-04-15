@@ -38,7 +38,6 @@ public class UtilisateurManager {
 	public void supprimerUtilisateur(String pseudo) throws BusinessException, SQLException {
 		
 		try {
-			System.out.println("Manager - try supprimerUtilisateur");
 			utilisateurDAO.deleteUser(pseudo);
 			
 		} catch(SQLException e) {
@@ -122,7 +121,7 @@ public class UtilisateurManager {
 		int compteur = 0;
 		
 		// Pour avoir uniquement des valeurs alphanumériques
-		p = Pattern.compile("^[a-zA-Z0-9]+$");
+		p = Pattern.compile("^[a-zA-Z0-9é]+$");
 		m = p.matcher(pseudo);
 		
 		if (!m.find()) {
@@ -141,7 +140,7 @@ public class UtilisateurManager {
 				}
 			}
 			
-			if(compteur > 1) {
+			if(compteur >= 1) {
 				throw new BusinessException("Ce pseudo est déjà pris !");
 			}
 		}
