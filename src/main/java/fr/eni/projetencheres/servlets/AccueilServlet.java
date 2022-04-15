@@ -38,16 +38,16 @@ public class AccueilServlet extends HttpServlet {
 				
 		// on recupère les repas deouis la couche BLL
 		List<Categorie> categories = this.venteManager.getCategorie();
-		System.out.println("DEBUG categories : " + categories);
-//		// on ajoute une categorie "toutes"
-//		Categorie categorieToutes = new Categorie("Toutes");
-//		categorieToutes.setIdCategorie(0);
-//		categories.add(categorieToutes);
 		// on balance les categories au JSP
 		request.setAttribute("categories", categories);
 		
 		// On envoi la liste des enchere en cour 
-		List<ArticleVendu> articles = this.venteManager.SearchArticleVente("", 0, "Vente en cours");
+		String article = request.getParameter("article");
+		if (article == null) article = "";
+		
+		String idCategorie = request.getParameter("idcategorie");
+		if (idCategorie == null) idCategorie = "0";
+		List<ArticleVendu> articles = this.venteManager.SearchArticleVente(article, Integer.valueOf(idCategorie), "Vente en cours");
 		request.setAttribute("articles", articles);
 		
 		// Affichage de la page d'accueil
@@ -62,16 +62,11 @@ public class AccueilServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		String article = request.getParameter("article");
-		String idCategorie = request.getParameter("idcategorie");
-		System.out.println("DEBUG article : " + article);
-		System.out.println("DEBUG idCategorie : " + idCategorie);
-		List<ArticleVendu> articles = this.venteManager.SearchArticleVente(article, Integer.valueOf(idCategorie), "Vente en cours");
-		request.setAttribute("articles", articles);
-		
-		// 3 - on délègue la génération de la réponse HTML à la JSP
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/accueil.jsp");
-		rd.forward(request, response);
+//		String article = request.getParameter("article");
+//		String idCategorie = request.getParameter("idcategorie");
+//		
+		// je redirige sur le formulaire
+		this.doGet(request, response);
 		
 	}
 
