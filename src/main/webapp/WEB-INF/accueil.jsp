@@ -42,8 +42,27 @@
 				 		</c:forEach>
 					</select>
 				</div>
+				<c:if test="${utilisateurConnecte != null}"> 
+					<div>
+						<input type="radio" name="achatvente" value="achat" />Achat<br />
+						<input type="checkbox" name="achat" value="Enchère ouvertes" />Enchère ouvertes<br />
+						<input type="checkbox" name="achat" value="Mes enchères" />Mes enchères<br />
+						<input type="checkbox" name="achat" value="Mes enchères remportées" />Mes enchères remportées<br />
+					<div>
+					</div>
+						<input type="radio" name="achatvente" value="vente" />Vente<br />
+						<input type="checkbox" name="vente" value="Vente non débuté" />Vente non débuté<br />
+						<input type="checkbox" name="vente" value="Vente en cours" />Vente en cours<br />
+						<input type="checkbox" name="vente" value="Vente terminée" />Vente terminée<br />
+					</div>
+				</c:if>
 			</div>
 		</div>
+		
+
+
+
+		
 		
 		<!-- BLOC DU BOUTON DE RECHERCHE -->
 		

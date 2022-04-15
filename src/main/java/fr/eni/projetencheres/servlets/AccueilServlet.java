@@ -62,9 +62,6 @@ public class AccueilServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-//		String article = request.getParameter("article");
-//		String idCategorie = request.getParameter("idcategorie");
-//		
 		// je redirige sur le formulaire
 		this.doGet(request, response);
 		
