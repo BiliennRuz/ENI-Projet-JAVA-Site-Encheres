@@ -48,6 +48,7 @@ public class InscriptionServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		HttpSession session = request.getSession();
 		request.setCharacterEncoding("UTF-8");
 		
 		Utilisateur utilisateur = new Utilisateur();
@@ -69,18 +70,15 @@ public class InscriptionServlet extends HttpServlet {
 				try {
 					// Ensuite on ajoute l'utilisateur
 					utilisateurManager.ajouterUtilisateur(utilisateur);
-					// On ajoute l'utilisateur connecté à la session
-					HttpSession session = request.getSession();
 					session.setAttribute("utilisateurConnecte", utilisateur);
-					request.setAttribute("succes", "Vous êtes bien enregistré !");
-					request.setAttribute("utilisateur", utilisateur);
-					request.setAttribute("confirmationMessage", "Vous êtes connecté en tant que : " + utilisateur.getPseudo());
-					RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/accueil.jsp");
-					rd.forward(request, response);
+					session.setAttribute("succes", "Vous êtes bien enregistré !");
+					session.setAttribute("utilisateur", utilisateur);
+					session.setAttribute("confirmationMessage", "Vous êtes connecté en tant que : " + utilisateur.getPseudo());
+					response.sendRedirect("./");
 				} catch (BusinessException e) {
 					// On récupère l'exception lancée par la fonction ajouterUtilisateur de utilisateurManager
-					request.setAttribute("messageErreur", e.getMessage());
-					request.setAttribute("utilisateur", utilisateur);
+					session.setAttribute("messageErreur", e.getMessage());
+					session.setAttribute("utilisateur", utilisateur);
 					RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/inscription.jsp");
 					rd.forward(request, response);
 				} catch (SQLException e) {
@@ -88,12 +86,12 @@ public class InscriptionServlet extends HttpServlet {
 					e.printStackTrace();
 				}
 			} else {
-				request.setAttribute("messageErreur", "les mots de passe ne correspondent pas");
+				session.setAttribute("messageErreur", "les mots de passe ne correspondent pas");
 			}
 		} catch (BusinessException e) {
 			// On récupère l'exception lancée par la fonction verifierMotsDepasse de utilisateurManager
-			request.setAttribute("messageErreur", e.getMessage());
-			request.setAttribute("utilisateur", utilisateur);
+			session.setAttribute("messageErreur", e.getMessage());
+			session.setAttribute("utilisateur", utilisateur);
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/inscription.jsp");
 			rd.forward(request, response);
 			e.printStackTrace();
