@@ -12,11 +12,6 @@ public class ArticleVendu {
 	private Utilisateur vendeur;
 	private Retrait lieuRetrait;
 	private Categorie categorieArticle;
-
-	// Status de l'article en vente
-	//	- Vente non débuté
-	//	- Vente en cours
-	//	- Vente terminée
 	private String statusVente;
 	
 	public ArticleVendu() {

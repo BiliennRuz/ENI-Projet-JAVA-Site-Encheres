@@ -20,8 +20,9 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	// on définit nos requêtes SQL d'insertion/select avec des ? qu'on remplira par la suite
 
 	private final static String SELECT_UTILISATEUR = "select * from UTILISATEURS;";
+	private final static String SELECT_UTILISATEUR_BY_ID = "select * from UTILISATEURS WHERE no_utilisateur=?;";
 	private final static String INSERT_UTILISATEUR = "insert into UTILISATEURS(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) values(?,?,?,?,?,?,?,?,?,?,?);";
-	private final static String UPDATE_UTILISATEUR = "update UTILISATEURS set pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=?, mot_de_passe=?, credit=?, administrateur=? WHERE no_utilisateur=?";
+	private final static String UPDATE_UTILISATEUR = "update UTILISATEURS set no_utilisateur=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=?, mot_de_passe=?, credit=?, administrateur=? WHERE pseudo=?;";
 	private final static String CHECK_UTILISATEUR = "select * from UTILISATEURS where (pseudo=? or email=?) and mot_de_passe=?;";
 	private final static String DELETE_UTILISATEUR = "delete from UTILISATEURS where pseudo=?;";
 	
@@ -66,6 +67,46 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		
 		return listeUtilisateurs; // pour finir je renvoie ma liste remplie precédemment
 	}
+	
+	/**
+	 * getUser() : recupère la liste des user depuis la base de donnée
+	 * @throws SQLException 
+	 */
+	@Override
+	public Utilisateur getUserById(int idUtilisateur) throws SQLException {
+		// On fait appel à la classe ConnectionProvider pour recupérer une connexion depuis notre pool
+		Connection cnx = ConnectionProvider.getConnection();
+		
+		// 1 - on crée une "requête" standard car pas besoin de changer de ? avec des valeurs de variables
+		Statement stmt = cnx.createStatement();
+		
+		// 1 - on crée une "requête préparée" à partir de la connexion recupérée et de notre template de requête SQL ( attribut INSERT)
+		PreparedStatement pStmt = cnx.prepareStatement(SELECT_UTILISATEUR_BY_ID);
+		pStmt.setInt(1, idUtilisateur);
+		
+		// 2 - je l'execute et je recupère une réference sur les resultats dans un ResultSet
+		ResultSet rs = pStmt.executeQuery();
+
+		// 4 - je parcours mes resultats pour remplir ma liste des user que je vais renvoyer
+		rs.next();
+		Utilisateur user = new Utilisateur(
+				rs.getString("pseudo"),
+				rs.getString("nom"),
+				rs.getString("prenom"),
+				rs.getString("email"),
+				rs.getString("rue"),
+				rs.getString("ville"),
+				rs.getString("mot_de_passe"),
+				rs.getInt("no_utilisateur"),
+				rs.getString("telephone"),
+				rs.getString("code_postal"),
+				rs.getFloat("credit"),
+				rs.getBoolean("administrateur")
+				);
+		return user;		
+	}
+	
+	
 	
 	/**
 	 * add(Utilisateur user) peut lancer potentiellement des exception de type SQLException (il faudra le gérer dans la classe qui appelle le DAO : UtilisateurManager)
@@ -121,8 +162,8 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		// 2 - je remplace les ? de ma requête par les valeurs correspondantes
 		
 		// je remplace le premier ? de ma requête par la date de mon objet Utilisateur		
-		//update UTILISATEURS set pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=?, mot_de_passe=?, credit=?, administrateur=? WHERE no_utilisateur=?"
-		pStmt.setString(1, user.getPseudo());
+		//update UTILISATEURS set id=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=?, mot_de_passe=?, credit=?, administrateur=? WHERE no_utilisateur=?"
+		pStmt.setInt(1, user.getIdUtilisateur());
 		pStmt.setString(2, user.getNom());
 		pStmt.setString(3, user.getPrenom());
 		pStmt.setString(4, user.getEmail());
@@ -133,7 +174,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		pStmt.setString(9, user.getMotDePasse());
 		pStmt.setFloat(10, user.getCredit());
 		pStmt.setBoolean(11, user.isAdministrateur());
-		pStmt.setInt(12, user.getIdUtilisateur());
+		pStmt.setString(12, user.getPseudo());
 		
 		// 3 - j'execute la requête SQL
 		pStmt.executeUpdate(); // ici , il faut faire executeUpdate() et pas executeQuery() parce qu'on modifie des données

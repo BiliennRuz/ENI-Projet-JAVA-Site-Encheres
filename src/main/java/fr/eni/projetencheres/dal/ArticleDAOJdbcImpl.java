@@ -59,6 +59,8 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 					rs.getDate("date_fin_encheres").toLocalDate(),
 					rs.getString("status_vente")
 					);
+			article.getVendeur();
+						
 			listeArticleVendus.add(article); // une fois le article créé je l'ajoute à ma liste
 		}
 		

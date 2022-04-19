@@ -76,6 +76,16 @@
 				<th>Prix</th>
 				<th>Fin de l'enchère</th>
 				<th>Vendeur</th>
+				<!--<c:if test="${utilisateurConnecte != null}"> -->
+					<th>Nom</th>
+					<th>Description</th>
+					<th>Catégorie</th>
+					<!--<td>${articles.enchere.xxx} by ${articles.enchere.xxx}</td> -->
+					<th>Prix initial</th>
+					<th>Fin de l'enchère</th>
+					<!--<td>${articles.retrait.xxx}</td> -->
+					<!--<td>${articles.vendeur.pseudo}</td> -->
+				<!--</c:if> -->
 			</tr>
 		</thead>
 		<tbody>
@@ -86,7 +96,17 @@
 					<td>${articles.nomArticle}</td> 
 					<td>${articles.prixInitial}</td>
 					<td>${articles.dateFinEncheres}</td>
-					<td>${articles.vendeur}</td>
+					<td>${articles.vendeur.pseudo}</td>
+					<!--<c:if test="${utilisateurConnecte != null}"> -->
+						<td>${articles.nomArticle}</td> 
+						<td>${articles.description}</td>
+						<td>${articles.categorieArticle.libelle}</td>
+						<!--<td>${articles.enchere.xxx} by ${articles.enchere.xxx}</td> -->
+						<td>${articles.prixInitial}</td>
+						<td>${articles.dateFinEncheres}</td>
+						<!--<td>${articles.retrait.xxx}</td> -->
+						<!--<td>${articles.vendeur.pseudo}</td> -->
+					<!--</c:if> -->
 				</tr>
 			</c:forEach>
 		</tbody>
