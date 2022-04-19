@@ -72,11 +72,13 @@
 	<table>
 		<thead>
 			<tr>
-				<th>Nom</th>
-				<th>Prix</th>
-				<th>Fin de l'enchère</th>
-				<th>Vendeur</th>
-
+				<c:if test="${utilisateurConnecte == null}"> 
+					<th>Nom</th>
+					<th>Prix</th>
+					<th>Fin de l'enchère</th>
+					<th>Vendeur</th>
+				</c:if>
+				<c:if test="${utilisateurConnecte != null}"> 
 					<th>Nom</th>
 					<th>Description</th>
 					<th>Catégorie</th>
@@ -85,7 +87,7 @@
 					<th>Fin de l'enchère</th>
 					<th>Retrait</th>
 					<th>Vendeur</th>
-
+				</c:if>
 			</tr>
 		</thead>
 		<tbody>
@@ -93,11 +95,13 @@
 			<c:forEach var="articles" items="${articles}">
 				<!-- je crée une nouvelle ligne dans ma table HTML -->
 				<tr>
-					<td>${articles.nomArticle}</td> 
-					<td>${articles.prixInitial}</td>
-					<td>${articles.dateFinEncheres}</td>
-					<td>${articles.vendeur.pseudo}</td>
-					
+					<c:if test="${utilisateurConnecte == null}"> 
+						<td>${articles.nomArticle}</td> 
+						<td>${articles.prixInitial}</td>
+						<td>${articles.dateFinEncheres}</td>
+						<td>${articles.vendeur.pseudo}</td>
+					</c:if>
+					<c:if test="${utilisateurConnecte != null}"> 
 						<td>${articles.nomArticle}</td> 
 						<td>${articles.description}</td>
 						<td>${articles.categorieArticle.libelle}</td>
@@ -106,7 +110,7 @@
 						<td>${articles.dateFinEncheres}</td>
 						<td>${articles.lieuRetrait.rue} ${articles.lieuRetrait.codePostal} ${articles.lieuRetrait.ville}</td>
 						<td>${articles.vendeur.pseudo}</td>
-		
+					</c:if>
 				</tr>
 			</c:forEach>
 		</tbody>

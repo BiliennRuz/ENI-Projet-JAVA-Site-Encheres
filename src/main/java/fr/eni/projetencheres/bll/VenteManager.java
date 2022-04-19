@@ -9,6 +9,7 @@ import org.apache.jasper.tagplugins.jstl.core.ForEach;
 
 import fr.eni.projetencheres.bo.ArticleVendu;
 import fr.eni.projetencheres.bo.Categorie;
+import fr.eni.projetencheres.bo.Enchere;
 import fr.eni.projetencheres.bo.Retrait;
 import fr.eni.projetencheres.bo.Utilisateur;
 import fr.eni.projetencheres.dal.ArticleDAO;
@@ -65,7 +66,7 @@ public class VenteManager {
 					// on recupere la categorie associé
 					Categorie libelleCategorie = this.categorieDAO.getCategorieById(articleVendu.getIdCategorie());
 					articleVendu.setCategorieArticle(libelleCategorie);
-					// on recupere le retrait associé
+					// on recupere le retrait associé si pas null
 					System.out.println("DEBUG VenteManager articleVendu.getIdArticle() : " + articleVendu.getIdArticle());
 					try {
 						Retrait adresseRetrait = this.retraitDAO.getRetraitById(articleVendu.getIdArticle());
@@ -74,7 +75,9 @@ public class VenteManager {
 					} catch (SQLException e) {
 						e.printStackTrace();
 					}
-
+					// on recupere les encheres associé
+					Enchere encheres = this.enchereDAO.getEnchereById(articleVendu.getIdArticle());
+					articleVendu.setEnchere(encheres);
 					// on ajoute l'article a la liste
 					listeArticlesEnVente.add(articleVendu);
 					System.out.println("DEBUG VenteManager SearchArticleEnVente, add : " + articleVendu);
