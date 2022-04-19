@@ -43,33 +43,34 @@ public class ProfilServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		HttpSession session = request.getSession();
+		Utilisateur utilisateurEnCours = (Utilisateur) session.getAttribute("utilisateurConnecte");
 		UtilisateurManager utilisateurManager = new UtilisateurManager();
 		
-		Utilisateur utilisateur = new Utilisateur();
 		
-		utilisateur.setPseudo(request.getParameter("pseudo"));
-		utilisateur.setNom(request.getParameter("nom"));
-		utilisateur.setPrenom(request.getParameter("prenom"));
-		utilisateur.setEmail(request.getParameter("email"));
-		utilisateur.setTelephone(request.getParameter("tel"));
-		utilisateur.setRue(request.getParameter("rue"));
-		utilisateur.setCodePostal(request.getParameter("codePostal"));
-		utilisateur.setVille(request.getParameter("ville"));
-		utilisateur.setMotDePasse(request.getParameter("motDePasse"));
+		utilisateurEnCours.setPseudo(request.getParameter("pseudo"));
+		utilisateurEnCours.setNom(request.getParameter("nom"));
+		utilisateurEnCours.setPrenom(request.getParameter("prenom"));
+		utilisateurEnCours.setEmail(request.getParameter("email"));
+		utilisateurEnCours.setTelephone(request.getParameter("tel"));
+		utilisateurEnCours.setRue(request.getParameter("rue"));
+		utilisateurEnCours.setCodePostal(request.getParameter("codePostal"));
+		utilisateurEnCours.setVille(request.getParameter("ville"));
+		utilisateurEnCours.setMotDePasse(request.getParameter("motDePasse"));
+		
 		String motDePasseConfirm = request.getParameter("motDePasseConfirm");
 		
 		try {
-			utilisateurManager.verifierMotsDePasse(utilisateur.getMotDePasse(), motDePasseConfirm);
-			utilisateurManager.modifierUtilisateur(utilisateur);
-			HttpSession session = request.getSession();
-			session.setAttribute("utilisateurConnecte", utilisateur);
+			utilisateurManager.verifierMotsDePasse(utilisateurEnCours.getMotDePasse(), motDePasseConfirm);
+			utilisateurManager.modifierUtilisateur(utilisateurEnCours);
+			session.setAttribute("utilisateurConnecte", utilisateurEnCours);
 			request.setAttribute("messageConfirmation", "Votre compte a bien été modifié !");
-			request.setAttribute("utilisateur", utilisateur);
+			request.setAttribute("utilisateur", utilisateurEnCours);
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/profil.jsp");
 			rd.forward(request, response);
 		} catch (BusinessException e) {
 			request.setAttribute("messageErreur", e.getMessage());
-			request.setAttribute("utilisateur", utilisateur);
+			request.setAttribute("utilisateur", utilisateurEnCours);
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/profil.jsp");
 			rd.forward(request, response);
 			e.printStackTrace();

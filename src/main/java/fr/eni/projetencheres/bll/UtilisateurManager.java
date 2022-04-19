@@ -50,7 +50,7 @@ public class UtilisateurManager {
 		Utilisateur utilisateurModifie = new Utilisateur();
 		
 		// Modification du Pseudo :
-		if(verifierPseudo(utilisateur.getPseudo())) {
+		if(verifierPseudoUpdate(utilisateur.getPseudo())) {
 			utilisateurModifie.setPseudo(utilisateur.getPseudo());
 		}
 		
@@ -97,9 +97,12 @@ public class UtilisateurManager {
 			throw new BusinessException("Le numéro de téléphone est trop court");
 		}
 		// Modification de l'Email :
-		if(verifierEmail(utilisateur.getEmail())) {
+		if(verifierEmailUpdate(utilisateur.getEmail())) {
 			utilisateurModifie.setEmail(utilisateur.getEmail());
 		}
+		
+		// Modification du mot de passe
+		utilisateurModifie.setMotDePasse(encrypt(utilisateur.getMotDePasse()));
 			
 		utilisateurDAO.updateUser(utilisateurModifie);	
 	}
@@ -207,6 +210,40 @@ public class UtilisateurManager {
 			
 		return true;
 	}
+	
+	// Vérifier la conformité du Pseudo
+		private boolean verifierPseudoUpdate(String pseudo) throws BusinessException, SQLException {
+			Pattern p;
+			Matcher m;
+			int compteur = 0;
+			
+			// Pour avoir uniquement des valeurs alphanumériques
+			p = Pattern.compile("^[a-zA-Z0-9é]+$");
+			m = p.matcher(pseudo);
+			
+			if (!m.find()) {
+				// Si les caractères ne correspondent pas, on lance une exception
+				throw new BusinessException("Le pseudo ne doit comporter que des caractères alphanumériques");
+			} 
+			
+			// On vérifie qu'il n'existe pas de pseudo identique
+			if(verifierString(pseudo)) {
+				
+				List <Utilisateur> utilisateurs = utilisateurDAO.getUser();
+						
+				for(Utilisateur utilisateur : utilisateurs) {
+					if(utilisateur.getPseudo().toUpperCase().equals(pseudo.toUpperCase())) {
+						compteur++;
+					}
+				}
+				
+				if(compteur >= 2) {
+					throw new BusinessException("Ce pseudo est déjà pris !");
+				}
+			}
+				
+			return true;
+		}
 	// Vérifier la conformité du Nom
 	private boolean verifierNom(String nom) {
 		if(verifierString(nom)) {
@@ -256,6 +293,38 @@ public class UtilisateurManager {
 			
 		return true;
 	}
+	
+	// Vérification Email
+		private boolean verifierEmailUpdate(String email) throws BusinessException, SQLException {
+			Pattern p;
+			Matcher m;
+			int compteur = 0;
+					
+			// Pour avoir le format de l'Email
+			p = Pattern.compile("^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]{2,}\\.[a-z]{2,4}$");
+			m = p.matcher(email);
+			
+			if(!m.find()) {
+				throw new BusinessException("L'email doit être valide");
+			}
+					
+			if(verifierString(email)) {
+					
+				List <Utilisateur> utilisateurs = utilisateurDAO.getUser();
+							
+				for(Utilisateur utilisateur : utilisateurs) {
+					if(utilisateur.getEmail().equals(email)) {
+						compteur++;
+					}
+				}
+				
+				if(compteur >= 2) {
+					throw new BusinessException("Cet email est déjà pris !");
+				}
+			}
+				
+			return true;
+		}
 	// Vérifier la conformité de la Ville
 	private boolean verifierVille(String ville) {
 		if(verifierString(ville)) {
