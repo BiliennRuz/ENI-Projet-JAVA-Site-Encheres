@@ -4,4 +4,6 @@ function suppr() {
 	bouton.style.display = 'none';
 }
 
-bouton.addEventListener("click", suppr);
+setTimeout(suppr, 5000);
+
+//bouton.addEventListener("click", suppr);

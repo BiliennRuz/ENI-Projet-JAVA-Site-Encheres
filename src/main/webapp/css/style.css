@@ -19,9 +19,11 @@ body {
 	top: 10px;
 	left: 50%;
 	transform: translateX(-50%);
-	background-color: green;
+	background-color: #27ae60;
 	color: white;
 	padding: 10px;
+	border-radius: 5px;
+	box-shadow: 2px 2px 4px #000;
 }
 
 .boutonSucces {
