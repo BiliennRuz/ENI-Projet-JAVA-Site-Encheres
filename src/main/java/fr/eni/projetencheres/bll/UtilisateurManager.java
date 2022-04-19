@@ -33,8 +33,7 @@ public class UtilisateurManager {
 		return utilisateur;
 	}
 	
-	// --- SUPPRESION --- (#1004)
-	
+	// --- SUPPRESION --- (#1004)	
 	public void supprimerUtilisateur(String pseudo) throws BusinessException, SQLException {
 		
 		try {
@@ -45,7 +44,65 @@ public class UtilisateurManager {
 		}
 	}
 	
-	
+	// --- MODIFICATION PROFIL --- (#1007)
+	public void modifierUtilisateur(Utilisateur utilisateur) throws BusinessException, SQLException {
+			
+		Utilisateur utilisateurModifie = new Utilisateur();
+		
+		// Modification du Pseudo :
+		if(verifierPseudo(utilisateur.getPseudo())) {
+			utilisateurModifie.setPseudo(utilisateur.getPseudo());
+		}
+		
+		// Modification du Nom :
+		if(verifierNom(utilisateur.getNom())) {
+			utilisateurModifie.setNom(utilisateur.getNom());
+		}
+		else {
+			throw new BusinessException("Le nom est trop court");
+		}
+		// Modification du Prénom :
+		if(verifierPrenom(utilisateur.getPrenom())) {
+			utilisateurModifie.setPrenom(utilisateur.getPrenom());
+		}
+		else {
+			throw new BusinessException("Le prénom est trop court");
+		}
+		// Modification de la Ville :
+		if(verifierVille(utilisateur.getVille())) {
+			utilisateurModifie.setVille(utilisateur.getVille());
+		}
+		else {
+			throw new BusinessException("La ville est trop courte");
+		}
+		// Modification de la Rue :
+		if(verifierRue(utilisateur.getRue())) {
+			utilisateurModifie.setRue(utilisateur.getRue());
+		}
+		else {
+			throw new BusinessException("La rue est trop courte");
+		}
+		// Modification du Code Postal :
+		if(verifierCodePostal(utilisateur.getCodePostal())) {
+			utilisateurModifie.setCodePostal(utilisateur.getCodePostal());
+		}
+		else {
+			throw new BusinessException("Le CP est trop court");
+		}
+		// Modification du Téléphone :
+		if(verifierTelephone(utilisateur.getTelephone())) {
+			utilisateurModifie.setTelephone(utilisateur.getTelephone());
+		}
+		else {
+			throw new BusinessException("Le numéro de téléphone est trop court");
+		}
+		// Modification de l'Email :
+		if(verifierEmail(utilisateur.getEmail())) {
+			utilisateurModifie.setEmail(utilisateur.getEmail());
+		}
+			
+		utilisateurDAO.updateUser(utilisateurModifie);	
+	}
 	
 	// --- INSCRIPTION --- (#1003)
 	
@@ -278,8 +335,6 @@ public class UtilisateurManager {
 		}
 	}
 
-	
-	
 	
 	
 //	private void validationConnexion(String login, String password) throws BusinessException, SQLException {
