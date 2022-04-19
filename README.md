@@ -1,6 +1,6 @@
 # projetEncheres
 
-##Team project :
+## Team project :
 
 -   Jerome VASSEUR
 -   Yannick BIHEUL
