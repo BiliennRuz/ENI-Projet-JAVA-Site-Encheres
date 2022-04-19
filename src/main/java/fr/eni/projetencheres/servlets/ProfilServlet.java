@@ -1,6 +1,7 @@
 package fr.eni.projetencheres.servlets;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,6 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import fr.eni.projetencheres.bll.BusinessException;
+import fr.eni.projetencheres.bll.UtilisateurManager;
+import fr.eni.projetencheres.bo.Utilisateur;
 
 /**
  * Servlet implementation class ProfilServlet
@@ -37,8 +42,34 @@ public class ProfilServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		doGet(request, response);
+		
+		UtilisateurManager utilisateurManager = new UtilisateurManager();
+		
+		Utilisateur utilisateur = new Utilisateur();
+		
+		utilisateur.setPseudo(request.getParameter("pseudo"));
+		utilisateur.setNom(request.getParameter("nom"));
+		utilisateur.setPrenom(request.getParameter("prenom"));
+		utilisateur.setEmail(request.getParameter("email"));
+		utilisateur.setTelephone(request.getParameter("tel"));
+		utilisateur.setRue(request.getParameter("rue"));
+		utilisateur.setCodePostal(request.getParameter("codePostal"));
+		utilisateur.setVille(request.getParameter("ville"));
+		utilisateur.setMotDePasse(request.getParameter("motDePasse"));
+		String motDePasseConfirm = request.getParameter("motDePasseConfirm");
+		
+		try {
+			utilisateurManager.verifierMotsDePasse(utilisateur.getMotDePasse(), motDePasseConfirm);
+		} catch (BusinessException e) {
+			request.setAttribute("messageErreur", e.getMessage());
+			request.setAttribute("utilisateur", utilisateur);
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/profil.jsp");
+			rd.forward(request, response);
+			e.printStackTrace();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 
 }
