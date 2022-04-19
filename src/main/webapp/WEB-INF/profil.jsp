@@ -15,6 +15,10 @@
 		<h1>Mon Profil</h1>
 	</div>
 	
+	<c:if test="${messageConfirmation != null }">
+		<div class="succes">${messageConfirmation}</div>
+	</c:if>
+	
 	
 	<!-- FORMULAIRE -->
 	<!-- Données : pseudo - nom - prenom - email - tel - rue - codePostal - ville - motDePasse - motDepasseConfirm -->
