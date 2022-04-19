@@ -136,7 +136,7 @@ public class UtilisateurManager {
 			List <Utilisateur> utilisateurs = utilisateurDAO.getUser();
 					
 			for(Utilisateur utilisateur : utilisateurs) {
-				if(utilisateur.getPseudo().equals(pseudo)) {
+				if(utilisateur.getPseudo().toUpperCase().equals(pseudo.toUpperCase())) {
 					compteur++;
 				}
 			}

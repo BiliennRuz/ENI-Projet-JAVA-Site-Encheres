@@ -82,5 +82,9 @@
 		<button class="boutonInscription" type="submit">Supprimer mon compte</button>
 	</form>
 	
+	<div class="erreurs">
+			<p>${messageErreur}</p>
+		</div>
+	
 </body>
 </html>
