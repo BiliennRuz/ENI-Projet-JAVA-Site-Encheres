@@ -45,6 +45,8 @@ public class UtilisateurManager {
 		}
 	}
 	
+	
+	
 	// --- INSCRIPTION --- (#1003)
 	
 	// Méthode principale pour vérifier la conformité de tous les champs inscrits par l'utilisateur
@@ -224,7 +226,20 @@ public class UtilisateurManager {
 	}
 	
 	// Vérifier le code postal
-	private boolean verifierCodePostal(String codePostal) {
+	private boolean verifierCodePostal(String codePostal) throws BusinessException, SQLException {
+		Pattern p;
+		Matcher m;
+		int compteur = 0;
+		
+		// Pour avoir uniquement des chiffres
+		p = Pattern.compile("[0-9]+");
+		m = p.matcher(codePostal);
+		
+		if (!m.find()) {
+			// Si les caractères ne correspondent pas, on lance une exception
+			throw new BusinessException("Le code postal ne peut que être composé de chiffres");
+		} 
+		
 		if(codePostal.length() < 5) {
 			return false;
 		}
@@ -232,7 +247,20 @@ public class UtilisateurManager {
 	}
 	
 	// Vérifier que le numéro de téléphone à au moins 10 numéros
-	private boolean verifierTelephone(String telephone) {
+	private boolean verifierTelephone(String telephone) throws BusinessException, SQLException {
+		Pattern p;
+		Matcher m;
+		int compteur = 0;
+		
+		// Pour avoir uniquement des chiffres
+		p = Pattern.compile("[0-9]+");
+		m = p.matcher(telephone);
+		
+		if (!m.find()) {
+			// Si les caractères ne correspondent pas, on lance une exception
+			throw new BusinessException("Le numéro de téléphone ne peut que être composé de chiffres");
+		} 
+		
 		if(telephone.length() < 10) {
 			return false;
 		}
