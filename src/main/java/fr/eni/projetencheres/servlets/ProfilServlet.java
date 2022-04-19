@@ -61,7 +61,10 @@ public class ProfilServlet extends HttpServlet {
 		try {
 			utilisateurManager.verifierMotsDePasse(utilisateur.getMotDePasse(), motDePasseConfirm);
 			utilisateurManager.modifierUtilisateur(utilisateur);
+			HttpSession session = request.getSession();
+			session.setAttribute("utilisateurConnecte", utilisateur);
 			request.setAttribute("messageConfirmation", "Votre compte a bien été modifié !");
+			request.setAttribute("utilisateur", utilisateur);
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/profil.jsp");
 			rd.forward(request, response);
 		} catch (BusinessException e) {
