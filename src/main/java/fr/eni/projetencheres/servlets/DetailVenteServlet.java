@@ -29,6 +29,10 @@ public class DetailVenteServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+
+		//String id = request.getParameter("id");
+		// String id = request.getRequestURI();
+		// System.out.println(id);
 		String uri = request.getRequestURI();
 		System.out.println(uri);
 		
