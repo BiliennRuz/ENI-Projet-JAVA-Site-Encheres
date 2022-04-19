@@ -32,19 +32,15 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	 */
 	@Override
 	public List<Utilisateur> getUser() throws SQLException {
-		// On fait appel à la classe ConnectionProvider pour recupérer une connexion depuis notre pool
+		// 1 - On fait appel à la classe ConnectionProvider pour recupérer une connexion depuis notre pool
 		Connection cnx = ConnectionProvider.getConnection();
-		
-		// 1 - on crée une "requête" standard car pas besoin de changer de ? avec des valeurs de variables
+		// 2 - on crée une "requête" standard car pas besoin de changer de ? avec des valeurs de variables
 		Statement stmt = cnx.createStatement();
-		
-		// 2 - je l'execute et je recupère une réference sur les resultats dans un ResultSet
+		// 3 - je l'execute et je recupère une réference sur les resultats dans un ResultSet
 		ResultSet rs = stmt.executeQuery(SELECT_UTILISATEUR);
-		
-		// 3 - j'initialise la liste des user que je vais renvoyer
+		// 4 - j'initialise la liste des user que je vais renvoyer
 		List<Utilisateur> listeUtilisateurs = new ArrayList<Utilisateur>();
-		
-		// 4 - je parcours mes resultats pour remplir ma liste des user que je vais renvoyer
+		// 5 - je parcours mes resultats pour remplir ma liste des user que je vais renvoyer
 		// tant qu'il y a des lignes de resultats
 		while (rs.next()) {
 			// pour chaque ligne , j'ajoute le user correspondant à ma liste
@@ -74,16 +70,16 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	 */
 	@Override
 	public Utilisateur getUserById(int idUtilisateur) throws SQLException {
-		// On fait appel à la classe ConnectionProvider pour recupérer une connexion depuis notre pool
+		// 1 - On fait appel à la classe ConnectionProvider pour recupérer une connexion depuis notre pool
 		Connection cnx = ConnectionProvider.getConnection();
-		// 1 - on crée une "requête" standard car pas besoin de changer de ? avec des valeurs de variables
+		// 2 - on crée une "requête" standard car pas besoin de changer de ? avec des valeurs de variables
 		Statement stmt = cnx.createStatement();
-		// 2 - on crée une "requête préparée" à partir de la connexion recupérée et de notre template de requête SQL ( attribut INSERT)
+		// 3 - on crée une "requête préparée" à partir de la connexion recupérée et de notre template de requête SQL ( attribut INSERT)
 		PreparedStatement pStmt = cnx.prepareStatement(SELECT_UTILISATEUR_BY_ID);
 		pStmt.setInt(1, idUtilisateur);
-		// 3 - je l'execute et je recupère une réference sur les resultats dans un ResultSet
+		// 4 - je l'execute et je recupère une réference sur les resultats dans un ResultSet
 		ResultSet rs = pStmt.executeQuery();
-		// 4 - je parcours mes resultats pour remplir ma liste des user que je vais renvoyer
+		// 5 - je parcours mes resultats pour remplir ma liste des user que je vais renvoyer
 		rs.next();
 		Utilisateur user = new Utilisateur(
 				rs.getString("pseudo"),

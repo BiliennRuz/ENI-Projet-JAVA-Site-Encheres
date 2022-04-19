@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.projetencheres.bo.Enchere;
+import fr.eni.projetencheres.bo.Utilisateur;
 
 /**
 
@@ -21,6 +22,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 	// on définit nos requêtes SQL d'insertion/select avec des ? qu'on remplira par la suite
 
 	private final static String SELECT_ENCHERE = "select * from ENCHERES;";
+	private final static String SELECT_ENCHERE_BY_ID_ARTICLE = "select * from ENCHERES where no_article=?;";
 	private final static String INSERT_ENCHERE = "insert into ENCHERES(date_enchere, montant_enchere, no_article, no_utilisateur) values(?,?,?,?);";
 	private final static String UPDATE_ENCHERE = "update ENCHERES set date_enchere=?, montant_enchere=?, no_article=?, no_utilisateur=? WHERE no_enchere=?";
 	
@@ -60,6 +62,42 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 		
 		return listeEncheres; // pour finir je renvoie ma liste remplie precédemment
 	}
+	
+	/**
+	 * getUserById() : recupère le user a partir de son Id depuis la base de donnée
+	 * @throws SQLException 
+	 */
+	@Override
+	public List<Enchere> getEnchereByIdArticle(int idArticle) throws SQLException {
+		// 1 - On fait appel à la classe ConnectionProvider pour recupérer une connexion depuis notre pool
+		Connection cnx = ConnectionProvider.getConnection();
+		// 2 - on crée une "requête" standard car pas besoin de changer de ? avec des valeurs de variables
+		Statement stmt = cnx.createStatement();
+		// 3 - on crée une "requête préparée" à partir de la connexion recupérée et de notre template de requête SQL ( attribut INSERT)
+		PreparedStatement pStmt = cnx.prepareStatement(SELECT_ENCHERE_BY_ID_ARTICLE);
+		pStmt.setInt(1, idArticle);
+		// 4 - je l'execute et je recupère une réference sur les resultats dans un ResultSet
+		ResultSet rs = pStmt.executeQuery();
+		
+		// 3 - j'initialise la liste des encheres que je vais renvoyer
+		List<Enchere> listeEncheres = new ArrayList<Enchere>();
+		// 4 - je parcours mes resultats pour remplir ma liste des enchere que je vais renvoyer
+		// tant qu'il y a des lignes de resultats
+		while (rs.next()) {
+			// pour chaque ligne , j'ajoute le enchere correspondant à ma liste
+			// "insert into ENCHERES(date_enchere, montant_enchere, no_article, no_utilisateur) values(?,?,?,?);";
+			Enchere enchere = new Enchere(
+					rs.getInt("montant_enchere"),
+					rs.getInt("no_article"),
+					rs.getInt("no_utilisateur"),
+					rs.getTimestamp("date_enchere").toLocalDateTime()
+					);
+			listeEncheres.add(enchere); // une fois le enchere créé je l'ajoute à ma liste
+		}
+		
+		return listeEncheres; // pour finir je renvoie ma liste remplie precédemment		
+	}
+	
 	
 	/**
 	 * add(Enchere enchere) peut lancer potentiellement des exception de type SQLException (il faudra le gérer dans la classe qui appelle le DAO : EnchereManager)

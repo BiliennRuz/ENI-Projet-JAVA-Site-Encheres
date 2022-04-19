@@ -67,7 +67,6 @@ public class VenteManager {
 					Categorie libelleCategorie = this.categorieDAO.getCategorieById(articleVendu.getIdCategorie());
 					articleVendu.setCategorieArticle(libelleCategorie);
 					// on recupere le retrait associé si pas null
-					System.out.println("DEBUG VenteManager articleVendu.getIdArticle() : " + articleVendu.getIdArticle());
 					try {
 						Retrait adresseRetrait = this.retraitDAO.getRetraitById(articleVendu.getIdArticle());
 						System.out.println("DEBUG VenteManager adresseRetrait : " + adresseRetrait);
@@ -76,8 +75,20 @@ public class VenteManager {
 						e.printStackTrace();
 					}
 					// on recupere les encheres associé
-					Enchere encheres = this.enchereDAO.getEnchereById(articleVendu.getIdArticle());
-					articleVendu.setEnchere(encheres);
+					try {
+						List<Enchere> encheres = this.enchereDAO.getEnchereByIdArticle(articleVendu.getIdArticle());
+						System.out.println("DEBUG encheres : " + encheres);
+						if (encheres.size() > 0) {
+							for (Enchere enchere : encheres) {
+								
+							}				
+						}
+
+						//articleVendu.setListeEncheres(encheres);
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+					
 					// on ajoute l'article a la liste
 					listeArticlesEnVente.add(articleVendu);
 					System.out.println("DEBUG VenteManager SearchArticleEnVente, add : " + articleVendu);
