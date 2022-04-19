@@ -60,6 +60,10 @@ public class ProfilServlet extends HttpServlet {
 		
 		try {
 			utilisateurManager.verifierMotsDePasse(utilisateur.getMotDePasse(), motDePasseConfirm);
+			utilisateurManager.modifierUtilisateur(utilisateur);
+			request.setAttribute("messageConfirmation", "Votre compte a bien été modifié !");
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/profil.jsp");
+			rd.forward(request, response);
 		} catch (BusinessException e) {
 			request.setAttribute("messageErreur", e.getMessage());
 			request.setAttribute("utilisateur", utilisateur);
@@ -70,6 +74,8 @@ public class ProfilServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		
+		
 	}
 
 }
