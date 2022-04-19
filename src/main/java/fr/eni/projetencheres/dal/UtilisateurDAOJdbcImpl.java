@@ -21,7 +21,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 
 	private final static String SELECT_UTILISATEUR = "select * from UTILISATEURS;";
 	private final static String INSERT_UTILISATEUR = "insert into UTILISATEURS(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) values(?,?,?,?,?,?,?,?,?,?,?);";
-	private final static String UPDATE_UTILISATEUR = "update UTILISATEURS set pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=?, mot_de_passe=?, credit=?, administrateur=? WHERE no_utilisateur=?";
+	private final static String UPDATE_UTILISATEUR = "update UTILISATEURS set pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=?, mot_de_passe=?, credit=?, administrateur=? WHERE pseudo=?";
 	private final static String CHECK_UTILISATEUR = "select * from UTILISATEURS where (pseudo=? or email=?) and mot_de_passe=?;";
 	private final static String DELETE_UTILISATEUR = "delete from UTILISATEURS where pseudo=?;";
 	
@@ -133,7 +133,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		pStmt.setString(9, user.getMotDePasse());
 		pStmt.setFloat(10, user.getCredit());
 		pStmt.setBoolean(11, user.isAdministrateur());
-		pStmt.setInt(12, user.getIdUtilisateur());
+		pStmt.setString(12, user.getPseudo());
 		
 		// 3 - j'execute la requête SQL
 		pStmt.executeUpdate(); // ici , il faut faire executeUpdate() et pas executeQuery() parce qu'on modifie des données
