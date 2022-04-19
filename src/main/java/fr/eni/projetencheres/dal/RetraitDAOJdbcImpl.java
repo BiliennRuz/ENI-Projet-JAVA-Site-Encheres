@@ -13,9 +13,7 @@ import fr.eni.projetencheres.bo.Retrait;
 import fr.eni.projetencheres.bo.Utilisateur;
 
 /**
-
  * Implémentation des fonctionnalités de mon interface RetraitDAO avec JDBC (en base de donnée)
-
  */
 public class RetraitDAOJdbcImpl implements RetraitDAO {
 	
@@ -30,15 +28,15 @@ public class RetraitDAOJdbcImpl implements RetraitDAO {
 	 */
 	@Override
 	public List<Retrait> getRetrait() throws SQLException {
-		// On fait appel à la classe ConnectionProvider pour recupérer une connexion depuis notre pool
+		// 1 - On fait appel à la classe ConnectionProvider pour recupérer une connexion depuis notre pool
 		Connection cnx = ConnectionProvider.getConnection();
-		// 1 - on crée une "requête" standard car pas besoin de changer de ? avec des valeurs de variables
+		// 2 - on crée une "requête" standard car pas besoin de changer de ? avec des valeurs de variables
 		Statement stmt = cnx.createStatement();
-		// 2 - je l'execute et je recupère une réference sur les resultats dans un ResultSet
+		// 3 - je l'execute et je recupère une réference sur les resultats dans un ResultSet
 		ResultSet rs = stmt.executeQuery(SELECT_RETRAIT);
-		// 3 - j'initialise la liste des retraits que je vais renvoyer
+		// 4 - j'initialise la liste des retraits que je vais renvoyer
 		List<Retrait> listeRetraits = new ArrayList<Retrait>();
-		// 4 - je parcours mes resultats pour remplir ma liste des retrait que je vais renvoyer
+		// 5 - je parcours mes resultats pour remplir ma liste des retrait que je vais renvoyer
 		// tant qu'il y a des lignes de resultats
 		while (rs.next()) {
 			// pour chaque ligne , j'ajoute le retrait correspondant à ma liste
@@ -55,7 +53,7 @@ public class RetraitDAOJdbcImpl implements RetraitDAO {
 	}
 	
 	/**
-	 * getRetraitById() : recupère le user a partir de son Id depuis la base de donnée
+	 * getRetraitById() : recupère le retrait a partir de IdArticle depuis la base de donnée
 	 * @throws SQLException 
 	 */
 	@Override
@@ -69,7 +67,7 @@ public class RetraitDAOJdbcImpl implements RetraitDAO {
 		pStmt.setInt(1, idArticle);
 		// 4 - je l'execute et je recupère une réference sur les resultats dans un ResultSet
 		ResultSet rs = pStmt.executeQuery();
-		// 5 - je parcours mes resultats pour remplir ma liste des user
+		// 5 - je parcours mes resultats pour remplir mon retrait
 		rs.next();
 		Retrait retrait = new Retrait(
 				rs.getInt("no_article"),
@@ -77,42 +75,30 @@ public class RetraitDAOJdbcImpl implements RetraitDAO {
 				rs.getString("code_postal"),
 				rs.getString("ville")
 				);
-		// 6 - je renvoie le user
+		// 6 - je renvoie le retrait
 		return retrait;		
 	}
 	
 	
 	/**
-	 * addRetrait(Retrait retrait) peut lancer potentiellement des exception de type SQLException (il faudra le gérer dans la classe qui appelle le DAO : RetraitManager)
+	 * addRetrait(Retrait retrait) : Ajout d'un retrait dans la base de données
 	 * @throws SQLException 
 	 */
 	@Override
 	public void addRetrait(Retrait retrait) throws SQLException {
-		// On fait appel à la classe ConnectionProvider pour recupérer une connexion depuis notre pool
+		// 1 - On fait appel à la classe ConnectionProvider pour recupérer une connexion depuis notre pool
 		Connection cnx = ConnectionProvider.getConnection();
-		
-		// 1 - on crée une "requête préparée" à partir de la connexion recupérée et de notre template de requête SQL ( attribut INSERT)
-		PreparedStatement pStmt = cnx.prepareStatement(INSERT_RETRAIT,Statement.RETURN_GENERATED_KEYS);
-		
-		// 2 - je remplace les ? de ma requête par les valeurs correspondantes
-		
-		// je remplace le premier ? de ma requête par la date de mon objet Retrait		
+		// 2 - on crée une "requête préparée" à partir de la connexion recupérée et de notre template de requête SQL ( attribut INSERT)
+		PreparedStatement pStmt = cnx.prepareStatement(INSERT_RETRAIT);
+		// 3 - je remplace les ? de ma requête par les valeurs correspondantes	
 		// "insert into RETRAITS(no_article, rue, code_postal, ville) values(?,?,?,?);"; 
 		pStmt.setInt(1, retrait.getIdArticle());
 		pStmt.setString(2, retrait.getRue());
 		pStmt.setString(3, retrait.getCodePostal());
 		pStmt.setString(4, retrait.getVille());
-		
-		// 3 - j'execute la requête SQL
-		pStmt.executeUpdate(); // ici , il faut faire executeUpdate() et pas executeQuery() parce qu'on modifie des données
-		
-//		// 4 -  je recupère l'id genéré et je met à jour l'objet Retrait
-//		ResultSet rs = pStmt.getGeneratedKeys();
-//		if (rs.next()) { // si jamais il y a un resultat
-//			retrait.setIdRetrait(rs.getInt(1)); //alors on utilise sa valeur pour mettre à jour l'id de l'avis
-//		}
-		
-		// on ferme la connexion quand tout a été ajouté
+		// 4 - j'execute la requête SQL
+		pStmt.executeUpdate(); // ici , il faut faire executeUpdate() et pas executeQuery() parce qu'on modifie des données	
+		// 5 - on ferme la connexion quand tout a été ajouté
 		cnx.close();
 	}
 	

@@ -54,9 +54,9 @@
 						<input type="checkbox" name="achat" value="Mes enchères remportées" />Mes enchères remportées<br />
 					<div>
 					</div>
-						<input type="radio" name="achatvente" value="vente" />Vente<br />
+						<input type="radio" name="achatvente" value="vente" checked/>Vente<br />
 						<input type="checkbox" name="vente" value="Vente non débuté" />Vente non débuté<br />
-						<input type="checkbox" name="vente" value="Vente en cours" />Vente en cours<br />
+						<input type="checkbox" name="vente" value="Vente en cours" checked/>Vente en cours<br />
 						<input type="checkbox" name="vente" value="Vente terminée" />Vente terminée<br />
 					</div>
 				</c:if>

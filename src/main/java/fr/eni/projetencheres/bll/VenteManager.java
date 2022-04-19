@@ -5,8 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.jasper.tagplugins.jstl.core.ForEach;
-
+import fr.eni.projetencheres.bll.BusinessException;
 import fr.eni.projetencheres.bo.ArticleVendu;
 import fr.eni.projetencheres.bo.Categorie;
 import fr.eni.projetencheres.bo.Enchere;
@@ -46,8 +45,9 @@ public class VenteManager {
 	 * - le mot clé dans le nom
 	 * - la categorie selectionnée
 	 * - le status de la vente
+	 * @throws BusinessException 
 	 */
-	public List<ArticleVendu> SearchArticleVente(String nom, int categorie, String statusVente) {
+	public List<ArticleVendu> SearchArticleVente(String nom, int categorie, String statusVente) { //throws BusinessException {
 		try {
 			// on recupere la liste de tous les articles
 			List<ArticleVendu> listeArticles = this.articleDAO.getArticle();
@@ -73,6 +73,7 @@ public class VenteManager {
 						articleVendu.setLieuRetrait(adresseRetrait);
 					} catch (SQLException e) {
 						e.printStackTrace();
+						//throw new BusinessException("erreur SQL lors de la récupération du retrait de l'article en base de donnée");
 					}
 					// on recupere les encheres associé
 					try {
@@ -87,6 +88,7 @@ public class VenteManager {
 						//articleVendu.setListeEncheres(encheres);
 					} catch (SQLException e) {
 						e.printStackTrace();
+						//throw new BusinessException("erreur SQL lors de la récupération de l'enchère en base de donnée");
 					}
 					
 					// on ajoute l'article a la liste
@@ -97,6 +99,7 @@ public class VenteManager {
 			return listeArticlesEnVente;
 		} catch (SQLException e) {
 			e.printStackTrace();
+			//throw new BusinessException("erreur SQL lors de la récupération de l'article en base de donnée");
 		}
 		return null; // si jamais il y a une exception on retournera null
 	}
