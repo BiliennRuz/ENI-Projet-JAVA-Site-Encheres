@@ -80,7 +80,6 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
 		
 		Categorie categorie = new Categorie();
 		if (rs.next()) { // si jamais il y a un resultat
-			System.out.println("DEBUG rs.getString(\"libelle\") : " + rs.getString("libelle"));
 			categorie.setLibelle(rs.getString("libelle")); //alors on utilise sa valeur pour mettre à jour l'id de l'avis
 			categorie.setIdCategorie(idCategorie);
 		}

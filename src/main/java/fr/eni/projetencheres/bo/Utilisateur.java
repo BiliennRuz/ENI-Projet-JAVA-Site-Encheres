@@ -30,6 +30,20 @@ public class Utilisateur {
 		this.credit = credit;
 		this.administrateur = administrateur;
 	}
+	public Utilisateur(String pseudo, String nom, String prenom, String email, String rue,
+			String ville, int noUtilisateur, String telephone, String codePostal,
+			float credit) {
+		this.pseudo = pseudo;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.email = email;
+		this.rue = rue;
+		this.ville = ville;
+		this.idUtilisateur = noUtilisateur;
+		this.telephone = telephone;
+		this.codePostal = codePostal;
+		this.credit = credit;
+	}
 
 	public String getPseudo() {
 		return pseudo;

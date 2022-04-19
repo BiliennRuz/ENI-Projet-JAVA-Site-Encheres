@@ -69,24 +69,20 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	}
 	
 	/**
-	 * getUser() : recupère la liste des user depuis la base de donnée
+	 * getUserById() : recupère le user a partir de son Id depuis la base de donnée
 	 * @throws SQLException 
 	 */
 	@Override
 	public Utilisateur getUserById(int idUtilisateur) throws SQLException {
 		// On fait appel à la classe ConnectionProvider pour recupérer une connexion depuis notre pool
 		Connection cnx = ConnectionProvider.getConnection();
-		
 		// 1 - on crée une "requête" standard car pas besoin de changer de ? avec des valeurs de variables
 		Statement stmt = cnx.createStatement();
-		
-		// 1 - on crée une "requête préparée" à partir de la connexion recupérée et de notre template de requête SQL ( attribut INSERT)
+		// 2 - on crée une "requête préparée" à partir de la connexion recupérée et de notre template de requête SQL ( attribut INSERT)
 		PreparedStatement pStmt = cnx.prepareStatement(SELECT_UTILISATEUR_BY_ID);
 		pStmt.setInt(1, idUtilisateur);
-		
-		// 2 - je l'execute et je recupère une réference sur les resultats dans un ResultSet
+		// 3 - je l'execute et je recupère une réference sur les resultats dans un ResultSet
 		ResultSet rs = pStmt.executeQuery();
-
 		// 4 - je parcours mes resultats pour remplir ma liste des user que je vais renvoyer
 		rs.next();
 		Utilisateur user = new Utilisateur(

@@ -25,30 +25,25 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 	private final static String UPDATE_ARTICLE = "update ARTICLES_VENDUS set prix_initial=?, prix_vente=?, no_utilisateur=?, no_categorie=?, nom_article=?, description=?, date_debut_encheres=?, date_fin_encheres=?, status_vente=? WHERE no_utilisateur=?";
 	
 	
-	
 	/**
-	 * getUser() : recupère la liste des articles depuis la base de donnée
+	 * getArticle() : recupère la liste des articles depuis la base de donnée
 	 * @throws SQLException 
 	 */
 	@Override
 	public List<ArticleVendu> getArticle() throws SQLException {
-		// On fait appel à la classe ConnectionProvider pour recupérer une connexion depuis notre pool
+		// 1 - On fait appel à la classe ConnectionProvider pour recupérer une connexion depuis notre pool
 		Connection cnx = ConnectionProvider.getConnection();
-		
-		// 1 - on crée une "requête" standard car pas besoin de changer de ? avec des valeurs de variables
+		// 2 - on crée une "requête" standard car pas besoin de changer de ? avec des valeurs de variables
 		Statement stmt = cnx.createStatement();
-		
-		// 2 - je l'execute et je recupère une réference sur les resultats dans un ResultSet
+		// 3 - je l'execute et je recupère une réference sur les resultats dans un ResultSet
 		ResultSet rs = stmt.executeQuery(SELECT_ARTICLE);
-		
-		// 3 - j'initialise la liste des articles que je vais renvoyer
+		// 4 - j'initialise la liste des articles que je vais renvoyer
 		List<ArticleVendu> listeArticleVendus = new ArrayList<ArticleVendu>();
-		
-		// 4 - je parcours mes resultats pour remplir ma liste des article que je vais renvoyer
+		// 5 - je parcours mes resultats pour remplir ma liste des article que je vais renvoyer
 		// tant qu'il y a des lignes de resultats
 		while (rs.next()) {
-			// pour chaque ligne , j'ajoute le article correspondant à ma liste
 			ArticleVendu article = new ArticleVendu(
+					rs.getInt("no_article"),
 					rs.getInt("prix_initial"),
 					rs.getInt("prix_vente"),
 					rs.getInt("no_utilisateur"),
@@ -56,19 +51,17 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 					rs.getString("nom_article"),
 					rs.getString("description"),
 					rs.getDate("date_debut_encheres").toLocalDate(),
-					rs.getDate("date_fin_encheres").toLocalDate(),
-					rs.getString("status_vente")
+					rs.getDate("date_fin_encheres").toLocalDate()
 					);
 			article.getVendeur();
-						
+			// pour chaque ligne , j'ajoute le article correspondant à ma liste			
 			listeArticleVendus.add(article); // une fois le article créé je l'ajoute à ma liste
 		}
-		
 		return listeArticleVendus; // pour finir je renvoie ma liste remplie precédemment
 	}
 	
 	/**
-	 * add(ArticleVendu article) peut lancer potentiellement des exception de type SQLException (il faudra le gérer dans la classe qui appelle le DAO : ArticleVenduManager)
+	 * addArticle(ArticleVendu article) peut lancer potentiellement des exception de type SQLException (il faudra le gérer dans la classe qui appelle le DAO : ArticleVenduManager)
 	 */
 	@Override
 	public void addArticle(ArticleVendu article) throws SQLException {
@@ -90,7 +83,6 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 		pStmt.setString(6, article.getDescription());
 		pStmt.setDate(7, Date.valueOf(article.getDateDebutEncheres()));
 		pStmt.setDate(8, Date.valueOf(article.getDateFinEncheres()));
-		pStmt.setString(9, article.getStatusVente());
 		
 		// 3 - j'execute la requête SQL
 		pStmt.executeUpdate(); // ici , il faut faire executeUpdate() et pas executeQuery() parce qu'on modifie des données
@@ -128,7 +120,6 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 		pStmt.setString(6, article.getDescription());
 		pStmt.setDate(7, Date.valueOf(article.getDateDebutEncheres()));
 		pStmt.setDate(8, Date.valueOf(article.getDateFinEncheres()));
-		pStmt.setString(9, article.getStatusVente());
 		pStmt.setInt(10, article.getIdArticle());
 		
 		// 3 - j'execute la requête SQL
