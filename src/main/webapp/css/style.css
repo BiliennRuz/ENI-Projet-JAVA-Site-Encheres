@@ -14,6 +14,21 @@ body {
 	align-items: center;
 }
 
+.succes {
+	position: absolute;
+	top: 10px;
+	left: 50%;
+	transform: translateX(-50%);
+	background-color: green;
+	color: white;
+	padding: 10px;
+}
+
+.boutonSucces {
+	cursor: pointer;
+	margin-left: 20px;
+}
+
 /* CHAMPS RECHERCHE */
 
 .formulaireRecherche {

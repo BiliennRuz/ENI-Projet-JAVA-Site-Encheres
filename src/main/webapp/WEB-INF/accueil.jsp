@@ -15,6 +15,12 @@
 	
 	<%@ include file="./include/header.jsp"%>
 	
+	<c:if test="${succes != null }">
+		<div class="succes">${succes} <span class="boutonSucces">X</span></div>
+	</c:if>
+	
+	<div class="succes">Vous êtes bien enregistré ! <span class="boutonSucces">   X</span></div>
+	
 	
 	<!-- TITRE DE LA PAGE -->
 	
@@ -92,6 +98,7 @@
 		</tbody>
 	</table>
 	
+	<script src="js/script.js"></script>
 	
 </body>
 </html>
