@@ -51,60 +51,41 @@ public class InscriptionServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		request.setCharacterEncoding("UTF-8");
 		
-		Utilisateur utilisateur = new Utilisateur();
+		Utilisateur utilisateurEnCours = new Utilisateur();
 		
-		utilisateur.setPseudo(request.getParameter("pseudo"));
-		utilisateur.setNom(request.getParameter("nom"));
-		utilisateur.setPrenom(request.getParameter("prenom"));
-		utilisateur.setEmail(request.getParameter("email"));
-		utilisateur.setTelephone(request.getParameter("tel"));
-		utilisateur.setRue(request.getParameter("rue"));
-		utilisateur.setCodePostal(request.getParameter("codePostal"));
-		utilisateur.setVille(request.getParameter("ville"));
-		utilisateur.setMotDePasse(request.getParameter("motDePasse"));
+		utilisateurEnCours.setPseudo(request.getParameter("pseudo"));
+		utilisateurEnCours.setNom(request.getParameter("nom"));
+		utilisateurEnCours.setPrenom(request.getParameter("prenom"));
+		utilisateurEnCours.setEmail(request.getParameter("email"));
+		utilisateurEnCours.setTelephone(request.getParameter("tel"));
+		utilisateurEnCours.setRue(request.getParameter("rue"));
+		utilisateurEnCours.setCodePostal(request.getParameter("codePostal"));
+		utilisateurEnCours.setVille(request.getParameter("ville"));
+		utilisateurEnCours.setMotDePasse(request.getParameter("motDePasse"));
 		
-		try {
-			// On vérifie d'abord si les mots de passe correspondent
-			if (utilisateurManager.verifierMotsDePasse(request.getParameter("motDePasse"), request.getParameter("motDePasseConfirm"))) {
 				
-				try {
-					// Ensuite on ajoute l'utilisateur
-					utilisateurManager.ajouterUtilisateur(utilisateur);
-					session.setAttribute("utilisateurConnecte", utilisateur);
-					session.setAttribute("succes", "Vous êtes bien enregistré !");
-					session.setAttribute("utilisateur", utilisateur);
-					session.setAttribute("confirmationMessage", "Vous êtes connecté en tant que : " + utilisateur.getPseudo());
-					response.sendRedirect("./");
-				} catch (BusinessException e) {
-					// On récupère l'exception lancée par la fonction ajouterUtilisateur de utilisateurManager
-					session.setAttribute("messageErreur", e.getMessage());
-					session.setAttribute("utilisateur", utilisateur);
-					RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/inscription.jsp");
-					rd.forward(request, response);
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			} else {
-				session.setAttribute("messageErreur", "les mots de passe ne correspondent pas");
-			}
+		try {
+			// On vérifie les mots de passe
+			utilisateurManager.verifierMotsDePasse(request.getParameter("motDePasse"), request.getParameter("motDePasseConfirm"));
+			// On ajoute l'utilisateur à la base de données
+			utilisateurManager.ajouterUtilisateur(utilisateurEnCours);
+			// On connecte l'utilisateur
+			Utilisateur utilisateur = utilisateurManager.trouverUtilisateur(utilisateurEnCours.getPseudo(), utilisateurEnCours.getMotDePasse());
+			
+			// on retourne à la page d'accueil en gardant le message
+			request.setAttribute("succes", "Vous êtes bien enregistré !");
+			
 		} catch (BusinessException e) {
-			// On récupère l'exception lancée par la fonction verifierMotsDepasse de utilisateurManager
+			// On récupère l'exception lancée par la fonction ajouterUtilisateur de utilisateurManager
 			session.setAttribute("messageErreur", e.getMessage());
-			session.setAttribute("utilisateur", utilisateur);
+			session.setAttribute("utilisateur", utilisateurEnCours);
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/inscription.jsp");
 			rd.forward(request, response);
-			e.printStackTrace();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (ServletException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
+			
 		
 	}
 
