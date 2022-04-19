@@ -30,7 +30,7 @@ public class Utilisateur {
 		this.credit = credit;
 		this.administrateur = administrateur;
 	}
-	
+
 	public Utilisateur(String pseudo, String nom, String prenom, String email, String rue,
 			String ville, int noUtilisateur, String telephone, String codePostal,
 			float credit) {

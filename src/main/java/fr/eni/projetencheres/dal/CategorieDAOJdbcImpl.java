@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.projetencheres.bo.Categorie;
+import fr.eni.projetencheres.bo.Utilisateur;
 
 /**
 
@@ -20,6 +21,7 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
 	// on définit nos requêtes SQL d'insertion/select avec des ? qu'on remplira par la suite
 
 	private final static String SELECT_CATEGORIE = "select * from CATEGORIES;";
+	private final static String SELECT_CATEGORIE_BY_ID = "select * from CATEGORIES where no_categorie=?;";
 	private final static String INSERT_CATEGORIE = "insert into CATEGORIES(libelle) values(?);";
 		
 	
@@ -55,6 +57,36 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
 		
 		return listeCategories; // pour finir je renvoie ma liste remplie precédemment
 	}
+	
+	/**
+	 * getUser() : recupère la categorie depuis la base de donnée a partir de l'id
+	 * @throws SQLException 
+	 */
+	@Override
+	public Categorie getCategorieById(int idCategorie) throws SQLException {
+		// On fait appel à la classe ConnectionProvider pour recupérer une connexion depuis notre pool
+		Connection cnx = ConnectionProvider.getConnection();
+		
+		// 1 - on crée une "requête" standard car pas besoin de changer de ? avec des valeurs de variables
+		Statement stmt = cnx.createStatement();
+		
+		// 1 - on crée une "requête préparée" à partir de la connexion recupérée et de notre template de requête SQL ( attribut INSERT)
+		PreparedStatement pStmt = cnx.prepareStatement(SELECT_CATEGORIE_BY_ID);
+		pStmt.setInt(1, idCategorie);
+		
+		// 2 - je l'execute et je recupère une réference sur les resultats dans un ResultSet
+		ResultSet rs = pStmt.executeQuery();
+		
+		
+		Categorie categorie = new Categorie();
+		if (rs.next()) { // si jamais il y a un resultat
+			categorie.setLibelle(rs.getString("libelle")); //alors on utilise sa valeur pour mettre à jour l'id de l'avis
+			categorie.setIdCategorie(idCategorie);
+		}
+		
+		return categorie; // pour finir je renvoie ma liste remplie precédemment
+	}
+	
 	
 	/**
 	 * add(Categorie categorie) peut lancer potentiellement des exception de type SQLException (il faudra le gérer dans la classe qui appelle le DAO : CategorieManager)

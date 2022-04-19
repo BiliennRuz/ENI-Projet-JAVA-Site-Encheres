@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.projetencheres.bo.Retrait;
+import fr.eni.projetencheres.bo.Utilisateur;
 
 /**
 
@@ -18,30 +19,25 @@ import fr.eni.projetencheres.bo.Retrait;
  */
 public class RetraitDAOJdbcImpl implements RetraitDAO {
 	
-	// on définit nos requêtes SQL d'insertion/select avec des ? qu'on remplira par la suite
-
 	private final static String SELECT_RETRAIT = "select * from RETRAITS;";
+	private final static String SELECT_RETRAIT_BY_ID_ARTICLE = "select * from RETRAITS where no_article=?;";
 	private final static String INSERT_RETRAIT = "insert into RETRAITS(no_article, rue, code_postal, ville) values(?,?,?,?);";
 		
 	
 	/**
-	 * getUser() : recupère la liste des retraits depuis la base de donnée
+	 * getRetrait() : recupère la liste des retraits depuis la base de donnée
 	 * @throws SQLException 
 	 */
 	@Override
 	public List<Retrait> getRetrait() throws SQLException {
 		// On fait appel à la classe ConnectionProvider pour recupérer une connexion depuis notre pool
 		Connection cnx = ConnectionProvider.getConnection();
-		
 		// 1 - on crée une "requête" standard car pas besoin de changer de ? avec des valeurs de variables
 		Statement stmt = cnx.createStatement();
-		
 		// 2 - je l'execute et je recupère une réference sur les resultats dans un ResultSet
 		ResultSet rs = stmt.executeQuery(SELECT_RETRAIT);
-		
 		// 3 - j'initialise la liste des retraits que je vais renvoyer
 		List<Retrait> listeRetraits = new ArrayList<Retrait>();
-		
 		// 4 - je parcours mes resultats pour remplir ma liste des retrait que je vais renvoyer
 		// tant qu'il y a des lignes de resultats
 		while (rs.next()) {
@@ -55,12 +51,40 @@ public class RetraitDAOJdbcImpl implements RetraitDAO {
 					);
 			listeRetraits.add(retrait); // une fois le retrait créé je l'ajoute à ma liste
 		}
-		
 		return listeRetraits; // pour finir je renvoie ma liste remplie precédemment
 	}
 	
 	/**
-	 * add(Retrait retrait) peut lancer potentiellement des exception de type SQLException (il faudra le gérer dans la classe qui appelle le DAO : RetraitManager)
+	 * getRetraitById() : recupère le user a partir de son Id depuis la base de donnée
+	 * @throws SQLException 
+	 */
+	@Override
+	public Retrait getRetraitById(int idArticle) throws SQLException {
+		// 1 - On fait appel à la classe ConnectionProvider pour recupérer une connexion depuis notre pool
+		Connection cnx = ConnectionProvider.getConnection();
+		// 2 - on crée une "requête" standard car pas besoin de changer de ? avec des valeurs de variables
+		Statement stmt = cnx.createStatement();
+		// 3 - on crée une "requête préparée" à partir de la connexion recupérée et de notre template de requête SQL ( attribut INSERT)
+		PreparedStatement pStmt = cnx.prepareStatement(SELECT_RETRAIT_BY_ID_ARTICLE);
+		pStmt.setInt(1, idArticle);
+		// 4 - je l'execute et je recupère une réference sur les resultats dans un ResultSet
+		ResultSet rs = pStmt.executeQuery();
+		// 5 - je parcours mes resultats pour remplir ma liste des user
+		rs.next();
+		Retrait retrait = new Retrait(
+				rs.getInt("no_article"),
+				rs.getString("rue"),
+				rs.getString("code_postal"),
+				rs.getString("ville")
+				);
+		// 6 - je renvoie le user
+		return retrait;		
+	}
+	
+	
+	/**
+	 * addRetrait(Retrait retrait) peut lancer potentiellement des exception de type SQLException (il faudra le gérer dans la classe qui appelle le DAO : RetraitManager)
+	 * @throws SQLException 
 	 */
 	@Override
 	public void addRetrait(Retrait retrait) throws SQLException {
