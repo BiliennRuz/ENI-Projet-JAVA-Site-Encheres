@@ -33,6 +33,80 @@ public class UtilisateurManager {
 		return utilisateur;
 	}
 	
+	// --- SUPPRESION --- (#1004)	
+	public void supprimerUtilisateur(String pseudo) throws BusinessException, SQLException {
+		
+		try {
+			utilisateurDAO.deleteUser(pseudo);
+			
+		} catch(SQLException e) {
+			throw new BusinessException("Utilisateur non trouvé...");
+		}
+	}
+	
+	// --- MODIFICATION PROFIL --- (#1007)
+	public void modifierUtilisateur(Utilisateur utilisateur) throws BusinessException, SQLException {
+			
+		Utilisateur utilisateurModifie = new Utilisateur();
+		
+		// Modification du Pseudo :
+		if(verifierPseudoUpdate(utilisateur.getPseudo())) {
+			utilisateurModifie.setPseudo(utilisateur.getPseudo());
+		}
+		
+		// Modification du Nom :
+		if(verifierNom(utilisateur.getNom())) {
+			utilisateurModifie.setNom(utilisateur.getNom());
+		}
+		else {
+			throw new BusinessException("Le nom est trop court");
+		}
+		// Modification du Prénom :
+		if(verifierPrenom(utilisateur.getPrenom())) {
+			utilisateurModifie.setPrenom(utilisateur.getPrenom());
+		}
+		else {
+			throw new BusinessException("Le prénom est trop court");
+		}
+		// Modification de la Ville :
+		if(verifierVille(utilisateur.getVille())) {
+			utilisateurModifie.setVille(utilisateur.getVille());
+		}
+		else {
+			throw new BusinessException("La ville est trop courte");
+		}
+		// Modification de la Rue :
+		if(verifierRue(utilisateur.getRue())) {
+			utilisateurModifie.setRue(utilisateur.getRue());
+		}
+		else {
+			throw new BusinessException("La rue est trop courte");
+		}
+		// Modification du Code Postal :
+		if(verifierCodePostal(utilisateur.getCodePostal())) {
+			utilisateurModifie.setCodePostal(utilisateur.getCodePostal());
+		}
+		else {
+			throw new BusinessException("Le CP est trop court");
+		}
+		// Modification du Téléphone :
+		if(verifierTelephone(utilisateur.getTelephone())) {
+			utilisateurModifie.setTelephone(utilisateur.getTelephone());
+		}
+		else {
+			throw new BusinessException("Le numéro de téléphone est trop court");
+		}
+		// Modification de l'Email :
+		if(verifierEmailUpdate(utilisateur.getEmail())) {
+			utilisateurModifie.setEmail(utilisateur.getEmail());
+		}
+		
+		// Modification du mot de passe
+		utilisateurModifie.setMotDePasse(encrypt(utilisateur.getMotDePasse()));
+			
+		utilisateurDAO.updateUser(utilisateurModifie);	
+	}
+	
 	// --- INSCRIPTION --- (#1003)
 	
 	// Méthode principale pour vérifier la conformité de tous les champs inscrits par l'utilisateur
@@ -44,9 +118,7 @@ public class UtilisateurManager {
 		if(verifierPseudo(utilisateur.getPseudo())) {
 			nouvelUtilisateur.setPseudo(utilisateur.getPseudo());
 		}
-		else {
-			throw new BusinessException("Le pseudo est trop court");
-		}
+		
 		// Nom :
 		if(verifierNom(utilisateur.getNom())) {
 			nouvelUtilisateur.setNom(utilisateur.getNom());
@@ -93,9 +165,6 @@ public class UtilisateurManager {
 		if(verifierEmail(utilisateur.getEmail())) {
 			nouvelUtilisateur.setEmail(utilisateur.getEmail());
 		}
-		else {
-			throw new BusinessException("L'Email est trop court");
-		}
 		
 		// On alloue un crédit de 100 points au nouvel utilisateur
 		nouvelUtilisateur.setCredit(100);
@@ -115,7 +184,7 @@ public class UtilisateurManager {
 		int compteur = 0;
 		
 		// Pour avoir uniquement des valeurs alphanumériques
-		p = Pattern.compile("^[a-zA-Z0-9]+$");
+		p = Pattern.compile("^[a-zA-Z0-9é]+$");
 		m = p.matcher(pseudo);
 		
 		if (!m.find()) {
@@ -129,18 +198,52 @@ public class UtilisateurManager {
 			List <Utilisateur> utilisateurs = utilisateurDAO.getUser();
 					
 			for(Utilisateur utilisateur : utilisateurs) {
-				if(utilisateur.getPseudo().equals(pseudo)) {
+				if(utilisateur.getPseudo().toUpperCase().equals(pseudo.toUpperCase())) {
 					compteur++;
 				}
 			}
 			
-			if(compteur > 1) {
+			if(compteur >= 1) {
 				throw new BusinessException("Ce pseudo est déjà pris !");
 			}
 		}
 			
 		return true;
 	}
+	
+	// Vérifier la conformité du Pseudo
+		private boolean verifierPseudoUpdate(String pseudo) throws BusinessException, SQLException {
+			Pattern p;
+			Matcher m;
+			int compteur = 0;
+			
+			// Pour avoir uniquement des valeurs alphanumériques
+			p = Pattern.compile("^[a-zA-Z0-9é]+$");
+			m = p.matcher(pseudo);
+			
+			if (!m.find()) {
+				// Si les caractères ne correspondent pas, on lance une exception
+				throw new BusinessException("Le pseudo ne doit comporter que des caractères alphanumériques");
+			} 
+			
+			// On vérifie qu'il n'existe pas de pseudo identique
+			if(verifierString(pseudo)) {
+				
+				List <Utilisateur> utilisateurs = utilisateurDAO.getUser();
+						
+				for(Utilisateur utilisateur : utilisateurs) {
+					if(utilisateur.getPseudo().toUpperCase().equals(pseudo.toUpperCase())) {
+						compteur++;
+					}
+				}
+				
+				if(compteur >= 2) {
+					throw new BusinessException("Ce pseudo est déjà pris !");
+				}
+			}
+				
+			return true;
+		}
 	// Vérifier la conformité du Nom
 	private boolean verifierNom(String nom) {
 		if(verifierString(nom)) {
@@ -160,7 +263,7 @@ public class UtilisateurManager {
 		}
 	}
 	// Vérification Email
-	private boolean verifierEmail(String email) throws SQLException {
+	private boolean verifierEmail(String email) throws BusinessException, SQLException {
 		Pattern p;
 		Matcher m;
 		int compteur = 0;
@@ -168,6 +271,10 @@ public class UtilisateurManager {
 		// Pour avoir le format de l'Email
 		p = Pattern.compile("^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]{2,}\\.[a-z]{2,4}$");
 		m = p.matcher(email);
+		
+		if(!m.find()) {
+			throw new BusinessException("L'email doit être valide");
+		}
 				
 		if(verifierString(email)) {
 				
@@ -177,13 +284,47 @@ public class UtilisateurManager {
 				if(utilisateur.getEmail().equals(email)) {
 					compteur++;
 				}
-			}	
+			}
+			
+			if(compteur >= 1) {
+				throw new BusinessException("Cet email est déjà pris !");
+			}
 		}
-		if(compteur > 1 || !m.find()) {
-			return false;
-		}	
+			
 		return true;
 	}
+	
+	// Vérification Email
+		private boolean verifierEmailUpdate(String email) throws BusinessException, SQLException {
+			Pattern p;
+			Matcher m;
+			int compteur = 0;
+					
+			// Pour avoir le format de l'Email
+			p = Pattern.compile("^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]{2,}\\.[a-z]{2,4}$");
+			m = p.matcher(email);
+			
+			if(!m.find()) {
+				throw new BusinessException("L'email doit être valide");
+			}
+					
+			if(verifierString(email)) {
+					
+				List <Utilisateur> utilisateurs = utilisateurDAO.getUser();
+							
+				for(Utilisateur utilisateur : utilisateurs) {
+					if(utilisateur.getEmail().equals(email)) {
+						compteur++;
+					}
+				}
+				
+				if(compteur >= 2) {
+					throw new BusinessException("Cet email est déjà pris !");
+				}
+			}
+				
+			return true;
+		}
 	// Vérifier la conformité de la Ville
 	private boolean verifierVille(String ville) {
 		if(verifierString(ville)) {
@@ -211,7 +352,20 @@ public class UtilisateurManager {
 	}
 	
 	// Vérifier le code postal
-	private boolean verifierCodePostal(String codePostal) {
+	private boolean verifierCodePostal(String codePostal) throws BusinessException, SQLException {
+		Pattern p;
+		Matcher m;
+		int compteur = 0;
+		
+		// Pour avoir uniquement des chiffres
+		p = Pattern.compile("[0-9]+");
+		m = p.matcher(codePostal);
+		
+		if (!m.find()) {
+			// Si les caractères ne correspondent pas, on lance une exception
+			throw new BusinessException("Le code postal ne peut que être composé de chiffres");
+		} 
+		
 		if(codePostal.length() < 5) {
 			return false;
 		}
@@ -219,7 +373,20 @@ public class UtilisateurManager {
 	}
 	
 	// Vérifier que le numéro de téléphone à au moins 10 numéros
-	private boolean verifierTelephone(String telephone) {
+	private boolean verifierTelephone(String telephone) throws BusinessException, SQLException {
+		Pattern p;
+		Matcher m;
+		int compteur = 0;
+		
+		// Pour avoir uniquement des chiffres
+		p = Pattern.compile("[0-9]+");
+		m = p.matcher(telephone);
+		
+		if (!m.find()) {
+			// Si les caractères ne correspondent pas, on lance une exception
+			throw new BusinessException("Le numéro de téléphone ne peut que être composé de chiffres");
+		} 
+		
 		if(telephone.length() < 10) {
 			return false;
 		}
@@ -237,8 +404,6 @@ public class UtilisateurManager {
 		}
 	}
 
-	
-	
 	
 	
 //	private void validationConnexion(String login, String password) throws BusinessException, SQLException {

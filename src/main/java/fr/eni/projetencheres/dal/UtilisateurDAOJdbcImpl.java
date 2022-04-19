@@ -22,7 +22,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	private final static String SELECT_UTILISATEUR = "select * from UTILISATEURS;";
 	private final static String SELECT_UTILISATEUR_BY_ID = "select * from UTILISATEURS WHERE no_utilisateur=?;";
 	private final static String INSERT_UTILISATEUR = "insert into UTILISATEURS(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) values(?,?,?,?,?,?,?,?,?,?,?);";
-	private final static String UPDATE_UTILISATEUR = "update UTILISATEURS set no_utilisateur=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=?, mot_de_passe=?, credit=?, administrateur=? WHERE pseudo=?;";
+	private final static String UPDATE_UTILISATEUR = "update UTILISATEURS set pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=?, mot_de_passe=?, credit=?, administrateur=? WHERE pseudo=?";
 	private final static String CHECK_UTILISATEUR = "select * from UTILISATEURS where (pseudo=? or email=?) and mot_de_passe=?;";
 	private final static String DELETE_UTILISATEUR = "delete from UTILISATEURS where pseudo=?;";
 	
@@ -217,6 +217,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	 */
 	@Override
 	public void deleteUser(String pseudo) throws SQLException {
+		
 		// On fait appel à la classe ConnectionProvider pour recupérer une connexion depuis notre pool
 		Connection cnx = ConnectionProvider.getConnection();
 		
@@ -229,7 +230,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		
 		// 3 - j'execute la requête SQL
 		pStmt.executeUpdate(); // ici , il faut faire executeUpdate() et pas executeQuery() parce qu'on modifie des données
-				
+		
 		// on ferme la connexion quand tout a été ajouté
 		cnx.close();
 	}

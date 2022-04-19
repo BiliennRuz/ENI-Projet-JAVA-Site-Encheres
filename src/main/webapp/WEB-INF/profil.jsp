@@ -15,6 +15,10 @@
 		<h1>Mon Profil</h1>
 	</div>
 	
+	<c:if test="${messageConfirmation != null }">
+		<div class="succes">${messageConfirmation}</div>
+	</c:if>
+	
 	
 	<!-- FORMULAIRE -->
 	<!-- Données : pseudo - nom - prenom - email - tel - rue - codePostal - ville - motDePasse - motDepasseConfirm -->
@@ -74,10 +78,18 @@
 		</div>
 		<div class="blocInscription blocBoutonsInscription">
 			<button class="boutonInscription" type="submit">Modifier</button>
-			<a class="boutonInscription" href="./">Annuler</a>
 		</div>
 		
 	</form>
 	
+	<form class="supprimerCompte" action="./supprimerCompte" method="POST">
+		<button class="boutonInscription" type="submit">Supprimer mon compte</button>
+	</form>
+	
+	<div class="erreurs">
+			<p>${messageErreur}</p>
+		</div>
+	
+	<script src="js/script.js"></script>
 </body>
 </html>

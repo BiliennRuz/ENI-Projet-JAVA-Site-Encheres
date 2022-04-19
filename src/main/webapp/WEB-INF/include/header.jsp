@@ -6,7 +6,7 @@
 
 <header>
 	<div class="titre">
-		<h2>ENI-Enchères</h2>
+		<h2><a href="./">ENI-Enchères</a></h2>
 	</div>
 	
 	<div class="connexion">

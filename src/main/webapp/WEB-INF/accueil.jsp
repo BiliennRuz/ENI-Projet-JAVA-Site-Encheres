@@ -4,16 +4,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<meta name='viewport' content='width=device-width, initial-scale=1.0'>
-<title>Enchères</title>
-<link rel="stylesheet" href="css/style.css">
+	<meta charset="UTF-8">
+	<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+	<title>Enchères</title>
+	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
 	
 	
 	<%@ include file="./include/header.jsp"%>
+	
+	<c:if test="${succes != null }">
+		<div class="succes">${succes}</div>
+	</c:if>
 	
 	
 	<!-- TITRE DE LA PAGE -->
@@ -116,6 +120,7 @@
 		</tbody>
 	</table>
 	
+	<script src="js/script.js"></script>
 	
 </body>
 </html>
