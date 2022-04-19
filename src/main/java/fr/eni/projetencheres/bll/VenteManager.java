@@ -76,8 +76,8 @@ public class VenteManager {
 						e.printStackTrace();
 					}
 					// on recupere les encheres associé
-					Enchere encheres = this.enchereDAO.getEnchereById(articleVendu.getIdArticle());
-					articleVendu.setEnchere(encheres);
+//					Enchere encheres = this.enchereDAO.getEnchereById(articleVendu.getIdArticle());
+//					articleVendu.setEnchere(encheres);
 					// on ajoute l'article a la liste
 					listeArticlesEnVente.add(articleVendu);
 					System.out.println("DEBUG VenteManager SearchArticleEnVente, add : " + articleVendu);
