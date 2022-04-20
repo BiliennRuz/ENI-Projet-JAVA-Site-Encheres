@@ -16,6 +16,7 @@
 	
 	<section class="titrePage">
 		<h1>Détail Vente</h1>
+		<p>L'id est : ${id}</p>
 	</section>
 
 	<script src="js/script.js"></script>

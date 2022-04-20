@@ -56,7 +56,8 @@ public class ConnexionServlet extends HttpServlet {
 			// On récupère la session
 			HttpSession session = request.getSession();
 			// On y ajoute les attributs
-			session.setAttribute("utilisateurConnecte", true);
+			session.setAttribute("connexion", true);
+			session.setAttribute("utilisateurConnecte", utilisateur);
 			session.setAttribute("confirmationMessage", "Vous êtes connecté en tant que : " + utilisateur.getPseudo());
 			// On redirige sur la page d'accueil
 			response.sendRedirect("./");

@@ -28,51 +28,51 @@
 			<div class="pseudoNom blocInputs">
 				<div class="blocLabelinput">
 					<label for="pseudo">Pseudo</label>
-					<input type="text" name="pseudo" id="pseudo" value="${utilisateurConnecte.pseudo}">
+					<input type="text" name="pseudo" id="pseudo" value="${utilisateur.pseudo}">
 				</div>
 				<div class="blocLabelinput">
 					<label for="nom">Nom</label>
-					<input type="text" name="nom" id="nom" value="${utilisateurConnecte.nom}">
+					<input type="text" name="nom" id="nom" value="${utilisateur.nom}">
 				</div>
 			</div>
 			<div class="prenomEmail blocInputs">
 				<div class="blocLabelinput">
 					<label for="prenom">Prénom</label>
-					<input type="text" name="prenom" id="prenom" value="${utilisateurConnecte.prenom}">
+					<input type="text" name="prenom" id="prenom" value="${utilisateur.prenom}">
 				</div>
 				<div class="blocLabelinput">
 					<label for="email">Email</label>
-					<input type="email" name="email" id="email" value="${utilisateurConnecte.email}">
+					<input type="email" name="email" id="email" value="${utilisateur.email}">
 				</div>
 			</div>
 			<div class="telRue blocInputs">
 				<div class="blocLabelinput">
 					<label for="tel">Téléphone</label>
-					<input type="tel" name="tel" id="tel" value="${utilisateurConnecte.telephone}">
+					<input type="tel" name="tel" id="tel" value="${utilisateur.telephone}">
 				</div>
 				<div class="blocLabelinput">
 					<label for="rue">Rue</label>
-					<input type="text" name="rue" id="rue" value="${utilisateurConnecte.rue}">
+					<input type="text" name="rue" id="rue" value="${utilisateur.rue}">
 				</div>
 			</div>
 			<div class="cpVille blocInputs">
 				<div class="blocLabelinput">
 					<label for="codePostal">Code Postal</label>
-					<input type="number" name="codePostal" id="codePostal" value="${utilisateurConnecte.codePostal}">
+					<input type="number" name="codePostal" id="codePostal" value="${utilisateur.codePostal}">
 				</div>
 				<div class="blocLabelinput">
 					<label for="ville">Ville</label>
-					<input type="text" name="ville" id="ville" value="${utilisateurConnecte.ville}">
+					<input type="text" name="ville" id="ville" value="${utilisateur.ville}">
 				</div>
 			</div>
 			<div class="mdpConfirm blocInputs">
 				<div class="blocLabelinput">
 					<label for="motDePasse">Mot de passe</label>
-					<input type="password" name="motDePasse" id="motDePasse" value="${utilisateurConnecte.motDePasse}">
+					<input type="password" name="motDePasse" id="motDePasse" value="${utilisateur.motDePasse}">
 				</div>
 				<div class="blocLabelinput">
 					<label for="motDePasseConfirm">Confirmation mot de passe</label>
-					<input type="password" name="motDePasseConfirm" id="motDePasseConfirm" value="${utilisateurConnecte.motDePasse}">
+					<input type="password" name="motDePasseConfirm" id="motDePasseConfirm" value="${utilisateur.motDePasse}">
 				</div>
 			</div>
 		</div>

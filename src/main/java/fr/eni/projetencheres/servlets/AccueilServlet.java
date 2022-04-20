@@ -63,6 +63,7 @@ public class AccueilServlet extends HttpServlet {
 		session.getAttribute("utilisateurConnecte");
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/accueil.jsp");
 		rd.forward(request, response);
+		session.removeAttribute("succes");
 	}
 
 	/**
