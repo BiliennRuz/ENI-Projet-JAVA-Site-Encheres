@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ include file="./include/head.jsp"%>
 	
 	<c:if test="${succes != null }">

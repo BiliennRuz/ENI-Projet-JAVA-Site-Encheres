@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ include file="./include/head.jsp"%>
 	
 	<div class="blocInscription">
@@ -10,7 +12,7 @@
 	
 	
 	<!-- FORMULAIRE -->
-	<!-- Données : pseudo - nom - prenom - email - tel - rue - codePostal - ville - motDePasse - motDepasseConfirm -->
+	<!-- DonnÃ©es : pseudo - nom - prenom - email - tel - rue - codePostal - ville - motDePasse - motDepasseConfirm -->
 	
 	<form class="inscription" action="./profil" method="POST">
 		<div class="blocInscription blocChamps">
@@ -26,7 +28,7 @@
 			</div>
 			<div class="prenomEmail blocInputs">
 				<div class="blocLabelinput">
-					<label for="prenom">Prénom</label>
+					<label for="prenom">PrÃ©nom</label>
 					<input type="text" name="prenom" id="prenom" value="${utilisateur.prenom}">
 				</div>
 				<div class="blocLabelinput">
@@ -36,7 +38,7 @@
 			</div>
 			<div class="telRue blocInputs">
 				<div class="blocLabelinput">
-					<label for="tel">Téléphone</label>
+					<label for="tel">TÃ©lÃ©phone</label>
 					<input type="tel" name="tel" id="tel" value="${utilisateur.telephone}">
 				</div>
 				<div class="blocLabelinput">

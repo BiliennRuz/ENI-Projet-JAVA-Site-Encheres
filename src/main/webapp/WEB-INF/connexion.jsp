@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ include file="./include/head.jsp"%>
 
 	<div class="blocInscription">
@@ -25,7 +27,7 @@
 					<input type="checkbox" name="souvenir" id="souvenir">
 					<label for="souvenir">Se souvenir de moi</label>
 				</div>
-				<a href="">Mot de passe oublié</a>
+				<a href="">Mot de passe oubliÃ©</a>
 			</div>
 		</div>
 	</form>
@@ -35,7 +37,7 @@
 	</c:if>
 	
 	<section class="creationCompte">
-		<a class="boutonInscription" href="./inscription">Créer un compte</a>
+		<a class="boutonInscription" href="./inscription">CrÃ©er un compte</a>
 	</section>
 
 <%@ include file="./include/footer.jsp"%>
