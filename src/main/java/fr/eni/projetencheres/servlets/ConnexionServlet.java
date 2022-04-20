@@ -22,35 +22,39 @@ import fr.eni.projetencheres.bo.Utilisateur;
 @WebServlet("/connexion")
 public class ConnexionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+
 	private UtilisateurManager utilisateurManager = new UtilisateurManager();
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ConnexionServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public ConnexionServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// Affichage de la page connexion
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/connexion.jsp");
 		rd.forward(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		Utilisateur utilisateur = new Utilisateur();
-		
+
 		String login = request.getParameter("login");
 		String password = request.getParameter("motDePasse");
-		
+
 		try {
 			// On demande au manager de trouver l'utilisateur
 			utilisateur = utilisateurManager.trouverUtilisateur(login, password);
@@ -68,7 +72,7 @@ public class ConnexionServlet extends HttpServlet {
 		} catch (BusinessException | SQLException e) {
 			request.setAttribute("erreurMessage", e.getMessage());
 			this.doGet(request, response);
-		}		
+		}
 	}
 
 }
