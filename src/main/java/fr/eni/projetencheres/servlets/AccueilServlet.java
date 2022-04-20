@@ -35,7 +35,16 @@ public class AccueilServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-				
+		
+		HttpSession session = request.getSession();
+//		String verifUtilisateurInscrit = (String) session.getAttribute("utilisateurInscrit");
+//		System.out.println(verifUtilisateurInscrit);
+//		
+//		if (verifUtilisateurInscrit.equals("true")) {
+//			request.setAttribute("succes", "Vous êtes bien enregistré !");
+//			session.removeAttribute("utilisateurinscrit");
+//		}
+		
 		// on recupère les repas deouis la couche BLL
 		List<Categorie> categories = this.venteManager.getCategorie();
 		// on balance les categories au JSP
@@ -85,10 +94,10 @@ public class AccueilServlet extends HttpServlet {
 		request.setAttribute("articles", articles);
 		
 		// Affichage de la page d'accueil
-		HttpSession session = request.getSession();
 		session.getAttribute("utilisateurConnecte");
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/accueil.jsp");
 		rd.forward(request, response);
+		session.removeAttribute("succes");
 	}
 
 	/**

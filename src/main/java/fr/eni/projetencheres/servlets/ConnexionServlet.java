@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -53,17 +54,20 @@ public class ConnexionServlet extends HttpServlet {
 		try {
 			// On demande au manager de trouver l'utilisateur
 			utilisateur = utilisateurManager.trouverUtilisateur(login, password);
+			Cookie leCookie = new Cookie("connecte", "oui");
+			response.addCookie(leCookie);
 			// On récupère la session
 			HttpSession session = request.getSession();
 			// On y ajoute les attributs
+			session.setAttribute("connexion", true);
 			session.setAttribute("utilisateurConnecte", utilisateur);
 			session.setAttribute("confirmationMessage", "Vous êtes connecté en tant que : " + utilisateur.getPseudo());
+			session.setAttribute("succes", "Vous êtes bien connecté !");
 			// On redirige sur la page d'accueil
 			response.sendRedirect("./");
 		} catch (BusinessException | SQLException e) {
 			request.setAttribute("erreurMessage", e.getMessage());
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/accueil.jsp");
-			rd.forward(request, response);
+			this.doGet(request, response);
 		}		
 	}
 
