@@ -2,6 +2,7 @@ package fr.eni.projetencheres.bll;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,6 +56,12 @@ public class VenteManager {
 			for (ArticleVendu articleVendu : listeArticles) {
 				// on filtre sur les vente en cour (date actuelle comprise ente date début et fin d'enchere)
 				// et avec la categorie selectionnée et l'element du nom selectionné
+				
+//				if (statusVente.equals("Vente non débuté") && (articleVendu.getDateDebutEncheres().compareTo(LocalDate.now()) > 0)
+//				if (statusVente.equals("Vente en cours")
+//				if (statusVente.equals("Vente terminée") && (articleVendu.getDateFinEncheres().compareTo(LocalDate.now()) >= 0)
+
+				
 				if ((articleVendu.getDateDebutEncheres().compareTo(LocalDate.now()) <= 0)
 						&& (articleVendu.getDateFinEncheres().compareTo(LocalDate.now()) >= 0)
 						&& ((articleVendu.getIdCategorie() == categorie) || (categorie == 0))
@@ -78,19 +85,26 @@ public class VenteManager {
 					// on recupere les encheres associé
 					try {
 						List<Enchere> encheres = this.enchereDAO.getEnchereByIdArticle(articleVendu.getIdArticle());
-						System.out.println("DEBUG encheres : " + encheres);
+						// recuperation de la dernière enchère de l'article si il y en a
 						if (encheres.size() > 0) {
+					        LocalDateTime maxDateTime = LocalDateTime.of(1900, 1, 1, 0, 0);
+					        Enchere lastEnchere = new Enchere();
 							for (Enchere enchere : encheres) {
-								
-							}				
+								// Si la date de l'enchere est apres la derniere mémorisée
+								if (enchere.getDateEnchere().isAfter(maxDateTime)) {
+									// On memorise la date la plus élévée
+									maxDateTime = enchere.getDateEnchere();
+									// On sauvegarde l'encère
+									lastEnchere = enchere;
+								}
+							}
+							// On ajoute la dernière enchere a l'article
+							articleVendu.setLastEnchere(lastEnchere);
 						}
-
-						//articleVendu.setListeEncheres(encheres);
 					} catch (SQLException e) {
 						e.printStackTrace();
 						//throw new BusinessException("erreur SQL lors de la récupération de l'enchère en base de donnée");
 					}
-					
 					// on ajoute l'article a la liste
 					listeArticlesEnVente.add(articleVendu);
 					System.out.println("DEBUG VenteManager SearchArticleEnVente, add : " + articleVendu);

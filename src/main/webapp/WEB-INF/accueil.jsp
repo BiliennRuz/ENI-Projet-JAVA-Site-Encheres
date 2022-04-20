@@ -109,7 +109,7 @@
 						<td>${articles.nomArticle}</td> 
 						<td>${articles.description}</td>
 						<td>${articles.categorieArticle.libelle}</td>
-						<td></td>
+						<td>${articles.lastEnchere.montantEnchere}</td>
 						<td>${articles.prixInitial}</td>
 						<td>${articles.dateFinEncheres}</td>
 						<td>${articles.lieuRetrait.rue} ${articles.lieuRetrait.codePostal} ${articles.lieuRetrait.ville}</td>
