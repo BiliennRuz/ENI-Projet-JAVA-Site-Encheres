@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.projetencheres.bo.ArticleVendu;
+import fr.eni.projetencheres.bo.Categorie;
+import fr.eni.projetencheres.bo.Retrait;
 
 /**
  * Implémentation des fonctionnalités de mon interface ArticleVenduDAO avec JDBC (en base de donnée)
@@ -21,6 +23,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 	// on définit nos requêtes SQL d'insertion/select avec des ? qu'on remplira par la suite
 
 	private final static String SELECT_ARTICLE = "select * from ARTICLES_VENDUS;";
+	private final static String SELECT_ARTICLE_BY_ID = "select * from ARTICLES_VENDUS where no_article=?;";
 	private final static String INSERT_ARTICLE = "insert into ARTICLES_VENDUS(prix_initial, prix_vente, no_utilisateur, no_categorie, nom_article, description, date_debut_encheres, date_fin_encheres, status_vente) values(?,?,?,?,?,?,?,?,?);";
 	private final static String UPDATE_ARTICLE = "update ARTICLES_VENDUS set prix_initial=?, prix_vente=?, no_utilisateur=?, no_categorie=?, nom_article=?, description=?, date_debut_encheres=?, date_fin_encheres=?, status_vente=? WHERE no_utilisateur=?";
 	
@@ -59,6 +62,38 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 		}
 		// 6 - our finir je renvoie ma liste remplie precédemment
 		return listeArticleVendus;
+	}
+	
+	/**
+	 * getRetraitById() : recupère le retrait a partir de IdArticle depuis la base de donnée
+	 * @throws SQLException 
+	 */
+	@Override
+	public ArticleVendu getArticleById(int idArticle) throws SQLException {
+		// 1 - On fait appel à la classe ConnectionProvider pour recupérer une connexion depuis notre pool
+		Connection cnx = ConnectionProvider.getConnection();
+		// 2 - on crée une "requête" standard car pas besoin de changer de ? avec des valeurs de variables
+		Statement stmt = cnx.createStatement();
+		// 3 - on crée une "requête préparée" à partir de la connexion recupérée et de notre template de requête SQL ( attribut INSERT)
+		PreparedStatement pStmt = cnx.prepareStatement(SELECT_ARTICLE_BY_ID);
+		pStmt.setInt(1, idArticle);
+		// 4 - je l'execute et je recupère une réference sur les resultats dans un ResultSet
+		ResultSet rs = pStmt.executeQuery();
+		// 5 - je parcours mes resultats pour remplir mon retrait
+		rs.next();
+		ArticleVendu article = new ArticleVendu(
+				rs.getInt("no_article"),
+				rs.getInt("prix_initial"),
+				rs.getInt("prix_vente"),
+				rs.getInt("no_utilisateur"),
+				rs.getInt("no_categorie"),
+				rs.getString("nom_article"),
+				rs.getString("description"),
+				rs.getDate("date_debut_encheres").toLocalDate(),
+				rs.getDate("date_fin_encheres").toLocalDate()
+				);
+		// 6 - je renvoie le retrait
+		return article;		
 	}
 	
 	/**
