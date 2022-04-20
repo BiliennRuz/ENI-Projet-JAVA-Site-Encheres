@@ -48,6 +48,7 @@ public class VenteManager {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return null;
 	}
 	
 	/**
