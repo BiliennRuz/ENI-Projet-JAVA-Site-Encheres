@@ -8,7 +8,7 @@
 	<!-- TITRE DE LA PAGE -->
 	
 	<section class="titrePage">
-		<h1>Liste des enchères</h1>
+		<h1>Liste des enchÃ¨res</h1>
 	</section>
 	
 	
@@ -24,7 +24,7 @@
 				<input type="text" name="article" id="article" placeholder="Le nom de l'article contient">
 			</div>
 			<div class="blocCategories">
-				<label>Catégorie : </label>
+				<label>CatÃ©gorie : </label>
 				<select name="idcategorie">
 					<option value="0">Toutes</option>
 					<c:forEach var="categorie" items="${categories}">
@@ -41,18 +41,19 @@
 						</div>
 						<div class="blocLabelInput">
 							<input type="checkbox" name="enchereouvertes" value="true" id="enchereOuverte">
-							<label for="enchereOuverte">Enchère ouvertes</label>
+							<label for="enchereOuverte">EnchÃ¨re ouvertes</label>
 						</div>
 						<div class="blocLabelInput">
 							<input type="checkbox" name="mesencheres" value="true" id="mesEncheres">
-							<label for="mesEncheres">Mes enchères</label>
+							<label for="mesEncheres">Mes enchÃ¨res</label>
 						</div>
 						<div class="blocLabelInput">
 							<input type="checkbox" name="mesencheresremportees" value="true" id="mesEncheresRemportees">
-							<label for="MesEncheresRemportees">Mes enchères remportées</label>
+							<label for="MesEncheresRemportees">Mes enchÃ¨res remportÃ©es</label>
 						</div>
 						
 					</div>
+
 					<div class="blocVente">
 						<div class="blocLabelInput">
 							<input type="radio" name="achatvente" value="vente" id="boutonVente">
@@ -60,7 +61,7 @@
 						</div>
 						<div class="blocLabelInput">
 							<input type="checkbox" name="ventenondebutee" value="true" id="venteNonDebutee">
-							<label for="venteNonDebutee">Vente non débutée</label>
+							<label for="venteNonDebutee">Vente non dÃ©butÃ©e</label>
 						</div>
 						<div class="blocLabelInput">
 							<input type="checkbox" name="venteencours" value="true" id="venteEnCours">
@@ -68,8 +69,9 @@
 						</div>
 						<div class="blocLabelInput">
 							<input type="checkbox" name="venteterminee" value="true" id="venteTerminee">
-							<label for="venteTerminee">Vente terminée</label>
+							<label for="venteTerminee">Vente terminÃ©e</label>
 						</div>
+
 					</div>
 				</c:if>
 			</div>
@@ -88,6 +90,7 @@
 	
 	<!-- BLOC DE LA LISTE -->
 	
+
 	<main>
 	
 		<c:forEach var="articles" items="${articles}">
@@ -100,14 +103,15 @@
 			  </div>
 			  <ul class="list-group list-group-flush">
 			    <li class="list-group-item">Prix : ${articles.prixInitial}</li>
-			    <li class="list-group-item">Fin de l'enchère : ${articles.dateFinEncheres}</li>
+			    <li class="list-group-item">Fin de l'enchÃ¨re : ${articles.dateFinEncheres}</li>
 			    <li class="list-group-item">Vendeur : ${articles.vendeur.pseudo}</li>
 			  </ul>
 			  <div class="card-body">
-			    <a href="./DetailVente?id=${articles.idArticle}" class="card-link">Voir le détail</a>
+			    <a href="./DetailVente?id=${articles.idArticle}" class="card-link">Voir le dÃ©tail</a>
 			  </div>
 			</div>
 		</c:forEach>
+
 	
 	</main>
 	

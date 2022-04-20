@@ -2,13 +2,14 @@ package fr.eni.projetencheres.bo;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ArticleVendu {
 
 	private int idArticle , prixInitial, prixVente, idUtilisateur, idCategorie;
 	private String nomArticle, description;
 	private LocalDate dateDebutEncheres, dateFinEncheres;
-	private ArrayList<Enchere> listeEncheres  = new ArrayList<Enchere>();
+	private Enchere lastEnchere;
 	private Utilisateur vendeur;
 	private Retrait lieuRetrait;
 	private Categorie categorieArticle;
@@ -41,7 +42,6 @@ public class ArticleVendu {
 		this.dateFinEncheres = dateFinEncheres;
 	}
 	
-
 	public int getIdArticle() {
 		return idArticle;
 	}
@@ -96,11 +96,11 @@ public class ArticleVendu {
 	public void setDateFinEncheres(LocalDate dateFinEncheres) {
 		this.dateFinEncheres = dateFinEncheres;
 	}
-	public ArrayList<Enchere> getListeEncheres() {
-		return listeEncheres;
+	public Enchere getLastEnchere() {
+		return lastEnchere;
 	}
-	public void setListeEncheres(ArrayList<Enchere> listeEncheres) {
-		this.listeEncheres = listeEncheres;
+	public void setLastEnchere(Enchere lastEnchere) {
+		this.lastEnchere = lastEnchere;
 	}
 	public Utilisateur getVendeur() {
 		return vendeur;
@@ -120,14 +120,13 @@ public class ArticleVendu {
 	public void setCategorieArticle(Categorie categorieArticle) {
 		this.categorieArticle = categorieArticle;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "ArticleVendu [idArticle=" + idArticle + ", prixInitial=" + prixInitial + ", prixVente=" + prixVente
 				+ ", idUtilisateur=" + idUtilisateur + ", idCategorie=" + idCategorie + ", nomArticle=" + nomArticle
 				+ ", description=" + description + ", dateDebutEncheres=" + dateDebutEncheres + ", dateFinEncheres="
-				+ dateFinEncheres + ", listeEncheres=" + listeEncheres + ", vendeur=" + vendeur + ", lieuRetrait="
+				+ dateFinEncheres + ", lastEnchere=" + lastEnchere + ", vendeur=" + vendeur + ", lieuRetrait="
 				+ lieuRetrait + ", categorieArticle=" + categorieArticle + "]";
-	}
-	
+	}	
 }
