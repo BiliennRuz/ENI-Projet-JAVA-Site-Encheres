@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import fr.eni.projetencheres.bll.BusinessException;
 import fr.eni.projetencheres.bo.ArticleVendu;
@@ -21,6 +23,10 @@ import fr.eni.projetencheres.dal.UtilisateurDAO;
 
 
 public class VenteManager {
+	
+	// initialisation du logger
+	Logger logger = LoggerFactory.getLogger(VenteManager.class);
+	
 	// attribut qui contient la référence vers notre couche DAL (ajout base de donnée)
 	private CategorieDAO categorieDAO = DAOFactory.getCategorieDAO();
 	private ArticleDAO articleDAO = DAOFactory.getArticleDAO();
@@ -29,8 +35,10 @@ public class VenteManager {
 	private EnchereDAO enchereDAO = DAOFactory.getEnchereDAO();
 	
 	public List<ArticleVendu> getArticle() {
+		logger.info("Appel de getArticle()");
 		try {
 			return this.articleDAO.getArticle();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -91,7 +99,7 @@ public class VenteManager {
 						Retrait adresseRetrait = this.retraitDAO.getRetraitById(articleVendu.getIdArticle());
 						articleVendu.setLieuRetrait(adresseRetrait);
 					} catch (SQLException e) {
-						System.err.println("Pas de retrait à récuperer dans la base");
+						logger.error("Pas de retrait à récuperer dans la base !!!");
 						//e.printStackTrace();
 						//throw new BusinessException("erreur SQL lors de la récupération du retrait de l'article en base de donnée");
 					}
@@ -116,7 +124,7 @@ public class VenteManager {
 							articleVendu.setLastEnchere(lastEnchere);
 						}
 					} catch (SQLException e) {
-						System.err.println("Pas d'enchère à récuperer dans la base");
+						logger.error("Pas d'enchère à récuperer dans la base");
 						//e.printStackTrace();
 						//throw new BusinessException("erreur SQL lors de la récupération de l'enchère en base de donnée");
 					}
@@ -126,17 +134,17 @@ public class VenteManager {
 			}
 			
 			// on filtre en fonction du type de vente
-			System.out.println("DEBUG venteNonDebutee : " + venteNonDebutee + " / venteEnCours : " + venteEnCours + " / venteTerminee : " + venteTerminee);
+			logger.debug("venteNonDebutee : " + venteNonDebutee + " / venteEnCours : " + venteEnCours + " / venteTerminee : " + venteTerminee);
 			List<ArticleVendu> listeArticlesFiltreVente = new ArrayList<ArticleVendu>();
 			for (ArticleVendu articleVenduFiltreCatNom : listeArticlesFiltreCatNom) {
-				System.out.println("DEBUG: getDateDebutEncheres().compareTo : " + articleVenduFiltreCatNom.getDateDebutEncheres().compareTo(LocalDate.now()));
-				System.out.println("DEBUG: getDateFinEncheres().compareTo : " + articleVenduFiltreCatNom.getDateFinEncheres().compareTo(LocalDate.now()));
+				logger.debug("getDateDebutEncheres().compareTo : " + articleVenduFiltreCatNom.getDateDebutEncheres().compareTo(LocalDate.now()));
+				logger.debug("getDateFinEncheres().compareTo : " + articleVenduFiltreCatNom.getDateFinEncheres().compareTo(LocalDate.now()));
 				// cas "Vente non débuté"
 				if (
 						(venteNonDebutee)
 						&& (articleVenduFiltreCatNom.getDateDebutEncheres().compareTo(LocalDate.now()) > 0)
 					) {
-					System.out.println("DEBUG add Vente non débutée :" + articleVenduFiltreCatNom);
+					logger.debug("add Vente non débutée :" + articleVenduFiltreCatNom);
 					listeArticlesFiltreVente.add(articleVenduFiltreCatNom);
 				}
 				// cas "Vente en cours"
@@ -145,7 +153,7 @@ public class VenteManager {
 						&& (articleVenduFiltreCatNom.getDateDebutEncheres().compareTo(LocalDate.now()) <= 0)
 						&& (articleVenduFiltreCatNom.getDateFinEncheres().compareTo(LocalDate.now()) >= 0)
 					) {
-					System.out.println("DEBUG add Vente en cours : " + articleVenduFiltreCatNom);
+					logger.debug("add Vente en cours : " + articleVenduFiltreCatNom);
 					listeArticlesFiltreVente.add(articleVenduFiltreCatNom);
 				}
 				// cas "Vente terminée"
@@ -153,7 +161,7 @@ public class VenteManager {
 						(venteTerminee)
 						&& (articleVenduFiltreCatNom.getDateFinEncheres().compareTo(LocalDate.now()) >= 0)
 					) {
-					System.out.println("DEBUG Vente terminée : " + articleVenduFiltreCatNom);
+					logger.debug("Vente terminée : " + articleVenduFiltreCatNom);
 					listeArticlesFiltreVente.add(articleVenduFiltreCatNom);
 				}
 			}
@@ -188,7 +196,7 @@ public class VenteManager {
 						&& (articleVendu.getNomArticle().contains(nom))
 						) {				
 					listeArticlesFiltreCatNom.add(articleVendu);
-					System.out.println("DEBUG SearchArticleEnVente, add : " + articleVendu);
+					logger.debug("SearchArticleEnVente, add : " + articleVendu);
 				}
 			}
 			return listeArticlesFiltreCatNom;
