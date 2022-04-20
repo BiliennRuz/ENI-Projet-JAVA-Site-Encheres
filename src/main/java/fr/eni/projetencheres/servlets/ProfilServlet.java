@@ -49,8 +49,7 @@ public class ProfilServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		Utilisateur utilisateurEnCours = (Utilisateur) session.getAttribute("utilisateurConnecte");
 		UtilisateurManager utilisateurManager = new UtilisateurManager();
-		
-		
+		System.out.println(utilisateurEnCours.getPseudo());
 		utilisateurEnCours.setPseudo(request.getParameter("pseudo"));
 		utilisateurEnCours.setNom(request.getParameter("nom"));
 		utilisateurEnCours.setPrenom(request.getParameter("prenom"));
