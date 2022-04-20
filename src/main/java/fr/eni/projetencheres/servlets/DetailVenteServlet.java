@@ -33,16 +33,16 @@ public class DetailVenteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		// on récupère l'id envoyé en GET
-		String paramId = request.getParameter("id");
-		// On le transforme en "int"
-		int intId = Integer.parseInt(paramId);
-		// On récupère l'article qui a cet id
-		ArticleVendu article = venteManager.getArticleById(intId);
-		request.setAttribute("article", article);
-		// 
-		this.getServletContext().getRequestDispatcher("/WEB-INF/detailVente.jsp").forward(request, response);
+    String paramId = request.getParameter("id");
+    // On le transforme en "int"
+    int intId = Integer.parseInt(paramId);
+    // On récupère l'article qui a cet id
+    ArticleVendu article = venteManager.getArticleById(intId);
+    request.setAttribute("article", article);
+    // 
+    this.getServletContext().getRequestDispatcher("/WEB-INF/detailVente.jsp").forward(request, response);
 	}
 
 	/**
