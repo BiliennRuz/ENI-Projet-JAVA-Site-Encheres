@@ -1,26 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<meta name='viewport' content='width=device-width, initial-scale=1.0'>
-<title>Connexion</title>
-<link rel="stylesheet" href="css/style.css">
-</head>
-<body>
+<%@ include file="./include/head.jsp"%>
 
-	<!-- HEADER AVEC TITRE -->
-	
-	<header>
-		<div class="titre">
-			<h2>ENI-Enchères</h2>
-		</div>
-	</header>
-
-
-	<!-- FORMULAIRE -->
-	<!-- Données : login - motDepasse - souvenir -->
+	<div class="blocInscription">
+		<h1>Connexion</h1>
+	</div>
 	
 	<form class="blocConnexion" action="./connexion" method="POST">
 		<div class="blocConnexionInputs">
@@ -43,14 +25,17 @@
 					<input type="checkbox" name="souvenir" id="souvenir">
 					<label for="souvenir">Se souvenir de moi</label>
 				</div>
-				<a href="">Mot de passe oublié</a>
+				<a href="">Mot de passe oubli�</a>
 			</div>
 		</div>
 	</form>
 	
+	<c:if test="${erreurMessage != null }">
+		<div class="erreur">${erreurMessage}</div>
+	</c:if>
+	
 	<section class="creationCompte">
-		<a class="boutonInscription" href="./inscription">Créer un compte</a>
+		<a class="boutonInscription" href="./inscription">Cr�er un compte</a>
 	</section>
 
-</body>
-</html>
+<%@ include file="./include/footer.jsp"%>

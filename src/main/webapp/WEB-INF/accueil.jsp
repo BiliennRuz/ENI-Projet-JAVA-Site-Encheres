@@ -1,16 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
-<html>
-<head>
-	<%@ include file="./include/head.jsp"%>
-</head>
-<body>
-
-	
-	
-	<%@ include file="./include/header.jsp"%>
+<%@ include file="./include/head.jsp"%>
 	
 	<c:if test="${succes != null }">
 		<div class="succes">${succes}</div>
@@ -20,7 +8,7 @@
 	<!-- TITRE DE LA PAGE -->
 	
 	<section class="titrePage">
-		<h1>Liste des enchÃ¨res</h1>
+		<h1>Liste des enchères</h1>
 	</section>
 	
 	
@@ -36,7 +24,7 @@
 				<input type="text" name="article" id="article" placeholder="Le nom de l'article contient">
 			</div>
 			<div class="blocCategories">
-				<label>CatÃ©gorie : </label>
+				<label>Catégorie : </label>
 				<select name="idcategorie">
 					<option value="0">Toutes</option>
 					<c:forEach var="categorie" items="${categories}">
@@ -52,16 +40,16 @@
 							<label for="boutonAchat">Achat</label>
 						</div>
 						<div class="blocLabelInput">
-							<input type="checkbox" name="achat" value="EnchÃ¨re ouvertes" id="enchereOuverte">
-							<label for="enchereOuverte">EnchÃ¨re ouvertes</label>
+							<input type="checkbox" name="enchereouvertes" value="true" id="enchereOuverte">
+							<label for="enchereOuverte">Enchère ouvertes</label>
 						</div>
 						<div class="blocLabelInput">
-							<input type="checkbox" name="achat" value="Mes enchÃ¨res" id="mesEncheres">
-							<label for="mesEncheres">Mes enchÃ¨res</label>
+							<input type="checkbox" name="mesencheres" value="true" id="mesEncheres">
+							<label for="mesEncheres">Mes enchères</label>
 						</div>
 						<div class="blocLabelInput">
-							<input type="checkbox" name="achat" value="Mes enchÃ¨res remportÃ©es" id="mesEncheresRemportees">
-							<label for="MesEncheresRemportees">Mes enchÃ¨res remportÃ©es</label>
+							<input type="checkbox" name="mesencheresremportees" value="true" id="mesEncheresRemportees">
+							<label for="MesEncheresRemportees">Mes enchères remportées</label>
 						</div>
 						
 					</div>
@@ -71,16 +59,16 @@
 							<label for="boutonVente">Vente</label>
 						</div>
 						<div class="blocLabelInput">
-							<input type="checkbox" name="vente" value="vente" id="venteNonDebutee">
-							<label for="venteNonDebutee">Vente non dÃ©butÃ©e</label>
+							<input type="checkbox" name="ventenondebutee" value="true" id="venteNonDebutee">
+							<label for="venteNonDebutee">Vente non débutée</label>
 						</div>
 						<div class="blocLabelInput">
-							<input type="checkbox" name="vente" value="Vente en cours" id="venteEnCours">
+							<input type="checkbox" name="venteencours" value="true" id="venteEnCours">
 							<label for="venteEnCours">Vente en cours</label>
 						</div>
 						<div class="blocLabelInput">
-							<input type="checkbox" name="vente" value="Vente terminÃ©e" id="venteTerminee">
-							<label for="venteTerminee">Vente terminÃ©e</label>
+							<input type="checkbox" name="venteterminee" value="true" id="venteTerminee">
+							<label for="venteTerminee">Vente terminée</label>
 						</div>
 					</div>
 				</c:if>
@@ -111,22 +99,15 @@
 			  </div>
 			  <ul class="list-group list-group-flush">
 			    <li class="list-group-item">Prix : ${articles.prixInitial}</li>
-			    <li class="list-group-item">Fin de l'enchÃ¨re : ${articles.dateFinEncheres}</li>
+			    <li class="list-group-item">Fin de l'enchère : ${articles.dateFinEncheres}</li>
 			    <li class="list-group-item">Vendeur : ${articles.vendeur.pseudo}</li>
 			  </ul>
 			  <div class="card-body">
-			    <a href="./DetailVente?id=${articles.idArticle}" class="card-link">Voir le dÃ©tail</a>
+			    <a href="./DetailVente?id=${articles.idArticle}" class="card-link">Voir le détail</a>
 			  </div>
 			</div>
 		</c:forEach>
 	
 	</main>
 	
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" 
-			integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-	<script src="js/script.js"></script>
-	
-	
-	
-</body>
-</html>
+<%@ include file="./include/footer.jsp"%>

@@ -12,6 +12,7 @@ body {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	margin: 40px 0;
 }
 
 .succes {
@@ -20,6 +21,18 @@ body {
 	left: 50%;
 	transform: translateX(-50%);
 	background-color: #27ae60;
+	color: white;
+	padding: 10px;
+	border-radius: 5px;
+	box-shadow: 2px 2px 4px #000;
+}
+
+.erreur {
+	position: absolute;
+	top: 10px;
+	left: 50%;
+	transform: translateX(-50%);
+	background-color: #c0392b;
 	color: white;
 	padding: 10px;
 	border-radius: 5px;
@@ -150,6 +163,7 @@ main {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	margin-top: 40px;
 }
 
 .blocConnexionInputs {
