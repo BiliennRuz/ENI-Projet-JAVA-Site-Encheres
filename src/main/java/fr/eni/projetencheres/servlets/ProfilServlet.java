@@ -34,6 +34,9 @@ public class ProfilServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		request.setAttribute("utilisateur", session.getAttribute("utilisateurConnecte"));
+		System.out.println(session.getAttribute("utilisateurConnecte"));
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/profil.jsp");
 		rd.forward(request, response);
 	}

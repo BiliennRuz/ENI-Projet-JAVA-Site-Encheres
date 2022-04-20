@@ -12,6 +12,7 @@ body {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	margin: 40px 0;
 }
 
 .succes {
@@ -20,6 +21,18 @@ body {
 	left: 50%;
 	transform: translateX(-50%);
 	background-color: #27ae60;
+	color: white;
+	padding: 10px;
+	border-radius: 5px;
+	box-shadow: 2px 2px 4px #000;
+}
+
+.erreur {
+	position: absolute;
+	top: 10px;
+	left: 50%;
+	transform: translateX(-50%);
+	background-color: #c0392b;
 	color: white;
 	padding: 10px;
 	border-radius: 5px;
@@ -45,28 +58,89 @@ body {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	width: 50%;
+	width: 100%;
+	height: 100%;
+	background-color: #ccc;
+	padding: 10px;
+}
+
+.blocFiltres {
+	margin: 10px;
+	width: 33.3334%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.blocCategories {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin: 10px;
+	width: 33.3334%;
 	height: 100%;
 }
 
-.champsCategorie {
+.blocAchatVente {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.blocAchatVente input {
+	margin-right: 5px;
+}
+
+.blocAchat {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-start;
+	width: 250px;
+	margin: 10px;
+}
+
+.blocVente {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-start;
+	width: 250px;
+	margin: 10px;
+}
+
+.blocLabelInput {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+/* BOUTON */
+.blocBoutonRecherche {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 33.3334%;
+	height: 100%;
+}
+
+.blocBoutonRecherche button {
+	padding: 30px 50px;
+}
+
+main {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	margin-top: 20px;
 }
 
-/* BOUTON */
-.blocBoutonRecherche {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 50%;
-	height: 100%;
-}
-
-.blocBoutonRecherche button {
-	padding: 50px 100px;
+.card {
+	margin: 10px;
 }
 
 /* MEDIA QUERIES */
@@ -89,6 +163,7 @@ body {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	margin-top: 40px;
 }
 
 .blocConnexionInputs {
