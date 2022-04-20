@@ -71,9 +71,13 @@ public class InscriptionServlet extends HttpServlet {
 			utilisateurManager.ajouterUtilisateur(utilisateurEnCours);
 			// On connecte l'utilisateur
 			Utilisateur utilisateur = utilisateurManager.trouverUtilisateur(utilisateurEnCours.getPseudo(), utilisateurEnCours.getMotDePasse());
+			// On ajoute les attributs à la session
 			
-			// on retourne à la page d'accueil en gardant le message
-			request.setAttribute("succes", "Vous êtes bien enregistré !");
+			session.setAttribute("confirmationMessage", "Vous êtes connecté en tant que : " + utilisateur.getPseudo());
+			session.setAttribute("succes", "Vous êtes bien enregistré !");
+			
+			// on retourne à la page d'accueil
+			response.sendRedirect("./");
 			
 		} catch (BusinessException e) {
 			// On récupère l'exception lancée par la fonction ajouterUtilisateur de utilisateurManager
