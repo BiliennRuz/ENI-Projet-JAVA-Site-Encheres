@@ -108,9 +108,11 @@
 			    <li class="list-group-item">Fin de l'enchère : ${articles.dateFinEncheres}</li>
 			    <li class="list-group-item">Vendeur : ${articles.vendeur.pseudo}</li>
 			  </ul>
-			  <div class="card-body">
-			    <a href="./DetailVente?id=${articles.idArticle}" class="card-link">Voir le détail</a>
-			  </div>
+			  <c:if test="${connexion}">
+				<div class="card-body">
+	    			<a href="./DetailVente?id=${articles.idArticle}" class="card-link">Voir le détail</a>
+	  			</div>
+			  </c:if>
 			</div>
 		</c:forEach>
 
