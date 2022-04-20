@@ -11,7 +11,7 @@
 	
 	<div class="connexion">
 		<c:choose>
-			<c:when test="${utilisateurConnecte != null}">
+			<c:when test="${connexion}">
 				<%@ include file="./nav.jsp"%>
 			</c:when>
 			<c:otherwise>
