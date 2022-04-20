@@ -34,7 +34,7 @@ public class DetailVenteServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		// on récupère l'id envoyé en GET
+	// on récupère l'id envoyé en GET
     String paramId = request.getParameter("id");
     // On le transforme en "int"
     int intId = Integer.parseInt(paramId);
