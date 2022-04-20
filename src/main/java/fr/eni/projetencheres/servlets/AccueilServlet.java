@@ -90,7 +90,10 @@ public class AccueilServlet extends HttpServlet {
 		System.out.println("DEBUG : mesEncheresRemportees : " + mesEncheresRemportees);
 		
 		// On envoie la liste des encheres en cours 
-		List<ArticleVendu> articles = this.venteManager.SearchArticleVente(article, Integer.valueOf(idCategorie), Boolean.valueOf(venteNonDebutee), Boolean.valueOf(venteEnCours), Boolean.valueOf(venteTerminee));
+		List<ArticleVendu> articlesTries = this.venteManager.SearchArticleVente(article, Integer.valueOf(idCategorie), Boolean.valueOf(venteNonDebutee), Boolean.valueOf(venteEnCours), Boolean.valueOf(venteTerminee));
+		request.setAttribute("articles", articlesTries);
+		
+		List<ArticleVendu> articles = this.venteManager.getArticle();
 		request.setAttribute("articles", articles);
 		
 		// Affichage de la page d'accueil

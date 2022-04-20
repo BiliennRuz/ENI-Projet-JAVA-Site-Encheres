@@ -28,6 +28,16 @@ public class VenteManager {
 	private RetraitDAO retraitDAO = DAOFactory.getRetraitDAO();
 	private EnchereDAO enchereDAO = DAOFactory.getEnchereDAO();
 	
+	public List<ArticleVendu> getArticle() {
+		try {
+			return this.articleDAO.getArticle();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
 	/**
 	 * getCategorie() : retourne la liste des categories depuis la couche DAL
 	 */
@@ -48,6 +58,7 @@ public class VenteManager {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return null;
 	}
 	
 	/**
