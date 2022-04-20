@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import fr.eni.projetencheres.bll.VenteManager;
 import fr.eni.projetencheres.bo.ArticleVendu;
 import fr.eni.projetencheres.bo.Categorie;
@@ -21,6 +24,10 @@ import fr.eni.projetencheres.bo.Categorie;
  */
 @WebServlet("")
 public class AccueilServlet extends HttpServlet {
+	
+	// initialisation du logger
+    Logger logger = LoggerFactory.getLogger(AccueilServlet.class);
+    
 	private static final long serialVersionUID = 1L;
 	private VenteManager venteManager = new VenteManager();
 
@@ -38,7 +45,7 @@ public class AccueilServlet extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 //		String verifUtilisateurInscrit = (String) session.getAttribute("utilisateurInscrit");
-//		System.out.println(verifUtilisateurInscrit);
+//		logger.debug("verifUtilisateurInscrit : " + verifUtilisateurInscrit);
 //		
 //		if (verifUtilisateurInscrit.equals("true")) {
 //			request.setAttribute("succes", "Vous êtes bien enregistré !");
@@ -58,36 +65,36 @@ public class AccueilServlet extends HttpServlet {
 		if (idCategorie == null) idCategorie = "0";
 		// On recupère le type de vente selectionnée
 		String achatVente = request.getParameter("achatvente");
-		System.out.println("DEBUG : achatvente " + achatVente);
+		logger.debug("achatvente " + achatVente);
 		if (achatVente == null) achatVente = "vente";
 		
 		String venteNonDebutee = request.getParameter("ventenondebutee");
-		System.out.println("DEBUG : venteNonDebutee " + venteNonDebutee);
+		logger.debug("venteNonDebutee " + venteNonDebutee);
 		if (venteNonDebutee == null) venteNonDebutee = "false";
-		System.out.println("DEBUG : venteNonDebutee " + venteNonDebutee);
+		logger.debug("venteNonDebutee apres test null " + venteNonDebutee);
 		
 		String venteEnCours = request.getParameter("venteencours");
-		System.out.println("DEBUG : venteEnCours : " + venteEnCours);
+		logger.debug("venteEnCours : " + venteEnCours);
 		if (venteEnCours == null) venteEnCours = "false";
-		System.out.println("DEBUG : venteEnCours : " + venteEnCours);
+		logger.debug("venteEnCours apres test null : " + venteEnCours);
 		
 		String venteTerminee = request.getParameter("venteterminee");
-		System.out.println("DEBUG : venteTerminee : " + venteTerminee);
+		logger.debug("venteTerminee : " + venteTerminee);
 		if (venteTerminee == null) venteTerminee = "false";
-		System.out.println("DEBUG : venteTerminee : " + venteTerminee);
+		logger.debug("venteTerminee apres test null : " + venteTerminee);
 		
 		// On recupère le type d'achat selectionnée
 		String enchereOuvertes = request.getParameter("enchereouvertes");
 		if (enchereOuvertes == null) enchereOuvertes = "false";
-		System.out.println("DEBUG : enchereOuvertes " + enchereOuvertes);
+		logger.debug("enchereOuvertes " + enchereOuvertes);
 		
 		String mesEncheres = request.getParameter("mesencheres");
 		if (mesEncheres == null) mesEncheres = "false";
-		System.out.println("DEBUG : mesEncheres : " + mesEncheres);
+		logger.debug("mesEncheres : " + mesEncheres);
 		
 		String mesEncheresRemportees = request.getParameter("mesencheresremportees");
 		if (mesEncheresRemportees == null) mesEncheresRemportees = "false";
-		System.out.println("DEBUG : mesEncheresRemportees : " + mesEncheresRemportees);
+		logger.debug("mesEncheresRemportees : " + mesEncheresRemportees);
 		
 		// On envoie la liste des encheres en cours 
 		List<ArticleVendu> articlesTries = this.venteManager.SearchArticleVente(article, Integer.valueOf(idCategorie), Boolean.valueOf(venteNonDebutee), Boolean.valueOf(venteEnCours), Boolean.valueOf(venteTerminee));
