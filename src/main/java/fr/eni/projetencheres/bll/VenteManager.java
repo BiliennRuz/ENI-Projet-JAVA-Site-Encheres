@@ -40,6 +40,16 @@ public class VenteManager {
 		return null; // si jamais il y a une exception on retournera null
 	}
 	
+	public ArticleVendu getArticleById(int id) {
+		try {
+			
+			return this.articleDAO.getArticleById(id);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	/**
 	 * SearchArticleVente() : retourne la liste des articles en vente depuis la couche DAL
 	 * et filtre selon :
