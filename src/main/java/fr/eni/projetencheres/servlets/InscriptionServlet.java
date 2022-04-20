@@ -72,9 +72,10 @@ public class InscriptionServlet extends HttpServlet {
 			// On connecte l'utilisateur
 			Utilisateur utilisateur = utilisateurManager.trouverUtilisateur(utilisateurEnCours.getPseudo(), utilisateurEnCours.getMotDePasse());
 			// On ajoute les attributs à la session
-			
+			session.setAttribute("connexion", true);
 			session.setAttribute("confirmationMessage", "Vous êtes connecté en tant que : " + utilisateur.getPseudo());
 			session.setAttribute("succes", "Vous êtes bien enregistré !");
+			session.setAttribute("utilisateurConnecte", utilisateur);
 			
 			// on retourne à la page d'accueil
 			response.sendRedirect("./");

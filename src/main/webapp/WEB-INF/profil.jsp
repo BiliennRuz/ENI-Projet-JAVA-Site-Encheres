@@ -1,15 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-
-	<%@ include file="./include/header.jsp"%>
+<%@ include file="./include/head.jsp"%>
 	
 	<div class="blocInscription">
 		<h1>Mon Profil</h1>
@@ -21,7 +10,7 @@
 	
 	
 	<!-- FORMULAIRE -->
-	<!-- DonnÃ©es : pseudo - nom - prenom - email - tel - rue - codePostal - ville - motDePasse - motDepasseConfirm -->
+	<!-- Données : pseudo - nom - prenom - email - tel - rue - codePostal - ville - motDePasse - motDepasseConfirm -->
 	
 	<form class="inscription" action="./profil" method="POST">
 		<div class="blocInscription blocChamps">
@@ -37,7 +26,7 @@
 			</div>
 			<div class="prenomEmail blocInputs">
 				<div class="blocLabelinput">
-					<label for="prenom">PrÃ©nom</label>
+					<label for="prenom">Prénom</label>
 					<input type="text" name="prenom" id="prenom" value="${utilisateur.prenom}">
 				</div>
 				<div class="blocLabelinput">
@@ -47,7 +36,7 @@
 			</div>
 			<div class="telRue blocInputs">
 				<div class="blocLabelinput">
-					<label for="tel">TÃ©lÃ©phone</label>
+					<label for="tel">Téléphone</label>
 					<input type="tel" name="tel" id="tel" value="${utilisateur.telephone}">
 				</div>
 				<div class="blocLabelinput">
@@ -90,6 +79,4 @@
 			<p>${messageErreur}</p>
 		</div>
 	
-	<script src="js/script.js"></script>
-</body>
-</html>
+<%@ include file="./include/footer.jsp"%>
