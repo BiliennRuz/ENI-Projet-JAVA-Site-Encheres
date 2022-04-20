@@ -41,13 +41,47 @@ public class AccueilServlet extends HttpServlet {
 		// on balance les categories au JSP
 		request.setAttribute("categories", categories);
 		
-		// On envoi la liste des enchere en cour 
+		// On recupère le mot clé recherché
 		String article = request.getParameter("article");
 		if (article == null) article = "";
-		
+		// On recupère la catégorie recherchée
 		String idCategorie = request.getParameter("idcategorie");
 		if (idCategorie == null) idCategorie = "0";
-		List<ArticleVendu> articles = this.venteManager.SearchArticleVente(article, Integer.valueOf(idCategorie), "Vente en cours");
+		// On recupère le type de vente selectionnée
+		String achatVente = request.getParameter("achatvente");
+		System.out.println("DEBUG : achatvente " + achatVente);
+		if (achatVente == null) achatVente = "vente";
+		
+		String venteNonDebutee = request.getParameter("ventenondebutee");
+		System.out.println("DEBUG : venteNonDebutee " + venteNonDebutee);
+		if (venteNonDebutee == null) venteNonDebutee = "false";
+		System.out.println("DEBUG : venteNonDebutee " + venteNonDebutee);
+		
+		String venteEnCours = request.getParameter("venteencours");
+		System.out.println("DEBUG : venteEnCours : " + venteEnCours);
+		if (venteEnCours == null) venteEnCours = "false";
+		System.out.println("DEBUG : venteEnCours : " + venteEnCours);
+		
+		String venteTerminee = request.getParameter("venteterminee");
+		System.out.println("DEBUG : venteTerminee : " + venteTerminee);
+		if (venteTerminee == null) venteTerminee = "false";
+		System.out.println("DEBUG : venteTerminee : " + venteTerminee);
+		
+		// On recupère le type d'achat selectionnée
+		String enchereOuvertes = request.getParameter("enchereouvertes");
+		if (enchereOuvertes == null) enchereOuvertes = "false";
+		System.out.println("DEBUG : enchereOuvertes " + enchereOuvertes);
+		
+		String mesEncheres = request.getParameter("mesencheres");
+		if (mesEncheres == null) mesEncheres = "false";
+		System.out.println("DEBUG : mesEncheres : " + mesEncheres);
+		
+		String mesEncheresRemportees = request.getParameter("mesencheresremportees");
+		if (mesEncheresRemportees == null) mesEncheresRemportees = "false";
+		System.out.println("DEBUG : mesEncheresRemportees : " + mesEncheresRemportees);
+		
+		// On envoie la liste des encheres en cours 
+		List<ArticleVendu> articles = this.venteManager.SearchArticleVente(article, Integer.valueOf(idCategorie), Boolean.valueOf(venteNonDebutee), Boolean.valueOf(venteEnCours), Boolean.valueOf(venteTerminee));
 		request.setAttribute("articles", articles);
 		
 		// Affichage de la page d'accueil

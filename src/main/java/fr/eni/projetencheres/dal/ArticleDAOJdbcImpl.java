@@ -127,6 +127,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 		cnx.close();
 	}
 	
+	
 	/**
 	 * updateArticle(ArticleVendu article) : mise à jour d'un article dans la base de données
 	 * @throws SQLException 
