@@ -2,6 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ include file="./include/head.jsp"%>
 
+	<c:if test="${succes != null }">
+		<div class="succes">${succes}</div>
+	</c:if>
+
 	<!-- TITRE DE LA PAGE -->
 	
 	<section class="titrePage">
@@ -17,15 +21,15 @@
 			<form class="mb-5" action="./nouvelleVente" method="POST">
 			  <div class="mb-3">
 			    <label for="article" class="form-label">Article : </label>
-			    <input type="text" class="form-control" id="article" style="width: 600px;">
+			    <input type="text" class="form-control" name="article" id="article" style="width: 600px;">
 			  </div>
 			  <div class="mb-3">
 			    <label for="description" class="form-label">Description : </label>
-			    <textarea class="form-control" id="description" style="width: 600px;"></textarea>
+			    <textarea class="form-control" name="description" id="description" style="width: 600px;"></textarea>
 			  </div>
 			  <div class="mb-3">
 			    <label for="categorie" class="form-label">Catégorie : </label>
-			    <select class="form-select" name="categories" id="floatingSelect">
+			    <select class="form-select" name="categories" id="floatingSelect" style="width: 600px;">
 				    <c:forEach var="element" items="${categories}">
 				    	<option value="${element.libelle}">${element.libelle}</option>
 				    </c:forEach>
@@ -37,28 +41,28 @@
 			  </div>
 			  <div class="mb-3">
 			    <label for="prix" class="form-label">Mise à prix : </label>
-			    <input type="number" class="form-control" id="categorie" style="width: 600px;">
+			    <input type="number" class="form-control" name="prix" id="prix" style="width: 600px;">
 			  </div>
 			  <div class="mb-3">
 			    <label for="debut" class="form-label">Début de l'enchère : </label>
-			    <input type="date" class="form-control" id="debut" style="width: 600px;">
+			    <input type="date" class="form-control" name="debut" id="debut" style="width: 600px;">
 			  </div>
 			  <div class="mb-3">
 			    <label for="fin" class="form-label">Fin de l'enchère : </label>
-			    <input type="date" class="form-control" id="fin" style="width: 600px;">
+			    <input type="date" class="form-control" name="fin" id="fin" style="width: 600px;">
 			  </div>
 			  <p>Retrait : </p>
 			  <div class="mb-3">
 			    <label for="rue" class="form-label">Rue : </label>
-			    <input type="text" class="form-control" id="rue" style="width: 600px;" value="${utilisateur.rue}">
+			    <input type="text" class="form-control" name="rue" id="rue" style="width: 600px;" value="${utilisateur.rue}">
 			  </div>
 			  <div class="mb-3">
 			    <label for="cp" class="form-label">Code Postal : </label>
-			    <input type="text" class="form-control" id="cp" style="width: 600px;" value="${utilisateur.codePostal}">
+			    <input type="text" class="form-control" name="codePostal" id="cp" style="width: 600px;" value="${utilisateur.codePostal}">
 			  </div>
 			  <div class="mb-3">
 			    <label for="ville" class="form-label">Ville : </label>
-			    <input type="text" class="form-control" id="ville" style="width: 600px;" value="${utilisateur.ville}">
+			    <input type="text" class="form-control" name="ville" id="ville" style="width: 600px;" value="${utilisateur.ville}">
 			  </div>
 			  <button type="submit" class="btn btn-primary">Enregistrer</button>
 			  <a href="./" class="btn btn-primary">Annuler</a>

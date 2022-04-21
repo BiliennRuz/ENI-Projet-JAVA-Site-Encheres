@@ -92,31 +92,32 @@
 	
 	<!-- BLOC DE LA LISTE -->
 	
-
-	<main>
+	<div class="container">
+		<main>
+		
+			<c:forEach var="articles" items="${articles}">
+				<div class="card" style="width: 18rem;">
+				  <!-- <img src="..." class="card-img-top" alt="..."> -->
+				  <div class="card-body" style="height:120px;">
+				    <h5 class="card-title">${articles.nomArticle}</h5>
+				    <p class="card-text">${articles.description}</p>
+				    <p class="card-text"><span class="badge bg-secondary">${articles.categorieArticle.libelle}</span></p>
+				  </div>
+				  <ul class="list-group list-group-flush">
+				    <li class="list-group-item">Prix : ${articles.prixInitial}</li>
+				    <li class="list-group-item">Fin de l'enchère : ${articles.dateFinEncheres}</li>
+				    <li class="list-group-item">Vendeur : ${articles.vendeur.pseudo}</li>
+				  </ul>
+				  <c:if test="${connexion}">
+					<div class="card-body">
+		    			<a href="./DetailVente?id=${articles.idArticle}" class="card-link">Voir le détail</a>
+		  			</div>
+				  </c:if>
+				</div>
+			</c:forEach>
 	
-		<c:forEach var="articles" items="${articles}">
-			<div class="card" style="width: 18rem;">
-			  <!-- <img src="..." class="card-img-top" alt="..."> -->
-			  <div class="card-body">
-			    <h5 class="card-title">${articles.nomArticle}</h5>
-			    <p class="card-text">${articles.description}</p>
-			    <p class="card-text"><span class="badge bg-secondary">${articles.categorieArticle.libelle}</span></p>
-			  </div>
-			  <ul class="list-group list-group-flush">
-			    <li class="list-group-item">Prix : ${articles.prixInitial}</li>
-			    <li class="list-group-item">Fin de l'enchère : ${articles.dateFinEncheres}</li>
-			    <li class="list-group-item">Vendeur : ${articles.vendeur.pseudo}</li>
-			  </ul>
-			  <c:if test="${connexion}">
-				<div class="card-body">
-	    			<a href="./DetailVente?id=${articles.idArticle}" class="card-link">Voir le détail</a>
-	  			</div>
-			  </c:if>
-			</div>
-		</c:forEach>
-
-	
-	</main>
+		
+		</main>
+	</div>
 	
 <%@ include file="./include/footer.jsp"%>

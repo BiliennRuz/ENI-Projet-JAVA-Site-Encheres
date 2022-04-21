@@ -34,6 +34,22 @@ public class VenteManager {
 	private RetraitDAO retraitDAO = DAOFactory.getRetraitDAO();
 	private EnchereDAO enchereDAO = DAOFactory.getEnchereDAO();
 	
+	/**
+	 * Ajout d'un article
+	 * @param article
+	 */
+	public void ajouterArticle(ArticleVendu article) {
+		try {
+			articleDAO.addArticle(article);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * récupération des articles
+	 * @return
+	 */
 	public List<ArticleVendu> getArticle() {
 		logger.info("Appel de getArticle()");
 		try {
