@@ -1,6 +1,7 @@
 package fr.eni.projetencheres.servlets;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.projetencheres.bll.VenteManager;
 import fr.eni.projetencheres.bo.ArticleVendu;
+import fr.eni.projetencheres.bo.Categorie;
 
 /**
  * Servlet implementation class DetailVente
@@ -41,7 +43,12 @@ public class DetailVenteServlet extends HttpServlet {
     // On récupère l'article qui a cet id
     ArticleVendu article = venteManager.getArticleById(intId);
     request.setAttribute("article", article);
-    // 
+    
+    // On récupère la catégorie
+//    List<Categorie> categories = venteManager.getCategorie();
+//    request.setAttribute("categories", categories);
+//    System.out.println(categories);
+    
     this.getServletContext().getRequestDispatcher("/WEB-INF/detailVente.jsp").forward(request, response);
 	}
 
