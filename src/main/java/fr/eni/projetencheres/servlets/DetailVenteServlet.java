@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import fr.eni.projetencheres.bll.VenteManager;
 import fr.eni.projetencheres.bo.ArticleVendu;
 import fr.eni.projetencheres.bo.Categorie;
+import fr.eni.projetencheres.bo.Utilisateur;
 
 /**
  * Servlet implementation class DetailVente
@@ -45,9 +46,13 @@ public class DetailVenteServlet extends HttpServlet {
     request.setAttribute("article", article);
     
     // On récupère la catégorie
-    Categorie categorie = venteManager.getCategorieById(intId);
+    Categorie categorie = venteManager.getCategorieById(article.getIdCategorie());
     request.setAttribute("categorie", categorie);
-    System.out.println(categorie);
+    
+    // On récupère le vendeur
+    Utilisateur utilisateur = venteManager.getUtilisateurById(article.getIdUtilisateur());
+    request.setAttribute("utilisateur", utilisateur);
+    
     
     this.getServletContext().getRequestDispatcher("/WEB-INF/detailVente.jsp").forward(request, response);
 	}

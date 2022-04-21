@@ -21,19 +21,19 @@ import fr.eni.projetencheres.dal.EnchereDAO;
 import fr.eni.projetencheres.dal.RetraitDAO;
 import fr.eni.projetencheres.dal.UtilisateurDAO;
 
-
 public class VenteManager {
-	
+
 	// initialisation du logger
 	Logger logger = LoggerFactory.getLogger(VenteManager.class);
-	
-	// attribut qui contient la référence vers notre couche DAL (ajout base de donnée)
+
+	// attribut qui contient la référence vers notre couche DAL (ajout base de
+	// donnée)
 	private CategorieDAO categorieDAO = DAOFactory.getCategorieDAO();
 	private ArticleDAO articleDAO = DAOFactory.getArticleDAO();
 	private UtilisateurDAO utilisateurDAO = DAOFactory.getUtilisateurDAO();
 	private RetraitDAO retraitDAO = DAOFactory.getRetraitDAO();
 	private EnchereDAO enchereDAO = DAOFactory.getEnchereDAO();
-	
+
 	/**
 	 * Ajout d'un article
 	 * @param article
@@ -50,18 +50,19 @@ public class VenteManager {
 	 * récupération des articles
 	 * @return
 	 */
+  
 	public List<ArticleVendu> getArticle() {
 		logger.info("Appel de getArticle()");
 		try {
 			return this.articleDAO.getArticle();
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		return null;
 	}
-	
+
 	/**
 	 * getCategorie() : retourne la liste des categories depuis la couche DAL
 	 */
@@ -73,7 +74,7 @@ public class VenteManager {
 		}
 		return null; // si jamais il y a une exception on retournera null
 	}
-	
+
 	public Categorie getCategorieByName(String name) {
 		try {
 			return this.categorieDAO.getCategorieByName(name);
@@ -82,50 +83,56 @@ public class VenteManager {
 		}
 		return null; // si jamais il y a une exception on retournera null
 	}
-	
+
 	public ArticleVendu getArticleById(int id) {
 		try {
-			
-			
-			
-			
 			return this.articleDAO.getArticleById(id);
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
+
 	public Categorie getCategorieById(int id) {
 		try {
-			
 			return this.categorieDAO.getCategorieById(id);
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
 	
+	public Utilisateur getUtilisateurById(int id) {
+		try {
+			return this.utilisateurDAO.getUserById(id);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 	/**
-	 * SearchArticleVente() : retourne la liste des articles en vente depuis la couche DAL
-	 * et filtre selon :
-	 * - le mot clé dans le nom
-	 * - la categorie selectionnée
-	 * - le status de la vente
-	 * @throws BusinessException 
+	 * SearchArticleVente() : retourne la liste des articles en vente depuis la
+	 * couche DAL et filtre selon : - le mot clé dans le nom - la categorie
+	 * selectionnée - le status de la vente
+	 * 
+	 * @throws BusinessException
 	 */
-	
-	public List<ArticleVendu> SearchArticleVente(String nom, int categorie, boolean venteNonDebutee, boolean venteEnCours, boolean venteTerminee) { //throws BusinessException {
+
+	public List<ArticleVendu> SearchArticleVente(String nom, int categorie, boolean venteNonDebutee,
+			boolean venteEnCours, boolean venteTerminee) { // throws BusinessException {
 		try {
 			// on recupere la liste de tous les articles
 			List<ArticleVendu> listeArticles = this.articleDAO.getArticle();
 			List<ArticleVendu> listeArticlesFiltreCatNom = new ArrayList<ArticleVendu>();
 			for (ArticleVendu articleVendu : listeArticles) {
-				// on filtre sur les vente avec la categorie selectionnée et l'element du nom selectionné			
+				// on filtre sur les vente avec la categorie selectionnée et l'element du nom
+				// selectionné
 				if (((articleVendu.getIdCategorie() == categorie) || (categorie == 0))
-						&& (articleVendu.getNomArticle().contains(nom))
-						) {
+						&& (articleVendu.getNomArticle().contains(nom))) {
 					// on recupere le vendeur associé
 					Utilisateur vendeur = this.utilisateurDAO.getUserById(articleVendu.getIdUtilisateur());
 					articleVendu.setVendeur(vendeur);
@@ -139,7 +146,6 @@ public class VenteManager {
 					} catch (SQLException e) {
 						logger.error("Pas de retrait à récuperer dans la base !!!");
 						e.printStackTrace();
-						//throw new BusinessException("erreur SQL lors de la récupération du retrait de l'article en base de donnée");
 					}
 					// on recupere les encheres associé
 
@@ -147,8 +153,8 @@ public class VenteManager {
 						List<Enchere> encheres = this.enchereDAO.getEnchereByIdArticle(articleVendu.getIdArticle());
 						// recuperation de la dernière enchère de l'article si il y en a
 						if (encheres.size() > 0) {
-					        LocalDateTime maxDateTime = LocalDateTime.of(1900, 1, 1, 0, 0);
-					        Enchere lastEnchere = new Enchere();
+							LocalDateTime maxDateTime = LocalDateTime.of(1900, 1, 1, 0, 0);
+							Enchere lastEnchere = new Enchere();
 							for (Enchere enchere : encheres) {
 								// Si la date de l'enchere est apres la derniere mémorisée
 								if (enchere.getDateEnchere().isAfter(maxDateTime)) {
@@ -163,34 +169,34 @@ public class VenteManager {
 						}
 					} catch (SQLException e) {
 						logger.error("Pas d'enchère à récuperer dans la base");
+            
 						e.printStackTrace();
-						//throw new BusinessException("erreur SQL lors de la récupération de l'enchère en base de donnée");
 					}
 					// on ajoute l'article a la liste
 					listeArticlesFiltreCatNom.add(articleVendu);
 				}
 			}
-			
+
 			// on filtre en fonction du type de vente
-			logger.debug("venteNonDebutee : " + venteNonDebutee + " / venteEnCours : " + venteEnCours + " / venteTerminee : " + venteTerminee);
+			logger.debug("venteNonDebutee : " + venteNonDebutee + " / venteEnCours : " + venteEnCours
+					+ " / venteTerminee : " + venteTerminee);
 			List<ArticleVendu> listeArticlesFiltreVente = new ArrayList<ArticleVendu>();
 			for (ArticleVendu articleVenduFiltreCatNom : listeArticlesFiltreCatNom) {
-//				logger.debug("getDateDebutEncheres().compareTo : " + articleVenduFiltreCatNom.getDateDebutEncheres().compareTo(LocalDate.now()));
-//				logger.debug("getDateFinEncheres().compareTo : " + articleVenduFiltreCatNom.getDateFinEncheres().compareTo(LocalDate.now()));
+
+				logger.debug("getDateDebutEncheres().compareTo : "
+						+ articleVenduFiltreCatNom.getDateDebutEncheres().compareTo(LocalDate.now()));
+				logger.debug("getDateFinEncheres().compareTo : "
+						+ articleVenduFiltreCatNom.getDateFinEncheres().compareTo(LocalDate.now()));
+
 				// cas "Vente non débuté"
-				if (
-						(venteNonDebutee)
-						&& (articleVenduFiltreCatNom.getDateDebutEncheres().compareTo(LocalDate.now()) > 0)
-					) {
+				if ((venteNonDebutee)
+						&& (articleVenduFiltreCatNom.getDateDebutEncheres().compareTo(LocalDate.now()) > 0)) {
 					logger.debug("add Vente non débutée :" + articleVenduFiltreCatNom);
 					listeArticlesFiltreVente.add(articleVenduFiltreCatNom);
 				}
 				// cas "Vente en cours"
-				if (
-						(venteEnCours)
-						&& (articleVenduFiltreCatNom.getDateDebutEncheres().compareTo(LocalDate.now()) <= 0)
-						&& (articleVenduFiltreCatNom.getDateFinEncheres().compareTo(LocalDate.now()) >= 0)
-					) {
+				if ((venteEnCours) && (articleVenduFiltreCatNom.getDateDebutEncheres().compareTo(LocalDate.now()) <= 0)
+						&& (articleVenduFiltreCatNom.getDateFinEncheres().compareTo(LocalDate.now()) >= 0)) {
 					logger.debug("add Vente en cours : " + articleVenduFiltreCatNom);
 					listeArticlesFiltreVente.add(articleVenduFiltreCatNom);
 				}
@@ -199,6 +205,7 @@ public class VenteManager {
 						(venteTerminee)
 						&& (articleVenduFiltreCatNom.getDateFinEncheres().compareTo(LocalDate.now()) < 0)
 					) {
+
 					logger.debug("Vente terminée : " + articleVenduFiltreCatNom);
 					listeArticlesFiltreVente.add(articleVenduFiltreCatNom);
 				}
@@ -207,32 +214,29 @@ public class VenteManager {
 			return listeArticlesFiltreVente;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			//throw new BusinessException("erreur SQL lors de la récupération de l'article en base de donnée");
+			// throw new BusinessException("erreur SQL lors de la récupération de l'article
+			// en base de donnée");
 		}
 		return null; // si jamais il y a une exception on retournera null
 	}
-	
 
 	/**
-	 * SearchArticleAchat() : retourne la liste des articles en achat depuis la couche DAL
-	 * et filtre selon :
-	 * - le mot clé dans le nom
-	 * - la categorie selectionnée
-	 * - le status de l'achat
+	 * SearchArticleAchat() : retourne la liste des articles en achat depuis la
+	 * couche DAL et filtre selon : - le mot clé dans le nom - la categorie
+	 * selectionnée - le status de l'achat
 	 */
 	public List<ArticleVendu> SearchArticleAchat(String nom, int categorie, String statusAchat) {
 		try {
 			// on recupere la liste de tous les articles
 			List<ArticleVendu> listeArticles = this.articleDAO.getArticle();
-			
+
 			List<ArticleVendu> listeArticlesFiltreCatNom = new ArrayList<ArticleVendu>();
 			for (ArticleVendu articleVendu : listeArticles) {
 				// on filtre sur les vente en cour et avec la categorie selectionnée
 				if ((articleVendu.getDateDebutEncheres().compareTo(LocalDate.now()) <= 0)
 						&& (articleVendu.getDateFinEncheres().compareTo(LocalDate.now()) >= 0)
 						&& ((articleVendu.getIdCategorie() == categorie) || (categorie == 0))
-						&& (articleVendu.getNomArticle().contains(nom))
-						) {				
+						&& (articleVendu.getNomArticle().contains(nom))) {
 					listeArticlesFiltreCatNom.add(articleVendu);
 					logger.debug("SearchArticleEnVente, add : " + articleVendu);
 				}
@@ -243,5 +247,5 @@ public class VenteManager {
 		}
 		return null; // si jamais il y a une exception on retournera null
 	}
-	
+
 }
