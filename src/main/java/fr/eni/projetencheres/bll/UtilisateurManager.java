@@ -106,8 +106,7 @@ public class UtilisateurManager {
 		
 		// Modification du mot de passe
 		utilisateurModifie.setMotDePasse(encrypt(utilisateur.getMotDePasse()));
-		System.out.println(utilisateurModifie.getMotDePasse());
-			
+
 		utilisateurDAO.updateUser(utilisateurModifie);	
 	}
 	
