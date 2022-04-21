@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import fr.eni.projetencheres.bo.ArticleVendu;
 import fr.eni.projetencheres.bo.Categorie;
@@ -53,7 +54,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 					rs.getInt("no_categorie"),
 					rs.getString("nom_article"),
 					rs.getString("description"),
-					rs.getDate("date_debut_encheres").toLocalDate(),
+					rs.getDate("date_debut_encheres").toLocalDate(), // .format(DateTimeFormatter.ofPattern("EEEE, dd MMMM, yyyy",Locale.FRENCH))
 					rs.getDate("date_fin_encheres").toLocalDate()
 					);
 			article.getVendeur();
