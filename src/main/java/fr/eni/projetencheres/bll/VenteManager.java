@@ -70,6 +70,9 @@ public class VenteManager {
 	public ArticleVendu getArticleById(int id) {
 		try {
 			
+			
+			
+			
 			return this.articleDAO.getArticleById(id);
 			
 		} catch (SQLException e) {
@@ -119,7 +122,7 @@ public class VenteManager {
 						articleVendu.setLieuRetrait(adresseRetrait);
 					} catch (SQLException e) {
 						logger.error("Pas de retrait à récuperer dans la base !!!");
-						//e.printStackTrace();
+						e.printStackTrace();
 						//throw new BusinessException("erreur SQL lors de la récupération du retrait de l'article en base de donnée");
 					}
 					// on recupere les encheres associé
@@ -144,7 +147,7 @@ public class VenteManager {
 						}
 					} catch (SQLException e) {
 						logger.error("Pas d'enchère à récuperer dans la base");
-						//e.printStackTrace();
+						e.printStackTrace();
 						//throw new BusinessException("erreur SQL lors de la récupération de l'enchère en base de donnée");
 					}
 					// on ajoute l'article a la liste
@@ -156,8 +159,8 @@ public class VenteManager {
 			logger.debug("venteNonDebutee : " + venteNonDebutee + " / venteEnCours : " + venteEnCours + " / venteTerminee : " + venteTerminee);
 			List<ArticleVendu> listeArticlesFiltreVente = new ArrayList<ArticleVendu>();
 			for (ArticleVendu articleVenduFiltreCatNom : listeArticlesFiltreCatNom) {
-				logger.debug("getDateDebutEncheres().compareTo : " + articleVenduFiltreCatNom.getDateDebutEncheres().compareTo(LocalDate.now()));
-				logger.debug("getDateFinEncheres().compareTo : " + articleVenduFiltreCatNom.getDateFinEncheres().compareTo(LocalDate.now()));
+//				logger.debug("getDateDebutEncheres().compareTo : " + articleVenduFiltreCatNom.getDateDebutEncheres().compareTo(LocalDate.now()));
+//				logger.debug("getDateFinEncheres().compareTo : " + articleVenduFiltreCatNom.getDateFinEncheres().compareTo(LocalDate.now()));
 				// cas "Vente non débuté"
 				if (
 						(venteNonDebutee)
@@ -178,7 +181,7 @@ public class VenteManager {
 				// cas "Vente terminée"
 				if (
 						(venteTerminee)
-						&& (articleVenduFiltreCatNom.getDateFinEncheres().compareTo(LocalDate.now()) >= 0)
+						&& (articleVenduFiltreCatNom.getDateFinEncheres().compareTo(LocalDate.now()) < 0)
 					) {
 					logger.debug("Vente terminée : " + articleVenduFiltreCatNom);
 					listeArticlesFiltreVente.add(articleVenduFiltreCatNom);

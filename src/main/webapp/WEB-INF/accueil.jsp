@@ -23,7 +23,7 @@
 		<div class="blocRecherche">
 			<div class="blocFiltres">
 				<label for="article">Filtres :</label>
-				<input type="text" name="article" id="article" placeholder="Le nom de l'article contient">
+				<input type="text" name="article" value="${article}" id="article" placeholder="Le nom de l'article contient">
 			</div>
 			<div class="blocCategories">
 				<label>Catégorie : </label>
@@ -42,15 +42,15 @@
 							<label for="boutonAchat">Achat</label>
 						</div>
 						<div class="blocLabelInput blocChoix">
-							<input type="checkbox" name="enchereouvertes" value="true" id="enchereOuverte">
+							<input type="checkbox" name="enchereouvertes" value="true" ${checkenchereouvertes} id="enchereOuverte">
 							<label for="enchereOuverte">Enchère ouvertes</label>
 						</div>
 						<div class="blocLabelInput blocChoix">
-							<input type="checkbox" name="mesencheres" value="true" id="mesEncheres">
+							<input type="checkbox" name="mesencheres" value="true" ${checkmesencheres} id="mesEncheres">
 							<label for="mesEncheres">Mes enchères</label>
 						</div>
 						<div class="blocLabelInput blocChoix">
-							<input type="checkbox" name="mesencheresremportees" value="true" id="mesEncheresRemportees">
+							<input type="checkbox" name="mesencheresremportees" value="true" ${checkmesencheresremportees} id="mesEncheresRemportees">
 							<label for="MesEncheresRemportees">Mes enchères remportées</label>
 						</div>
 						
@@ -58,19 +58,19 @@
 
 					<div class="blocVente">
 						<div class="blocLabelInput">
-							<input type="radio" name="achatvente" value="vente" id="boutonVente">
+							<input type="radio" name="achatvente" value="vente" id="boutonVente" checked="checked">
 							<label for="boutonVente">Vente</label>
 						</div>
 						<div class="blocLabelInput blocChoix">
-							<input type="checkbox" name="ventenondebutee" value="true" id="venteNonDebutee">
+							<input type="checkbox" name="ventenondebutee" value="true" ${checkventenondebutee} id="venteNonDebutee">
 							<label for="venteNonDebutee">Vente non débutée</label>
 						</div>
 						<div class="blocLabelInput blocChoix">
-							<input type="checkbox" name="venteencours" value="true" id="venteEnCours">
+							<input type="checkbox" name="venteencours" value="true" ${checkventeencours} id="venteEnCours">
 							<label for="venteEnCours">Vente en cours</label>
 						</div>
 						<div class="blocLabelInput blocChoix">
-							<input type="checkbox" name="venteterminee" value="true" id="venteTerminee">
+							<input type="checkbox" name="venteterminee" value="true" ${checkventeterminee} id="venteTerminee">
 							<label for="venteTerminee">Vente terminée</label>
 						</div>
 
