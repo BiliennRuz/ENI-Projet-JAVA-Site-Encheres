@@ -20,6 +20,7 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
 
 	private final static String SELECT_CATEGORIE = "select * from CATEGORIES;";
 	private final static String SELECT_CATEGORIE_BY_ID = "select * from CATEGORIES where no_categorie=?;";
+	private final static String SELECT_CATEGORIE_BY_NAME = "select * from CATEGORIES where libelle=?;";
 	private final static String INSERT_CATEGORIE = "insert into CATEGORIES(libelle) values(?);";
 		
 	
@@ -71,6 +72,21 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
 		if (rs.next()) { // si jamais il y a un resultat
 			categorie.setLibelle(rs.getString("libelle")); //alors on utilise sa valeur pour mettre à jour l'id de l'avis
 			categorie.setIdCategorie(idCategorie);
+		}
+		// 6 - pour finir je renvoie ma categorie precédemment
+		return categorie;
+	}
+	
+	public Categorie getCategorieByName(String name) throws SQLException {
+		Connection cnx = ConnectionProvider.getConnection();
+		Statement stmt = cnx.createStatement();
+		PreparedStatement pStmt = cnx.prepareStatement(SELECT_CATEGORIE_BY_NAME);
+		pStmt.setString(1, name);
+		ResultSet rs = pStmt.executeQuery();
+		Categorie categorie = new Categorie();
+		if (rs.next()) { // si jamais il y a un resultat
+			categorie.setLibelle(rs.getString("libelle")); //alors on utilise sa valeur pour mettre à jour l'id de l'avis
+			categorie.setIdCategorie(rs.getInt("no_categorie"));
 		}
 		// 6 - pour finir je renvoie ma categorie precédemment
 		return categorie;

@@ -58,6 +58,15 @@ public class VenteManager {
 		return null; // si jamais il y a une exception on retournera null
 	}
 	
+	public Categorie getCategorieByName(String name) {
+		try {
+			return this.categorieDAO.getCategorieByName(name);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null; // si jamais il y a une exception on retournera null
+	}
+	
 	public ArticleVendu getArticleById(int id) {
 		try {
 			

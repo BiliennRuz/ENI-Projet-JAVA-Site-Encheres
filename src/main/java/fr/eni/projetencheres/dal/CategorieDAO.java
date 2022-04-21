@@ -10,6 +10,7 @@ public interface CategorieDAO {
 
 	public List<Categorie> getCategorie() throws SQLException;
 	public Categorie getCategorieById(int idCategorie) throws SQLException;
+	public Categorie getCategorieByName(String name) throws SQLException;
 	public void addCategorie(Categorie categorie) throws SQLException;
 
 }
