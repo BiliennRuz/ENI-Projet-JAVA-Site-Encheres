@@ -6,7 +6,7 @@
 	
 	<section class="titrePage">
 		<h1>Détail Vente</h1>
-		<p>L'id est : ${id}</p>
+		<p>L'id est : ${article.idArticle}</p>
 	</section>
 
 <%@ include file="./include/footer.jsp"%>
