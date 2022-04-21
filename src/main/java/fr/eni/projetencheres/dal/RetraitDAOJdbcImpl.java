@@ -68,13 +68,13 @@ public class RetraitDAOJdbcImpl implements RetraitDAO {
 		// 4 - je l'execute et je recupère une réference sur les resultats dans un ResultSet
 		ResultSet rs = pStmt.executeQuery();
 		// 5 - je parcours mes resultats pour remplir mon retrait
-		rs.next();
-		Retrait retrait = new Retrait(
-				rs.getInt("no_article"),
-				rs.getString("rue"),
-				rs.getString("code_postal"),
-				rs.getString("ville")
-				);
+		Retrait retrait = new Retrait();
+		if (rs.next()) {
+			retrait.setIdArticle(rs.getInt("no_article"));
+			retrait.setRue(rs.getString("rue"));
+			retrait.setCodePostal(rs.getString("code_postal"));
+			retrait.setVille(rs.getString("ville"));
+		}
 		// 6 - je renvoie le retrait
 		return retrait;		
 	}

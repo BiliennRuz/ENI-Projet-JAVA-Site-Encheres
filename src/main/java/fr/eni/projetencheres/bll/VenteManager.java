@@ -34,6 +34,23 @@ public class VenteManager {
 	private RetraitDAO retraitDAO = DAOFactory.getRetraitDAO();
 	private EnchereDAO enchereDAO = DAOFactory.getEnchereDAO();
 
+	/**
+	 * Ajout d'un article
+	 * @param article
+	 */
+	public void ajouterArticle(ArticleVendu article) {
+		try {
+			articleDAO.addArticle(article);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * récupération des articles
+	 * @return
+	 */
+  
 	public List<ArticleVendu> getArticle() {
 		logger.info("Appel de getArticle()");
 		try {
@@ -128,9 +145,7 @@ public class VenteManager {
 						articleVendu.setLieuRetrait(adresseRetrait);
 					} catch (SQLException e) {
 						logger.error("Pas de retrait à récuperer dans la base !!!");
-						// e.printStackTrace();
-						// throw new BusinessException("erreur SQL lors de la récupération du retrait de
-						// l'article en base de donnée");
+						e.printStackTrace();
 					}
 					// on recupere les encheres associé
 
@@ -154,9 +169,8 @@ public class VenteManager {
 						}
 					} catch (SQLException e) {
 						logger.error("Pas d'enchère à récuperer dans la base");
-						// e.printStackTrace();
-						// throw new BusinessException("erreur SQL lors de la récupération de l'enchère
-						// en base de donnée");
+            
+						e.printStackTrace();
 					}
 					// on ajoute l'article a la liste
 					listeArticlesFiltreCatNom.add(articleVendu);
@@ -168,10 +182,12 @@ public class VenteManager {
 					+ " / venteTerminee : " + venteTerminee);
 			List<ArticleVendu> listeArticlesFiltreVente = new ArrayList<ArticleVendu>();
 			for (ArticleVendu articleVenduFiltreCatNom : listeArticlesFiltreCatNom) {
+
 				logger.debug("getDateDebutEncheres().compareTo : "
 						+ articleVenduFiltreCatNom.getDateDebutEncheres().compareTo(LocalDate.now()));
 				logger.debug("getDateFinEncheres().compareTo : "
 						+ articleVenduFiltreCatNom.getDateFinEncheres().compareTo(LocalDate.now()));
+
 				// cas "Vente non débuté"
 				if ((venteNonDebutee)
 						&& (articleVenduFiltreCatNom.getDateDebutEncheres().compareTo(LocalDate.now()) > 0)) {
@@ -185,8 +201,11 @@ public class VenteManager {
 					listeArticlesFiltreVente.add(articleVenduFiltreCatNom);
 				}
 				// cas "Vente terminée"
-				if ((venteTerminee)
-						&& (articleVenduFiltreCatNom.getDateFinEncheres().compareTo(LocalDate.now()) >= 0)) {
+				if (
+						(venteTerminee)
+						&& (articleVenduFiltreCatNom.getDateFinEncheres().compareTo(LocalDate.now()) < 0)
+					) {
+
 					logger.debug("Vente terminée : " + articleVenduFiltreCatNom);
 					listeArticlesFiltreVente.add(articleVenduFiltreCatNom);
 				}

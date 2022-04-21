@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import fr.eni.projetencheres.bo.ArticleVendu;
 import fr.eni.projetencheres.bo.Categorie;
@@ -24,7 +25,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 	private final static String SELECT_ARTICLES = "select * from ARTICLES_VENDUS AS av INNER JOIN UTILISATEURS AS u ON av.no_utilisateur = u.no_utilisateur;";
 	private final static String SELECT_ARTICLE = "select * from ARTICLES_VENDUS;";
 	private final static String SELECT_ARTICLE_BY_ID = "select * from ARTICLES_VENDUS where no_article=?;";
-	private final static String INSERT_ARTICLE = "insert into ARTICLES_VENDUS(prix_initial, prix_vente, no_utilisateur, no_categorie, nom_article, description, date_debut_encheres, date_fin_encheres, status_vente) values(?,?,?,?,?,?,?,?,?);";
+	private final static String INSERT_ARTICLE = "insert into ARTICLES_VENDUS(prix_initial, no_utilisateur, no_categorie, nom_article, description, date_debut_encheres, date_fin_encheres) values(?,?,?,?,?,?,?);";
 	private final static String UPDATE_ARTICLE = "update ARTICLES_VENDUS set prix_initial=?, prix_vente=?, no_utilisateur=?, no_categorie=?, nom_article=?, description=?, date_debut_encheres=?, date_fin_encheres=?, status_vente=? WHERE no_utilisateur=?";
 	
 	
@@ -53,7 +54,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 					rs.getInt("no_categorie"),
 					rs.getString("nom_article"),
 					rs.getString("description"),
-					rs.getDate("date_debut_encheres").toLocalDate(),
+					rs.getDate("date_debut_encheres").toLocalDate(), // .format(DateTimeFormatter.ofPattern("EEEE, dd MMMM, yyyy",Locale.FRENCH))
 					rs.getDate("date_fin_encheres").toLocalDate()
 					);
 			article.getVendeur();
@@ -109,13 +110,12 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 		// 3 - je remplace les ? de ma requête par les valeurs correspondantes
 		// "insert into ARTICLES(prix_initial, prix_vente, no_utilisateur, no_categorie, nom_article, description, date_debut_encheres, date_fin_encheres, status_vente) values(?,?,?,?,?,?,?,?,?);";
 		pStmt.setInt(1, article.getPrixInitial());
-		pStmt.setInt(2, article.getPrixVente());
-		pStmt.setInt(3, article.getIdUtilisateur());
-		pStmt.setInt(4, article.getIdCategorie());
-		pStmt.setString(5, article.getNomArticle());
-		pStmt.setString(6, article.getDescription());
-		pStmt.setDate(7, Date.valueOf(article.getDateDebutEncheres()));
-		pStmt.setDate(8, Date.valueOf(article.getDateFinEncheres()));
+		pStmt.setInt(2, article.getIdUtilisateur());
+		pStmt.setInt(3, article.getIdCategorie());
+		pStmt.setString(4, article.getNomArticle());
+		pStmt.setString(5, article.getDescription());
+		pStmt.setDate(6, Date.valueOf(article.getDateDebutEncheres()));
+		pStmt.setDate(7, Date.valueOf(article.getDateFinEncheres()));
 		// 4 - j'execute la requête SQL
 		pStmt.executeUpdate(); // ici , il faut faire executeUpdate() et pas executeQuery() parce qu'on modifie des données
 		// 5 -  je recupère l'id genéré et je met à jour l'objet ArticleVendu

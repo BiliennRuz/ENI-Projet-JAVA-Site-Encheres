@@ -23,7 +23,7 @@
 		<div class="blocRecherche">
 			<div class="blocFiltres">
 				<label for="article">Filtres :</label>
-				<input type="text" name="article" id="article" placeholder="Le nom de l'article contient">
+				<input type="text" name="article" value="${article}" id="article" placeholder="Le nom de l'article contient">
 			</div>
 			<div class="blocCategories">
 				<label>Catégorie : </label>
@@ -42,15 +42,15 @@
 							<label for="boutonAchat">Achat</label>
 						</div>
 						<div class="blocLabelInput blocChoix">
-							<input type="checkbox" name="enchereouvertes" value="true" id="enchereOuverte">
+							<input type="checkbox" name="enchereouvertes" value="true" ${checkenchereouvertes} id="enchereOuverte">
 							<label for="enchereOuverte">Enchère ouvertes</label>
 						</div>
 						<div class="blocLabelInput blocChoix">
-							<input type="checkbox" name="mesencheres" value="true" id="mesEncheres">
+							<input type="checkbox" name="mesencheres" value="true" ${checkmesencheres} id="mesEncheres">
 							<label for="mesEncheres">Mes enchères</label>
 						</div>
 						<div class="blocLabelInput blocChoix">
-							<input type="checkbox" name="mesencheresremportees" value="true" id="mesEncheresRemportees">
+							<input type="checkbox" name="mesencheresremportees" value="true" ${checkmesencheresremportees} id="mesEncheresRemportees">
 							<label for="MesEncheresRemportees">Mes enchères remportées</label>
 						</div>
 						
@@ -58,19 +58,19 @@
 
 					<div class="blocVente">
 						<div class="blocLabelInput">
-							<input type="radio" name="achatvente" value="vente" id="boutonVente">
+							<input type="radio" name="achatvente" value="vente" id="boutonVente" checked="checked">
 							<label for="boutonVente">Vente</label>
 						</div>
 						<div class="blocLabelInput blocChoix">
-							<input type="checkbox" name="ventenondebutee" value="true" id="venteNonDebutee">
+							<input type="checkbox" name="ventenondebutee" value="true" ${checkventenondebutee} id="venteNonDebutee">
 							<label for="venteNonDebutee">Vente non débutée</label>
 						</div>
 						<div class="blocLabelInput blocChoix">
-							<input type="checkbox" name="venteencours" value="true" id="venteEnCours">
+							<input type="checkbox" name="venteencours" value="true" ${checkventeencours} id="venteEnCours">
 							<label for="venteEnCours">Vente en cours</label>
 						</div>
 						<div class="blocLabelInput blocChoix">
-							<input type="checkbox" name="venteterminee" value="true" id="venteTerminee">
+							<input type="checkbox" name="venteterminee" value="true" ${checkventeterminee} id="venteTerminee">
 							<label for="venteTerminee">Vente terminée</label>
 						</div>
 
@@ -92,31 +92,32 @@
 	
 	<!-- BLOC DE LA LISTE -->
 	
-
-	<main>
+	<div class="container">
+		<main>
+		
+			<c:forEach var="articles" items="${articles}">
+				<div class="card" style="width: 18rem;">
+				  <!-- <img src="..." class="card-img-top" alt="..."> -->
+				  <div class="card-body" style="height:120px;">
+				    <h5 class="card-title">${articles.nomArticle}</h5>
+				    <p class="card-text">${articles.description}</p>
+				    <p class="card-text"><span class="badge bg-secondary">${articles.categorieArticle.libelle}</span></p>
+				  </div>
+				  <ul class="list-group list-group-flush">
+				    <li class="list-group-item">Prix : ${articles.prixInitial}</li>
+				    <li class="list-group-item">Fin de l'enchère : ${articles.dateFinEncheres}</li>
+				    <li class="list-group-item">Vendeur : ${articles.vendeur.pseudo}</li>
+				  </ul>
+				  <c:if test="${connexion}">
+					<div class="card-body">
+		    			<a href="./DetailVente?id=${articles.idArticle}" class="card-link">Voir le détail</a>
+		  			</div>
+				  </c:if>
+				</div>
+			</c:forEach>
 	
-		<c:forEach var="articles" items="${articles}">
-			<div class="card" style="width: 18rem;">
-			  <!-- <img src="..." class="card-img-top" alt="..."> -->
-			  <div class="card-body">
-			    <h5 class="card-title">${articles.nomArticle}</h5>
-			    <p class="card-text">${articles.description}</p>
-			    <p class="card-text"><span class="badge bg-secondary">${articles.categorieArticle.libelle}</span></p>
-			  </div>
-			  <ul class="list-group list-group-flush">
-			    <li class="list-group-item">Prix : ${articles.prixInitial}</li>
-			    <li class="list-group-item">Fin de l'enchère : ${articles.dateFinEncheres}</li>
-			    <li class="list-group-item">Vendeur : ${articles.vendeur.pseudo}</li>
-			  </ul>
-			  <c:if test="${connexion}">
-				<div class="card-body">
-	    			<a href="./DetailVente?id=${articles.idArticle}" class="card-link">Voir le détail</a>
-	  			</div>
-			  </c:if>
-			</div>
-		</c:forEach>
-
-	
-	</main>
+		
+		</main>
+	</div>
 	
 <%@ include file="./include/footer.jsp"%>
