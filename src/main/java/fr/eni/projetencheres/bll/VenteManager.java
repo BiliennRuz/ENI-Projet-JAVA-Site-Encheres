@@ -68,6 +68,16 @@ public class VenteManager {
 		}
 		return null;
 	}
+	public Categorie getCategorieById(int id) {
+		try {
+			
+			return this.categorieDAO.getCategorieById(id);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 	
 	/**
 	 * SearchArticleVente() : retourne la liste des articles en vente depuis la couche DAL

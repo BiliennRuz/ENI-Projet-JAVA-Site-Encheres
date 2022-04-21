@@ -45,9 +45,9 @@ public class DetailVenteServlet extends HttpServlet {
     request.setAttribute("article", article);
     
     // On récupère la catégorie
-//    List<Categorie> categories = venteManager.getCategorie();
-//    request.setAttribute("categories", categories);
-//    System.out.println(categories);
+    Categorie categorie = venteManager.getCategorieById(intId);
+    request.setAttribute("categorie", categorie);
+    System.out.println(categorie);
     
     this.getServletContext().getRequestDispatcher("/WEB-INF/detailVente.jsp").forward(request, response);
 	}

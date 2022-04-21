@@ -12,40 +12,40 @@
 		
 		<div class="blocInscription blocChamps">
 			
-			<div class="blocLabelInput">
+			<div class="blocVente">
 				<label for="nomArticle">${article.nomArticle}</label>
 			</div><br/>		
-			<div class="blocLabelInput">
+			<div class="blocVente">
 				<label for="description">Description : </label>
 				${article.description}
 			</div><br/><br/>
-			<div class="blocLabelInput">
+			<div class="blocVente">
 				<label for="categorie">Catégorie : </label>
-				Informatique
+				${categorie.libelle}
 			</div><br/>
-			<div class="blocLabelInput">
+			<div class="blocVente">
 				<label for="meilleureOffre">Meilleure offre : </label>
 				2010 pts par Bob
 			</div><br/>
-			<div class="blocLabelInput">
+			<div class="blocVente">
 				<label for="miseAPrix">Mise à prix : </label>
 				185 pts
 			</div><br/>
-			<div class="blocLabelInput">
+			<div class="blocVente">
 				<label for="finEnchere">Fin de l'enchère : </label>
 				09/10/2018
 			</div><br/>
-			<div class="blocLabelInput">
+			<div class="blocVente">
 				<label for="retrait">Retrait : </label>
 				10 allée des Alouettes 44800 St Herblain
 			</div><br/>
-			<div class="blocLabelInput">
+			<div class="blocVente">
 				<label for="vendeur">Vendeur : </label>
 				jojo44
 			</div><br/>
-			<div class="blocLabelInput">
+			<div class="blocVente">
 				<label for="proposition">Ma proposition : </label>
-				220
+				<input type="number" value="20">
 			</div><br/>
 	
 		</div>
