@@ -49,6 +49,9 @@ public class UtilisateurManager {
 			
 		Utilisateur utilisateurModifie = new Utilisateur();
 		
+		// Récupération de l'id
+		utilisateurModifie.setIdUtilisateur(utilisateur.getIdUtilisateur());
+		
 		// Modification du Pseudo :
 		if(verifierPseudoUpdate(utilisateur.getPseudo())) {
 			utilisateurModifie.setPseudo(utilisateur.getPseudo());
@@ -103,7 +106,7 @@ public class UtilisateurManager {
 		
 		// Modification du mot de passe
 		utilisateurModifie.setMotDePasse(encrypt(utilisateur.getMotDePasse()));
-			
+
 		utilisateurDAO.updateUser(utilisateurModifie);	
 	}
 	

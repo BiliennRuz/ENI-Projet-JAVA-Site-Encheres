@@ -21,6 +21,8 @@ import fr.eni.projetencheres.bo.Utilisateur;
 @WebServlet("/profil")
 public class ProfilServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	UtilisateurManager utilisateurManager = new UtilisateurManager();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -35,8 +37,10 @@ public class ProfilServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		request.setAttribute("utilisateur", session.getAttribute("utilisateurConnecte"));
-		System.out.println(session.getAttribute("utilisateurConnecte"));
+		
+		Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateurConnecte");
+		utilisateur.setMotDePasse(utilisateurManager.decrypt(utilisateur.getMotDePasse()));
+		request.setAttribute("utilisateur", utilisateur);
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/profil.jsp");
 		rd.forward(request, response);
 	}
@@ -49,8 +53,7 @@ public class ProfilServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		Utilisateur utilisateurEnCours = (Utilisateur) session.getAttribute("utilisateurConnecte");
 		UtilisateurManager utilisateurManager = new UtilisateurManager();
-		
-		
+		System.out.println(utilisateurEnCours.getPseudo());
 		utilisateurEnCours.setPseudo(request.getParameter("pseudo"));
 		utilisateurEnCours.setNom(request.getParameter("nom"));
 		utilisateurEnCours.setPrenom(request.getParameter("prenom"));

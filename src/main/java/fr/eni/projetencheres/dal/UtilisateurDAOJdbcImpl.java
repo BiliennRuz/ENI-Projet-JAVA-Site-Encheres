@@ -20,7 +20,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	private final static String SELECT_UTILISATEUR = "select * from UTILISATEURS;";
 	private final static String SELECT_UTILISATEUR_BY_ID = "select * from UTILISATEURS WHERE no_utilisateur=?;";
 	private final static String INSERT_UTILISATEUR = "insert into UTILISATEURS(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) values(?,?,?,?,?,?,?,?,?,?,?);";
-	private final static String UPDATE_UTILISATEUR = "update UTILISATEURS set pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=?, mot_de_passe=?, credit=?, administrateur=? WHERE pseudo=?";
+	private final static String UPDATE_UTILISATEUR = "update UTILISATEURS set pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=?, mot_de_passe=?, credit=?, administrateur=? WHERE no_utilisateur=?";
 	private final static String CHECK_UTILISATEUR = "select * from UTILISATEURS where (pseudo=? or email=?) and mot_de_passe=?;";
 	private final static String DELETE_UTILISATEUR = "delete from UTILISATEURS where pseudo=?;";
 	
@@ -143,7 +143,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		// 2 - on crée une "requête préparée" à partir de la connexion recupérée et de notre template de requête SQL ( attribut INSERT)
 		PreparedStatement pStmt = cnx.prepareStatement(UPDATE_UTILISATEUR);
 		// 3 - je remplace les ? de ma requête par les valeurs correspondantes
-		pStmt.setInt(1, user.getIdUtilisateur());
+		pStmt.setString(1, user.getPseudo());
 		pStmt.setString(2, user.getNom());
 		pStmt.setString(3, user.getPrenom());
 		pStmt.setString(4, user.getEmail());
@@ -154,7 +154,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		pStmt.setString(9, user.getMotDePasse());
 		pStmt.setFloat(10, user.getCredit());
 		pStmt.setBoolean(11, user.isAdministrateur());
-		pStmt.setString(12, user.getPseudo());
+		pStmt.setInt(12, user.getIdUtilisateur());
 		// 4 - j'execute la requête SQL
 		pStmt.executeUpdate(); // ici , il faut faire executeUpdate() et pas executeQuery() parce qu'on modifie des données	
 		// 5 - on ferme la connexion quand tout a été ajouté
@@ -178,6 +178,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		ResultSet rs = pStmt.executeQuery();
 		// 4 - je parcours mes resultats pour remplir ma liste des user que je vais renvoyer
 		rs.next();
+		
 		Utilisateur user = new Utilisateur(
 				rs.getString("pseudo"),
 				rs.getString("nom"),
@@ -192,6 +193,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 				rs.getFloat("credit"),
 				rs.getBoolean("administrateur")
 				);
+		
 		// 6 - pour finir je renvoie mon utilisateur remplie precédemment
 		return user;		
 	}
