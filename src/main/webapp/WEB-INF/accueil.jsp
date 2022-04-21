@@ -22,7 +22,7 @@
 		
 		<div class="blocRecherche">
 			<div class="blocFiltres">
-				<h3>Filtres :</h3>
+				<label for="article">Filtres :</label>
 				<input type="text" name="article" id="article" placeholder="Le nom de l'article contient">
 			</div>
 			<div class="blocCategories">
@@ -41,15 +41,15 @@
 							<input type="radio" name="achatvente" value="achat" id="boutonAchat">
 							<label for="boutonAchat">Achat</label>
 						</div>
-						<div class="blocLabelInput">
+						<div class="blocLabelInput blocChoix">
 							<input type="checkbox" name="enchereouvertes" value="true" id="enchereOuverte">
 							<label for="enchereOuverte">Enchère ouvertes</label>
 						</div>
-						<div class="blocLabelInput">
+						<div class="blocLabelInput blocChoix">
 							<input type="checkbox" name="mesencheres" value="true" id="mesEncheres">
 							<label for="mesEncheres">Mes enchères</label>
 						</div>
-						<div class="blocLabelInput">
+						<div class="blocLabelInput blocChoix">
 							<input type="checkbox" name="mesencheresremportees" value="true" id="mesEncheresRemportees">
 							<label for="MesEncheresRemportees">Mes enchères remportées</label>
 						</div>
@@ -61,15 +61,15 @@
 							<input type="radio" name="achatvente" value="vente" id="boutonVente">
 							<label for="boutonVente">Vente</label>
 						</div>
-						<div class="blocLabelInput">
+						<div class="blocLabelInput blocChoix">
 							<input type="checkbox" name="ventenondebutee" value="true" id="venteNonDebutee">
 							<label for="venteNonDebutee">Vente non débutée</label>
 						</div>
-						<div class="blocLabelInput">
+						<div class="blocLabelInput blocChoix">
 							<input type="checkbox" name="venteencours" value="true" id="venteEnCours">
 							<label for="venteEnCours">Vente en cours</label>
 						</div>
-						<div class="blocLabelInput">
+						<div class="blocLabelInput blocChoix">
 							<input type="checkbox" name="venteterminee" value="true" id="venteTerminee">
 							<label for="venteTerminee">Vente terminée</label>
 						</div>
