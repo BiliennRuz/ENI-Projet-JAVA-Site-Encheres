@@ -78,22 +78,21 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		// 4 - je l'execute et je recupère une réference sur les resultats dans un ResultSet
 		ResultSet rs = pStmt.executeQuery();
 		// 5 - je parcours le resultat pour remplir mon utilisateur que je vais renvoyer
-		rs.next();
-		Utilisateur user = new Utilisateur(
-				rs.getInt("no_utilisateur"),
-				rs.getString("pseudo"),
-				rs.getString("nom"),
-				rs.getString("prenom"),
-				rs.getString("email"),
-				rs.getString("rue"),
-				rs.getString("ville"),
+		Utilisateur user = new Utilisateur();
+		if (rs.next()) {
+				user.setIdUtilisateur(rs.getInt("no_utilisateur"));
+				user.setPseudo(rs.getString("pseudo"));
+				user.setNom(rs.getString("nom"));
+				user.setPrenom(rs.getString("prenom"));
+				user.setEmail(rs.getString("email"));
+				user.setRue(rs.getString("rue"));
+				user.setVille(rs.getString("ville"));
 				//rs.getString("mot_de_passe"), // on utilise le constructeur "light"
-				rs.getInt("no_utilisateur"),
-				rs.getString("telephone"),
-				rs.getString("code_postal"),
-				rs.getFloat("credit")
+				user.setTelephone(rs.getString("telephone"));
+				user.setCodePostal(rs.getString("code_postal"));
+				user.setCredit(rs.getFloat("credit"));
 				//rs.getBoolean("administrateur") // on utilise le constructeur "light"
-				);
+		}
 		// 6 - pour finir je renvoie mon utilisateur remplie precédemment
 		return user;		
 	}
