@@ -51,6 +51,8 @@ public class ProfilServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession();
+		request.setCharacterEncoding("UTF-8");
+		
 		Utilisateur utilisateurEnCours = (Utilisateur) session.getAttribute("utilisateurConnecte");
 		UtilisateurManager utilisateurManager = new UtilisateurManager();
 		System.out.println(utilisateurEnCours.getPseudo());

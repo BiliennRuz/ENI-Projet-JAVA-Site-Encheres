@@ -92,9 +92,10 @@
 	
 	<!-- BLOC DE LA LISTE -->
 	
-	<div class="container">
-		<main>
+	
 		
+		<div class="container">
+		<div class="row align-items-center">
 			<c:forEach var="articles" items="${articles}">
 				<div class="card" style="width: 18rem;">
 				  <!-- <img src="..." class="card-img-top" alt="..."> -->
@@ -115,9 +116,9 @@
 				  </c:if>
 				</div>
 			</c:forEach>
-	
+		</div>div>
+		</div>
 		
-		</main>
-	</div>
+	
 	
 <%@ include file="./include/footer.jsp"%>
