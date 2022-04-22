@@ -1,9 +1,7 @@
-let bouton = document.querySelector(".succes");
+let message = document.querySelector(".succes");
 
 function suppr() {
-	bouton.style.display = 'none';
+	message.style.display = 'none';
 }
 
-setTimeout(suppr, 3500);
-
-//bouton.addEventListener("click", suppr);
+setTimeout(suppr, 5000);
