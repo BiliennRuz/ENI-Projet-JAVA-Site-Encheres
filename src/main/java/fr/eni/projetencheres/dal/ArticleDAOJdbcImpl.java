@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import fr.eni.projetencheres.bo.ArticleVendu;
 import fr.eni.projetencheres.bo.Categorie;
 import fr.eni.projetencheres.bo.Retrait;
@@ -20,6 +23,9 @@ import fr.eni.projetencheres.bo.Retrait;
  * Implémentation des fonctionnalités de mon interface ArticleVenduDAO avec JDBC (en base de donnée)
  */
 public class ArticleDAOJdbcImpl implements ArticleDAO {
+	
+	// instanciation du logger
+	Logger logger = LoggerFactory.getLogger(ArticleDAOJdbcImpl.class);
 	
 	// on définit nos requêtes SQL d'insertion/select avec des ? qu'on remplira par la suite
 	private final static String SELECT_ARTICLES = "select * from ARTICLES_VENDUS AS av INNER JOIN UTILISATEURS AS u ON av.no_utilisateur = u.no_utilisateur;";
@@ -35,12 +41,17 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 	 */
 	@Override
 	public List<ArticleVendu> getArticle() throws SQLException {
+		logger.debug("List<ArticleVendu> getArticle()");
 		// 1 - On fait appel à la classe ConnectionProvider pour recupérer une connexion depuis notre pool
-		Connection cnx = ConnectionProvider.getConnection();
+		Connection cnx = null;
+		cnx = ConnectionProvider.getConnection();
+		logger.trace("Connection : " + cnx);
 		// 2 - on crée une "requête" standard car pas besoin de changer de ? avec des valeurs de variables
 		Statement stmt = cnx.createStatement();
+		logger.trace("Statement : " + stmt);
 		// 3 - je l'execute et je recupère une réference sur les resultats dans un ResultSet
 		ResultSet rs = stmt.executeQuery(SELECT_ARTICLE);
+		logger.trace("ResultSet : " + rs);
 		// 4 - j'initialise la liste des articles que je vais renvoyer
 		List<ArticleVendu> listeArticleVendus = new ArrayList<ArticleVendu>();
 		// 5 - je parcours mes resultats pour remplir ma liste des article que je vais renvoyer
@@ -57,11 +68,11 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 					rs.getDate("date_debut_encheres").toLocalDate(), // .format(DateTimeFormatter.ofPattern("EEEE, dd MMMM, yyyy",Locale.FRENCH))
 					rs.getDate("date_fin_encheres").toLocalDate()
 					);
-			article.getVendeur();
 			// pour chaque ligne , j'ajoute le article correspondant à ma liste			
 			listeArticleVendus.add(article); // une fois le article créé je l'ajoute à ma liste
 		}
 		// 6 - our finir je renvoie ma liste remplie precédemment
+		logger.debug("listeArticleVendus : " + listeArticleVendus);
 		return listeArticleVendus;
 	}
 	

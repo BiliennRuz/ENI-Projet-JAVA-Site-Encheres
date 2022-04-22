@@ -25,7 +25,7 @@ import fr.eni.projetencheres.bo.Categorie;
 @WebServlet("")
 public class AccueilServlet extends HttpServlet {
 	
-	// initialisation du logger
+	// instanciation du logger
     Logger logger = LoggerFactory.getLogger(AccueilServlet.class);
     
 	private static final long serialVersionUID = 1L;

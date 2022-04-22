@@ -8,12 +8,18 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import fr.eni.projetencheres.bo.Utilisateur;
 
 /**
  * Implémentation des fonctionnalités de mon interface UtilisateurDAO avec JDBC (en base de donnée)
  */
 public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
+
+	// instanciation du logger
+	Logger logger = LoggerFactory.getLogger(UtilisateurDAOJdbcImpl.class);
 	
 	// on définit nos requêtes SQL d'insertion/select avec des ? qu'on remplira par la suite
 
@@ -30,12 +36,16 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	 */
 	@Override
 	public List<Utilisateur> getUser() throws SQLException {
+		logger.debug("List<Utilisateur> getUser()");
 		// 1 - On fait appel à la classe ConnectionProvider pour recupérer une connexion depuis notre pool
 		Connection cnx = ConnectionProvider.getConnection();
+		logger.trace("Connection : " + cnx);
 		// 2 - on crée une "requête" standard car pas besoin de changer de ? avec des valeurs de variables
 		Statement stmt = cnx.createStatement();
+		logger.trace("Statement : " + stmt);
 		// 3 - je l'execute et je recupère une réference sur les resultats dans un ResultSet
 		ResultSet rs = stmt.executeQuery(SELECT_UTILISATEUR);
+		logger.trace("ResultSet : " + rs);
 		// 4 - j'initialise la liste des utilisateurs que je vais renvoyer
 		List<Utilisateur> listeUtilisateurs = new ArrayList<Utilisateur>();
 		// 5 - je parcours mes resultats pour remplir ma liste des utilisateurs que je vais renvoyer
@@ -59,6 +69,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			listeUtilisateurs.add(user); // une fois le utilisateur créé je l'ajoute à ma liste
 		}
 		// 6 - pour finir je renvoie ma liste remplie precédemment
+		logger.debug("listeUtilisateurs : " + listeUtilisateurs);
 		return listeUtilisateurs;
 	}
 	
@@ -68,15 +79,19 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	 */
 	@Override
 	public Utilisateur getUserById(int idUtilisateur) throws SQLException {
+		logger.debug("Utilisateur getUserById(" + idUtilisateur +")");
 		// 1 - On fait appel à la classe ConnectionProvider pour recupérer une connexion depuis notre pool
 		Connection cnx = ConnectionProvider.getConnection();
+		logger.debug("Connection : " + cnx);
 		// 2 - on crée une "requête" standard
 		Statement stmt = cnx.createStatement();
+		logger.debug("Statement : " + stmt);
 		// 3 - on crée une "requête préparée" à partir de la connexion recupérée et de notre template de requête SQL ( attribut INSERT)
 		PreparedStatement pStmt = cnx.prepareStatement(SELECT_UTILISATEUR_BY_ID);
 		pStmt.setInt(1, idUtilisateur);
 		// 4 - je l'execute et je recupère une réference sur les resultats dans un ResultSet
 		ResultSet rs = pStmt.executeQuery();
+		logger.debug("ResultSet : " + rs);
 		// 5 - je parcours le resultat pour remplir mon utilisateur que je vais renvoyer
 		Utilisateur user = new Utilisateur();
 		if (rs.next()) {
@@ -94,6 +109,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 				//rs.getBoolean("administrateur") // on utilise le constructeur "light"
 		}
 		// 6 - pour finir je renvoie mon utilisateur remplie precédemment
+		logger.debug("user : " + user);
 		return user;		
 	}
 	

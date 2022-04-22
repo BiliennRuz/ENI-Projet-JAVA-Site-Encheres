@@ -9,12 +9,19 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import fr.eni.projetencheres.bo.Categorie;
 import fr.eni.projetencheres.bo.Enchere;
 
 /**
  * Implémentation des fonctionnalités de mon interface EnchereDAO avec JDBC (en base de donnée)
  */
 public class EnchereDAOJdbcImpl implements EnchereDAO {
+	
+	// instanciation du logger
+	Logger logger = LoggerFactory.getLogger(EnchereDAOJdbcImpl.class);
 	
 	// on définit nos requêtes SQL d'insertion/select avec des ? qu'on remplira par la suite
 
@@ -62,6 +69,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 	 */
 	@Override
 	public List<Enchere> getEnchereByIdArticle(int idArticle) throws SQLException {
+		logger.debug("Categorie getCategorieById(int idCategorie)");
 		// 1 - On fait appel à la classe ConnectionProvider pour recupérer une connexion depuis notre pool
 		Connection cnx = ConnectionProvider.getConnection();
 		// 2 - on crée une "requête" standard car pas besoin de changer de ? avec des valeurs de variables

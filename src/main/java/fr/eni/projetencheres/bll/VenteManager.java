@@ -16,6 +16,7 @@ import fr.eni.projetencheres.bo.Retrait;
 import fr.eni.projetencheres.bo.Utilisateur;
 import fr.eni.projetencheres.dal.ArticleDAO;
 import fr.eni.projetencheres.dal.CategorieDAO;
+import fr.eni.projetencheres.dal.ConnectionProvider;
 import fr.eni.projetencheres.dal.DAOFactory;
 import fr.eni.projetencheres.dal.EnchereDAO;
 import fr.eni.projetencheres.dal.RetraitDAO;
@@ -24,7 +25,7 @@ import fr.eni.projetencheres.dal.UtilisateurDAO;
 
 public class VenteManager {
 	
-	// initialisation du logger
+	// instanciation du logger
 	Logger logger = LoggerFactory.getLogger(VenteManager.class);
 	
 	// attribut qui contient la référence vers notre couche DAL (ajout base de donnée)
@@ -99,9 +100,13 @@ public class VenteManager {
 	 * - le status de la vente
 	 * @throws BusinessException 
 	 */
+	public static int i=1;
 	
 	public List<ArticleVendu> SearchArticleVente(String nom, int categorie, boolean venteNonDebutee, boolean venteEnCours, boolean venteTerminee) { //throws BusinessException {
 		try {
+			
+			logger.debug("/n Start SearchArticleVente, iteration " + i);
+			i++;
 			// on recupere la liste de tous les articles
 			List<ArticleVendu> listeArticles = this.articleDAO.getArticle();
 			List<ArticleVendu> listeArticlesFiltreCatNom = new ArrayList<ArticleVendu>();
@@ -121,7 +126,7 @@ public class VenteManager {
 						Retrait adresseRetrait = this.retraitDAO.getRetraitById(articleVendu.getIdArticle());
 						articleVendu.setLieuRetrait(adresseRetrait);
 					} catch (SQLException e) {
-						logger.error("Pas de retrait à récuperer dans la base !!!");
+						logger.warn("Pas de retrait à récuperer dans la base !!!");
 						e.printStackTrace();
 						//throw new BusinessException("erreur SQL lors de la récupération du retrait de l'article en base de donnée");
 					}
@@ -146,7 +151,7 @@ public class VenteManager {
 							articleVendu.setLastEnchere(lastEnchere);
 						}
 					} catch (SQLException e) {
-						logger.error("Pas d'enchère à récuperer dans la base");
+						logger.warn("Pas d'enchère à récuperer dans la base");
 						e.printStackTrace();
 						//throw new BusinessException("erreur SQL lors de la récupération de l'enchère en base de donnée");
 					}
@@ -166,7 +171,7 @@ public class VenteManager {
 						(venteNonDebutee)
 						&& (articleVenduFiltreCatNom.getDateDebutEncheres().compareTo(LocalDate.now()) > 0)
 					) {
-					logger.debug("add Vente non débutée :" + articleVenduFiltreCatNom);
+					logger.info("add Vente non débutée :" + articleVenduFiltreCatNom);
 					listeArticlesFiltreVente.add(articleVenduFiltreCatNom);
 				}
 				// cas "Vente en cours"
@@ -175,7 +180,7 @@ public class VenteManager {
 						&& (articleVenduFiltreCatNom.getDateDebutEncheres().compareTo(LocalDate.now()) <= 0)
 						&& (articleVenduFiltreCatNom.getDateFinEncheres().compareTo(LocalDate.now()) >= 0)
 					) {
-					logger.debug("add Vente en cours : " + articleVenduFiltreCatNom);
+					logger.info("add Vente en cours : " + articleVenduFiltreCatNom);
 					listeArticlesFiltreVente.add(articleVenduFiltreCatNom);
 				}
 				// cas "Vente terminée"
@@ -183,7 +188,7 @@ public class VenteManager {
 						(venteTerminee)
 						&& (articleVenduFiltreCatNom.getDateFinEncheres().compareTo(LocalDate.now()) < 0)
 					) {
-					logger.debug("Vente terminée : " + articleVenduFiltreCatNom);
+					logger.info("Vente terminée : " + articleVenduFiltreCatNom);
 					listeArticlesFiltreVente.add(articleVenduFiltreCatNom);
 				}
 			}

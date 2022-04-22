@@ -8,6 +8,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import fr.eni.projetencheres.bo.Categorie;
 import fr.eni.projetencheres.bo.Utilisateur;
 
@@ -15,6 +18,9 @@ import fr.eni.projetencheres.bo.Utilisateur;
  * Implémentation des fonctionnalités de mon interface CategorieDAO avec JDBC (en base de donnée)
  */
 public class CategorieDAOJdbcImpl implements CategorieDAO {
+	
+	// instanciation du logger
+	Logger logger = LoggerFactory.getLogger(CategorieDAOJdbcImpl.class);
 	
 	// on définit nos requêtes SQL d'insertion/select avec des ? qu'on remplira par la suite
 
@@ -31,7 +37,9 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
 	@Override
 	public List<Categorie> getCategorie() throws SQLException {
 		// 1 - On fait appel à la classe ConnectionProvider pour recupérer une connexion depuis notre pool
-		Connection cnx = ConnectionProvider.getConnection();
+		Connection cnx = null;
+		cnx= ConnectionProvider.getConnection();
+		
 		// 2 - on crée une "requête" standard car pas besoin de changer de ? avec des valeurs de variables
 		Statement stmt = cnx.createStatement();
 		// 3 - je l'execute et je recupère une réference sur les resultats dans un ResultSet
@@ -48,6 +56,8 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
 					);
 			listeCategories.add(categorie); // une fois le categorie créé je l'ajoute à ma liste
 		}
+		
+		cnx.close();
 		// 6 - pour finir je renvoie ma liste remplie precédemment
 		return listeCategories;
 	}
@@ -58,6 +68,7 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
 	 */
 	@Override
 	public Categorie getCategorieById(int idCategorie) throws SQLException {
+		logger.debug("Categorie getCategorieById(int idCategorie)");
 		// 1 - On fait appel à la classe ConnectionProvider pour recupérer une connexion depuis notre pool
 		Connection cnx = ConnectionProvider.getConnection();
 		// 2 - on crée une "requête" standard car pas besoin de changer de ? avec des valeurs de variables

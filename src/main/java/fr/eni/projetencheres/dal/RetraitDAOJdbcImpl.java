@@ -9,6 +9,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import fr.eni.projetencheres.bo.Retrait;
 import fr.eni.projetencheres.bo.Utilisateur;
 
@@ -16,6 +19,9 @@ import fr.eni.projetencheres.bo.Utilisateur;
  * Implémentation des fonctionnalités de mon interface RetraitDAO avec JDBC (en base de donnée)
  */
 public class RetraitDAOJdbcImpl implements RetraitDAO {
+	
+	// instanciation du logger
+	Logger logger = LoggerFactory.getLogger(RetraitDAOJdbcImpl.class);
 	
 	private final static String SELECT_RETRAIT = "select * from RETRAITS;";
 	private final static String SELECT_RETRAIT_BY_ID_ARTICLE = "select * from RETRAITS where no_article=?;";
@@ -58,6 +64,7 @@ public class RetraitDAOJdbcImpl implements RetraitDAO {
 	 */
 	@Override
 	public Retrait getRetraitById(int idArticle) throws SQLException {
+		logger.debug("Retrait getRetraitById(int idArticle)");
 		// 1 - On fait appel à la classe ConnectionProvider pour recupérer une connexion depuis notre pool
 		Connection cnx = ConnectionProvider.getConnection();
 		// 2 - on crée une "requête" standard car pas besoin de changer de ? avec des valeurs de variables
