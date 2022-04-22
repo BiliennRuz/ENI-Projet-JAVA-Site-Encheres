@@ -7,7 +7,7 @@
 	url="jdbc:sqlserver://127.0.0.1;databasename=encheres"
 	username="utilisateurEncheres"
 	password="encheres"
-	maxTotal="100"
+	maxTotal="600"
 	maxIdle="60"
 	maxWaitMillis="10000"
 />
