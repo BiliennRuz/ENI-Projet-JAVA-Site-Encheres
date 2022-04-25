@@ -4,11 +4,11 @@
 	name="jdbc/pool_cnx"
 	driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
 	type="javax.sql.DataSource"
-	url="jdbc:sqlserver://10.170.200.4;databasename=encheres"
-	username="utilisateurBDD"
-	password="Pa$$w0rd"
-	maxTotal="100"
-	maxIdle="30"
+	url="jdbc:sqlserver://127.0.0.1;databasename=encheres"
+	username="utilisateurEncheres"
+	password="encheres"
+	maxTotal="600"
+	maxIdle="60"
 	maxWaitMillis="10000"
 />
 </Context>
