@@ -50,6 +50,9 @@ deployé sur :
 reste à faire :
 - implementer le formattage et le type de sortie
 
+## Présentation
+https://docs.google.com/presentation/d/1RuPdIBLSst5LwVWp6ygfZx1gH6L8PIkdaECJbr1sLEc/edit?usp=sharing
+
 ## pense bete à Dom
 #### pour mise en forme de la LocalDate  
 .format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)
